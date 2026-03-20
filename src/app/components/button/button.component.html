@@ -1,1 +1,13 @@
-<p>button works!</p>
+<button [class]="{
+        'btn': true, 
+        'btn-primary': type() === 'Default',
+        'btn-secondary': type() === 'Secondary',
+        'btn-outline': type() === 'Outline',
+        'btn-ghost': type() === 'Ghost',
+
+        'btn-sm': size() === 'sm',
+        'btn-md': size() === 'md',
+        'btn-lg': size() === 'lg'
+        }">
+    <ng-content></ng-content>
+</button>

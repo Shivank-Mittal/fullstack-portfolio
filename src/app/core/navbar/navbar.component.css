@@ -11,11 +11,14 @@
 }
 
 .logo {
-    font-size: var(--text-lg);
+    font-size: var(--text-logo);
     font-weight: 600;
     margin: 0;
     cursor: pointer;
     letter-spacing: 0.5px;
+    margin: 0;
+    color: var(--color-text-primary);
+    cursor: pointer;
 
     /* gradient text */
     /* background: var(--gradient-primary); */
@@ -45,15 +48,6 @@ nav {
     display: flex;
     justify-content: space-between;
     align-items: center;
-}
-
-/* LOGO */
-nav h3 {
-    font-size: var(--text-lg);
-    font-weight: 600;
-    margin: 0;
-    color: var(--color-text-primary);
-    cursor: pointer;
 }
 
 /* MENU */

@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, input } from '@angular/core';
+import { BUTTON } from '../../types/TButtons';
 
 @Component({
   selector: 'app-button',
@@ -8,4 +9,6 @@ import { Component } from '@angular/core';
 })
 export class ButtonComponent {
 
+  type = input<BUTTON>(BUTTON.Default);
+  size = input<'sm'| 'md' |'lg'>('sm');
 }

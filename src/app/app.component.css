@@ -4,3 +4,21 @@
     background-color: var(--color-bg);
     color: var(--color-text-primary);
 }
+
+.information {
+    padding: var(--global-padding);
+    margin-top: var(--space-lg);
+}
+
+
+/* @media (min-width: 768px) {
+    .information{
+        padding: 0 8em;
+    }
+}
+
+@media (min-width: 1024px) {
+    .information{
+        padding: 0 12em;
+    }
+} */

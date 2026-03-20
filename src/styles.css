@@ -1,33 +1,31 @@
 /* You can add global styles to this file, and also import other style files */
 
 @import 'tailwindcss';
+@import './app/styles/button.css';
+
 
 :root {
-  /* 🎨 COLORS */
-  --color-bg: #101318;              /* main background */
-  --color-bg-secondary: #111827;    /* section background */
-  --color-surface: #1f2937;         /* cards */
+  /* 🎨 COLORS (unchanged) */
+  --color-bg: #101318;
+  --color-bg-secondary: #111827;
+  --color-surface: #1f2937;
 
-  --color-text-primary: #f9fafb;    /* main text */
-  --color-text-secondary: #9ca3af;  /* muted text */
+  --color-text-primary: #f9fafb;
+  --color-text-secondary: #9ca3af;
 
   --color-border: #374151;
 
   /* 🌈 ACCENT */
-  --color-primary: #6366f1;         /* indigo */
+  --color-primary: #6366f1;
   --color-primary-hover: #4f46e5;
 
-  --color-accent: #22d3ee;          /* cyan */
-  --color-accent-2: #a78bfa;        /* purple */
+  --color-accent: #22d3ee;
+  --color-accent-2: #a78bfa;
 
   /* 🔥 GRADIENT */
-  --gradient-primary: linear-gradient(
-    135deg,
-    #6366f1,
-    #a78bfa
-  );
+  --gradient-primary: linear-gradient(135deg, #6366f1, #a78bfa);
 
-  /* 🧱 SPACING (8px system) */
+  /* 🧱 SPACING */
   --space-xs: 4px;
   --space-sm: 8px;
   --space-md: 16px;
@@ -36,15 +34,41 @@
   --space-2xl: 64px;
 
   /* 🔤 TYPOGRAPHY */
-  --font-family: 'Inter', sans-serif;
+    /* Body */
+    --text-body-sm: 0.875rem;  /* 14px */
+    --text-body: 1rem;         /* 16px */
+    --text-body-lg: 1.125rem;  /* 18px */
 
-  --text-xs: 12px;
-  --text-sm: 14px;
-  --text-md: 16px;
-  --text-lg: 20px;
-  --text-xl: 28px;
-  --text-2xl: 36px;
-  --text-3xl: 48px;
+    /* Headings */
+    --text-heading-sm: 1.25rem;   /* 20px */
+    --text-heading: 1.625rem;     /* 26px */
+    --text-heading-lg: 2rem;      /* 32px */
+    --text-heading-xl: 2.5rem;    /* 40px */
+
+    /* Special */
+    --text-caption: 0.75rem;
+    --text-label: 0.8125rem;
+    --text-button: 0.875rem;
+
+    /* Hero / Logo */
+    --text-logo: 1.375rem;
+    --text-hero: 2.50rem;
+
+  /* Line heights (VERY important) */
+  --line-tight: 1.2;
+  --line-normal: 1.5;
+  --line-relaxed: 1.7;
+
+  /* 🧱 LAYOUT */
+  --container-width: 100%;
+  --container-padding: 16px;
+  --section-spacing: var(--space-xl);
+
+  /* Global */
+  --global-padding: 0 2em;
+
+  /* GRID */
+  --columns: 1;
 
   /* 🔲 RADIUS */
   --radius-sm: 6px;
@@ -59,4 +83,69 @@
   /* ⚡ TRANSITIONS */
   --transition-fast: 0.2s ease;
   --transition-normal: 0.3s ease;
+}
+
+
+@media (min-width: 768px) {
+  :root {
+    /* Typography scales */
+    --text-body: 1.0625rem;     /* 17px */
+    --text-body-lg: 1.1875rem;  /* 19px */
+
+    --text-heading-sm: 1.375rem;
+    --text-heading: 1.875rem;
+    --text-heading-lg: 2.25rem;
+    --text-heading-xl: 3rem;
+
+    --text-logo: 1rem;
+    --text-hero: 3rem;
+
+
+    /* Spacing increases */
+    --space-md: 20px;
+    --space-lg: 32px;
+    --space-xl: 48px;
+
+    /* Layout */
+    --container-width: 720px;
+    --container-padding: 24px;
+    --section-spacing: var(--space-2xl);
+
+    /* Grid */
+    --columns: 2;
+
+    /* Global */
+    --global-padding: 0 8em;
+  }
+}
+
+@media (min-width: 1024px) {
+  :root {
+    /* Typography */
+     --text-body: 1.125rem;      /* 18px */
+    --text-body-lg: 1.25rem;    /* 20px */
+
+    --text-heading-sm: 1.5rem;
+    --text-heading: 2rem;
+    --text-heading-lg: 2.5rem;
+    --text-heading-xl: 3.5rem;
+
+    --text-logo: 1.625rem;
+    --text-hero: 3.75rem;
+
+    /* Spacing */
+    --space-md: 24px;
+    --space-lg: 40px;
+    --space-xl: 64px;
+
+    /* Layout */
+    --container-width: 1200px;
+    --container-padding: 32px;
+
+    /* Grid */
+    --columns: 3;
+
+    /* Global */
+    --global-padding: 0 12em;
+  }
 }

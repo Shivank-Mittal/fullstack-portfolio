@@ -3,8 +3,12 @@
 
 <app-navbar 
     [navbarInfo]="navbarInfo()" 
-    (onItemSelection)="navigationHandler($event)"/> 
+    (onItemSelection)="navigationHandler($event)">
+</app-navbar> 
 
-deviceType : {{deviceType$ | async}}
+<section class="information">
+    <app-hero></app-hero>
+</section>
+
 
 <router-outlet />
