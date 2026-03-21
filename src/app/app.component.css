@@ -1,13 +1,15 @@
 :host{
     display: block;
-    height: 100vh;
     background-color: var(--color-bg);
     color: var(--color-text-primary);
 }
 
 .information {
+    display: flex;
+    flex-direction: column;
     padding: var(--global-padding);
     margin-top: var(--space-lg);
+    gap: calc( 3 * var(--space-2xl));
 }
 
 

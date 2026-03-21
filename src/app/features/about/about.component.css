@@ -1,0 +1,71 @@
+:host{
+    display: block;
+    background-color: var(--color-bg);
+}
+
+#header-content{
+    color: var(--color-text-primary);
+    font-size: var(--text-heading-lg);
+    text-align: center;
+    word-wrap: break-word;
+    line-height: 2.5rem;
+    margin-bottom: var(--space-lg);
+    grid-area: header;
+}
+
+#header-content_highlight{
+    color: var(--color-primary);
+}
+
+#content-section {
+    display: flex;
+    flex-direction: column;
+    justify-content: baseline;
+    gap: calc(2* var(--space-sm));
+    grid-area: content;
+}
+
+#content{
+    color: var(--color-text-secondary)
+}
+
+#cards {
+    display: grid;
+    margin-top: var(--space-lg);
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    gap: var( --space-sm);
+    grid-area: cards;
+}
+
+#about-code{
+    margin-top: var(--space-lg);
+}
+
+@media (min-width: 768px) {
+
+    #about-info {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-template-areas: 
+            "header cards"
+            "content cards"
+        ;
+
+        gap: var(--space-md);
+    }
+
+    #header-content{
+        text-align: left;
+    }
+
+    #cards {
+        margin-top: 0;;
+    }
+}
+
+/* @media (min-width: 1024px) {
+    #hero-info{
+        width: 70%;
+    }
+} */

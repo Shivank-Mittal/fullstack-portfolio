@@ -6,10 +6,11 @@ import { TNavbarInfo, TNavItem } from './types/TNavItems';
 import { ResponsiveService } from './service/responsive-service/responsive.service';
 import { ButtonComponent } from './components/button/button.component';
 import { HeroComponent } from './features/hero/hero.component';
+import { AboutComponent } from "./features/about/about.component";
 
 @Component({
     selector: 'app-root',
-    imports: [RouterOutlet, TitleCasePipe, NavbarComponent, CommonModule, ButtonComponent, HeroComponent],
+    imports: [RouterOutlet, TitleCasePipe, NavbarComponent, CommonModule, ButtonComponent, HeroComponent, AboutComponent],
     templateUrl: './app.component.html',
     styleUrl: './app.component.css'
 })

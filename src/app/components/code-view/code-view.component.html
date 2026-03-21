@@ -1,0 +1,20 @@
+<div class="code-container">
+  @if (showHeader()) {
+    <div class="code-header">
+      <div class="dots">
+        <span class="dot red"></span>
+        <span class="dot yellow"></span>
+        <span class="dot green"></span>
+      </div>
+
+      <div class="file-name">
+        {{ title() }}
+      </div>
+    </div>
+  }
+
+  <pre class="code-body">
+    <code>{{ code() }}</code>
+  </pre>
+
+</div>
