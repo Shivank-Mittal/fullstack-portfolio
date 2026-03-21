@@ -1,7 +1,7 @@
 :host{
     display: block;
     border-radius: var(--radius-md);
-    padding: var(--space-lg);
+    padding: var(--card_padding, var(--space-lg));
     border: 0.5px solid var(--color-primary-hover);
 }
 
@@ -11,11 +11,13 @@
 }
 
 #heading {
-    size: var(--text-heading-lg);
+    font-size: var( --card--text_heading  ,--text-heading-lg);
     color: var(--color-text-primary);
     margin-bottom: var(--space-sm);
 }
 
 #content {
     color: var(--color-text-secondary);
+    line-height: var(--card-line_height, unset)
+    /* text-align: justify; */
 }

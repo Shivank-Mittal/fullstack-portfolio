@@ -4,13 +4,13 @@ import { RouterOutlet } from '@angular/router';
 import { NavbarComponent } from './core/navbar/navbar.component';
 import { TNavbarInfo, TNavItem } from './types/TNavItems';
 import { ResponsiveService } from './service/responsive-service/responsive.service';
-import { ButtonComponent } from './components/button/button.component';
 import { HeroComponent } from './features/hero/hero.component';
 import { AboutComponent } from "./features/about/about.component";
+import { TechDepthComponent } from './features/tech-depth/tech-depth.component';
 
 @Component({
     selector: 'app-root',
-    imports: [RouterOutlet, TitleCasePipe, NavbarComponent, CommonModule, ButtonComponent, HeroComponent, AboutComponent],
+    imports: [RouterOutlet, TitleCasePipe, NavbarComponent, CommonModule, TechDepthComponent , HeroComponent, AboutComponent],
     templateUrl: './app.component.html',
     styleUrl: './app.component.css'
 })

@@ -1,0 +1,44 @@
+:host{
+    display: block;
+    --card-line_height: 2;
+    --card--text_heading:  var(--text-heading);
+}
+
+#header {
+    color: var(--color-text-primary);
+    font-size: var(--text-heading-lg);
+    text-align: left;
+    word-wrap: break-word;
+    margin-bottom: var(--space-lg);
+}
+
+#header > span {
+    color: var(--color-primary);
+}
+
+#card {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: var(--space-md);
+    }
+
+@media (min-width: 768px) { 
+    #card {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: var(--space-md);
+        --card_padding: var(--space-md);
+    }
+}
+
+/* @media (min-width: 1024px) {
+    #card {
+        grid-template-columns: repeat(4, 1fr);
+    }
+} */
+
+@media (min-width: 1248px) { 
+    #card {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
