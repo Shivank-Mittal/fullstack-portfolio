@@ -7,10 +7,11 @@ import { ResponsiveService } from './service/responsive-service/responsive.servi
 import { HeroComponent } from './features/hero/hero.component';
 import { AboutComponent } from "./features/about/about.component";
 import { TechDepthComponent } from './features/tech-depth/tech-depth.component';
+import { CarrerComponent } from './features/carrer/carrer.component';
 
 @Component({
     selector: 'app-root',
-    imports: [RouterOutlet, TitleCasePipe, NavbarComponent, CommonModule, TechDepthComponent , HeroComponent, AboutComponent],
+    imports: [RouterOutlet, TitleCasePipe, NavbarComponent, CommonModule, TechDepthComponent , HeroComponent, AboutComponent, CarrerComponent],
     templateUrl: './app.component.html',
     styleUrl: './app.component.css'
 })
