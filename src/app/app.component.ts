@@ -8,10 +8,12 @@ import { HeroComponent } from './features/hero/hero.component';
 import { AboutComponent } from "./features/about/about.component";
 import { TechDepthComponent } from './features/tech-depth/tech-depth.component';
 import { CarrerComponent } from './features/carrer/carrer.component';
+import { ContactComponent } from './features/contact/contact.component';
+import { FooterComponent } from './core/footer/footer.component';
 
 @Component({
     selector: 'app-root',
-    imports: [RouterOutlet, TitleCasePipe, NavbarComponent, CommonModule, TechDepthComponent , HeroComponent, AboutComponent, CarrerComponent],
+    imports: [RouterOutlet, TitleCasePipe, NavbarComponent, CommonModule, TechDepthComponent , HeroComponent, AboutComponent, CarrerComponent, ContactComponent, FooterComponent],
     templateUrl: './app.component.html',
     styleUrl: './app.component.css'
 })

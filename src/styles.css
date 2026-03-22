@@ -83,6 +83,16 @@
   /* ⚡ TRANSITIONS */
   --transition-fast: 0.2s ease;
   --transition-normal: 0.3s ease;
+
+  h3 {
+    font-family: "Space Grotesk", sans-serif;
+    font-optical-sizing: auto;
+  } 
+
+  p {
+    font-family: "Inter", sans-serif;
+    font-optical-sizing: auto;
+  }
 }
 
 

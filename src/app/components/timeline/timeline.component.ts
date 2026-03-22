@@ -42,7 +42,7 @@ export class TimelineComponent{
 
 
   constructor() {
-    const offset = 100;
+    const offset = 500;
       effect(()=> {
         const timelineEl = this.timeline();
         if(!timelineEl) return;

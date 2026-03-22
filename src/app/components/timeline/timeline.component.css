@@ -1,13 +1,12 @@
 .timeline {
   position: relative;
   width: 100%;
-  padding: 50px 0;
 }
 
 /* CENTER LINE */
 .timeline-line {
   position: absolute;
-  left: 50%;
+  left: 5%;
   top: 0;
   transform: translateX(-50%);
   width: 2px;
@@ -18,7 +17,7 @@
 
 .timeline-progress {
   position: absolute;
-  left: 50%;
+  left: 5%;
   top: 0;
   transform: translateX(-50%);
   width: 2px;
@@ -42,7 +41,7 @@
 /* ITEMS */
 .timeline-item {
   position: relative;
-  width: 50%;
+  width: 90%;
   padding: 20px 40px;
 }
 
@@ -54,7 +53,7 @@
 
 /* RIGHT SIDE */
 .timeline-item.right {
-  left: 50%;
+  left: 0%;
 }
 
 /* CONTENT BOX */
@@ -86,4 +85,29 @@
 #timeline-item_content>p{
   font-size: var(--text-body-sm);
   color: var(--color-text-secondary);
+}
+
+
+@media (min-width: 768px) { 
+
+  .timeline {
+    padding: 50px 0;
+  }
+
+  .timeline-line {
+    left: 50%;
+  }
+
+  .timeline-progress {
+    left: 50%;
+  }
+
+  .timeline-item {
+    width: 50%;
+  }
+
+  .timeline-item.right {
+    left: 50%;
+  }
+
 }

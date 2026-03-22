@@ -1,0 +1,26 @@
+<section id="info">
+    <h3>
+        Let's build something <span> together </span>.
+    </h3>
+
+    <p>Open to discussing architecture challenges, system design consulting, or full-time engineering roles. Let's talk.</p>
+
+</section>
+
+
+<section id="card-section">
+
+    @for (icon of icons; track $index) {
+        <div id="card">
+            <div id="icon-section">
+                <fa-icon [icon]="icon.iconName" ></fa-icon>
+            </div>
+            @if (icon.type === 'link') {
+                <a [href]="icon.value"> {{icon.value}}</a>
+            }
+            @else {
+                <p>mittal.shivank@gmail.com</p>
+            }
+        </div>
+    }
+</section>
