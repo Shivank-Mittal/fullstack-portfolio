@@ -1,23 +1,76 @@
-import { Component } from '@angular/core';
+import { Component, signal, computed, afterNextRender } from '@angular/core';
 import { ButtonComponent } from '../../components/button/button.component';
 import { BUTTON } from '../../types/TButtons';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { faBrain, faBriefcase, faGaugeHigh, faGuaraniSign, faProjectDiagram, faUser } from '@fortawesome/free-solid-svg-icons';
+import { faBrain, faBriefcase, faGaugeHigh, faCode, faTerminal, faMicrochip } from '@fortawesome/free-solid-svg-icons';
+import { NetworkBackgroundComponent } from '../../components/network-background/network-background.component';
 
 @Component({
   selector: 'app-hero',
-  imports: [ButtonComponent, FontAwesomeModule],
+  imports: [ButtonComponent, FontAwesomeModule, NetworkBackgroundComponent],
   templateUrl: './hero.component.html',
   styleUrl: './hero.component.css',
 })
 export class HeroComponent {
-  
-  getInTouchButton = BUTTON.OUTLINE
 
-  icons = {
-    briefcase:  faBriefcase,
+  getInTouchButton = BUTTON.OUTLINE;
+
+  readonly icons = {
+    briefcase: faBriefcase,
     projectDiagram: faBrain,
-    user: faGaugeHigh
+    user: faGaugeHigh,
+    code: faCode,
+    brain: faBrain,
+    terminal: faTerminal,
+    microchip: faMicrochip
+  };
+
+  private readonly writingSpeed = 45; // ms per character
+
+  // Typing logic
+  private readonly fullLines = [
+    'Engineering intelligent',
+    'frontend systems',
+    'powered by',
+    'scalable AI architectures'
+  ];
+
+  private readonly currentCharIndex = signal(0);
+  typingComplete = signal(false);
+
+  line1 = computed(() => this.getVisibleText(0));
+  line2 = computed(() => this.getVisibleText(1));
+  line3 = computed(() => this.getVisibleText(2));
+  line4 = computed(() => this.getVisibleText(3));
+
+  constructor() {
+    afterNextRender(() => {
+      this.startTyping();
+    });
   }
 
+  private getVisibleText(lineIdx: number): string {
+    const currentIndex = this.currentCharIndex();
+    let charsBeforeThisLine = 0;
+    for (let i = 0; i < lineIdx; i++) {
+      charsBeforeThisLine += this.fullLines[i].length;
+    }
+
+    const visibleCharsInThisLine = Math.max(0, currentIndex - charsBeforeThisLine);
+    return this.fullLines[lineIdx].substring(0, visibleCharsInThisLine);
+  }
+
+  private startTyping() {
+    const totalChars = this.fullLines.reduce((acc, line) => acc + line.length, 0);
+    let current = 0;
+    const interval = setInterval(() => {
+      current++;
+      this.currentCharIndex.set(current);
+
+      if (current >= totalChars) {
+        clearInterval(interval);
+        this.typingComplete.set(true);
+      }
+    }, this.writingSpeed); // Speed of typing
+  }
 }

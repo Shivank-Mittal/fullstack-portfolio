@@ -1,3 +1,5 @@
+<app-network-background></app-network-background>
+
 <div id="available-icon">
     <div id="icon"></div>
     <span id="available-content"> Available for the coloration</span>
@@ -5,27 +7,34 @@
 
 <section id="hero">
     <div id="hero-headline">
-        <h3>Engineering intelligent</h3>
-        <h3 id="hero-headline_section">frontend systems</h3>
-        <h3>powered by</h3>
-        <h3>scalable AI architectures</h3>
+        <h3>{{ line1() }}</h3>
+        <h3 id="hero-headline_section" class="glitch-text" [attr.data-text]="line2()">{{ line2() }}</h3>
+        <h3>{{ line3() }}</h3>
+        <h3 class="glitch-text" [attr.data-text]="line4()">{{ line4() }}</h3>
     </div>
 
-    <section id="hero-info">
+    <!-- Floating tech icons - Final Version -->
+    <div class="floating-container" [class.visible]="typingComplete()">
+        <div class="floating-item item-1"><fa-icon [icon]="icons.code"></fa-icon></div>
+        <div class="floating-item item-2"><fa-icon [icon]="icons.brain"></fa-icon></div>
+        <div class="floating-item item-3"><fa-icon [icon]="icons.terminal"></fa-icon></div>
+        <div class="floating-item item-4"><fa-icon [icon]="icons.microchip"></fa-icon></div>
+    </div>
+
+    <section id="hero-info" [class.visible]="typingComplete()">
         <p>Crafting end-to-end systems that transform complex data into real-time, intelligent user experiences — powered by Angular, AI, and scalable backend architectures</p>
     </section>
 
-    <section id="hero-actions">
+    <section id="hero-actions" [class.visible]="typingComplete()">
         <app-button size="md"> View Projects </app-button>
         <app-button [type]="getInTouchButton" size="md" > Get In Touch</app-button>
     </section>
 
 </section>
 
-<div id="divider"></div>
+<div id="divider" [class.visible]="typingComplete()"></div>
 
-<section id="info">
-
+<section id="info" [class.visible]="typingComplete()">
     <div class="info-item">
         <fa-icon [icon]="icons.briefcase" class="info-icon"></fa-icon>
         <div class="info-text">
