@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { CardComponent } from '../../components/card/card.component';
 import { FaIconComponent } from '@fortawesome/angular-fontawesome';
-import { faDotCircle } from '@fortawesome/free-solid-svg-icons';
+import { faLaptopCode, faServer, faSitemap, faMicrochip } from '@fortawesome/free-solid-svg-icons';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -12,11 +12,10 @@ import { CommonModule } from '@angular/common';
 })
 export class TechDepthComponent {
 
-  dotIcon = faDotCircle
-
   cardsInfo = [
     {
       name: "frontend",
+      icon: faLaptopCode,
       data: `React (Server Components, Render Optimization)
 TypeScript (Strict Mode, Advanced Generics)
 Next.js / Vite (SSR, ISR, Edge Runtime)
@@ -26,6 +25,7 @@ Performance (CWV, Bundle Analysis, Tree-shaking)`
     },
     {
       name: "backend",
+      icon: faServer,
       data: `Node.js (Express, Fastify, NestJS)
 Python (FastAPI, Django REST)
 PostgreSQL (Query Optimization, Indexing)
@@ -35,6 +35,7 @@ REST API Design (OpenAPI, Versioning)`
     },
     {
       name: "System Design",
+      icon: faSitemap,
       data: `Distributed Systems & CAP Theorem
 Event-Driven Architecture (Kafka, RabbitMQ)
 CQRS / Event Sourcing Patterns
@@ -43,7 +44,8 @@ Observability (Datadog, Grafana, OTel)
 CI/CD Pipeline Design (GitHub Actions)`
     },
     {
-      name: "DevOps",
+      name: "DevOps & AI",
+      icon: faMicrochip, // Using Microchip for the AI/Infrastructure focus
       data: `LLM Integration (OpenAI, Anthropic APIs)
 RAG Pipelines (Pinecone, Weaviate)
 Prompt Engineering & Evaluation

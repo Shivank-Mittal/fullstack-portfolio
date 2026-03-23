@@ -8,12 +8,12 @@
 <section id="hero">
     <div id="hero-headline">
         <h3>{{ line1() }}</h3>
-        <h3 id="hero-headline_section" class="glitch-text" [attr.data-text]="line2()">{{ line2() }}</h3>
+        <h3 id="hero-headline_section">{{ line2() }}</h3>
         <h3>{{ line3() }}</h3>
-        <h3 class="glitch-text" [attr.data-text]="line4()">{{ line4() }}</h3>
+        <h3>{{ line4() }}</h3>
     </div>
 
-    <!-- Floating tech icons - Final Version -->
+    <!-- Floating tech icons -->
     <div class="floating-container" [class.visible]="typingComplete()">
         <div class="floating-item item-1"><fa-icon [icon]="icons.code"></fa-icon></div>
         <div class="floating-item item-2"><fa-icon [icon]="icons.brain"></fa-icon></div>

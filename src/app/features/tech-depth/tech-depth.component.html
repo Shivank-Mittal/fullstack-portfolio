@@ -4,7 +4,7 @@
 
     @for (card of cardsInfo; track $index) {
         <app-card>
-            <fa-icon [icon]="dotIcon" > </fa-icon>
+            <fa-icon [icon]="card.icon" > </fa-icon>
             <ng-container ngProjectAs="card-header"> {{card.name | titlecase}} </ng-container>
             <ng-container ngProjectAs="card-content">{{card.data}}</ng-container>
         </app-card>
