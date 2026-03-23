@@ -1,27 +1,35 @@
 <div #timeline class="timeline">
   <div class="timeline-line"></div>
-  <div class="timeline-progress" [style.height.%]="timelineProgress"></div>
+  <div class="timeline-progress" [style.height.%]="timelineProgress()"></div>
 
+  <div class="items-container" [style.transform]="'translateY(' + verticalOffset() + '%)'">
+    @for (item of experiences; track $index;) {
+      <div class="timeline-item" 
+           [ngClass]="{'left':$even, 'right':$odd, 'visible': isItemVisible($index) }"
+           [style.opacity]="getItemOpacity($index)">
 
-
-  @for (item of experiences; track $index;) {
-
-    <div class="timeline-item" [ngClass]="{'left':$even, 'right':$odd }" >
-
-      <div class="content">
-        <div id="timeline-item_header">
-          <div id="header-title">
-            <h3>{{item.title | titlecase}}</h3>
-            <p>{{item.company | titlecase}}</p>
+        <div class="content">
+          <div id="timeline-item_header">
+            <div id="header-title">
+              <h3>{{item.title | titlecase}}</h3>
+              <p>{{item.company | titlecase}}</p>
+            </div>
+            <p id="header-date"> {{item.duration}}</p>
           </div>
-          <p id="header-date"> {{item.duration}}</p>
-        </div>
 
-        <div id="timeline-item_content">
-          <p>{{item.description}}</p>
+          <div id="timeline-item_content">
+            @if (item.description.length > 1) {
+                <ul>
+                    @for (desc of item.description; track $index) {
+                        <li>{{desc}}</li>
+                    }
+                </ul>
+            } @else {
+                <p>{{item.description}}</p>
+            }
+          </div>
         </div>
       </div>
-    </div>
-
-  }
+    }
+  </div>
 </div>

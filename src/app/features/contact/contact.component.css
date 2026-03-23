@@ -4,6 +4,7 @@
     justify-content: center;
     align-items: center;
     gap: var(--space-2xl);
+    padding-bottom: var(--space-2xl);
 }
 
 #info>h3 {
@@ -24,27 +25,65 @@
 #card-section {
     display: flex;
     flex-direction: column;
-    gap: var(--space-sm);
+    gap: var(--space-md);
 }
 
 #card{
-    /* width: 100%; */
     padding: var(--space-lg);
-    background: var(--color-bg);
-    border-radius: var(--radius-sm);
-    border: 1px solid var(--color-primary);
+    background: rgba(31, 41, 55, 0.2);
+    border-radius: var(--radius-md);
+    border: 1px solid rgba(99, 102, 241, 0.3);
     display: flex;
+    align-items: center;
     gap: var(--space-md);
+    transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    animation: float 6s infinite ease-in-out;
+}
+
+/* Stagger floating for each card */
+#card:nth-child(2) { animation-delay: -2s; }
+#card:nth-child(3) { animation-delay: -4s; }
+
+#card:hover {
+    transform: translateY(-8px) scale(1.02);
+    border-color: var(--color-primary);
+    background: rgba(31, 41, 55, 0.5);
+    box-shadow: 0 15px 35px -10px rgba(99, 102, 241, 0.4);
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+
+#card a, #card p {
+    color: var(--color-text-secondary);
+    text-decoration: none;
+    transition: color 0.3s ease;
+    font-size: var(--text-body-sm);
+}
+
+#card:hover a, #card:hover p {
+    color: var(--color-text-primary);
 }
 
 fa-icon{
     color: var(--color-primary);
-    /* font-size: var(--text-heading-sm); */
+    font-size: 1.2rem;
+    transition: transform 0.3s ease;
+}
+
+#card:hover fa-icon {
+    transform: scale(1.2) rotate(5deg);
 }
 
 
 @media (min-width: 768px) { 
     :host{
         flex-direction: row;
+        align-items: flex-start;
     }
 }
