@@ -3,10 +3,12 @@ import { single } from 'rxjs';
 import { TNavbarInfo, TNavItem } from '../../types/TNavItems';
 import { CommonModule, TitleCasePipe } from '@angular/common';
 import { ResponsiveService } from '../../service/responsive-service/responsive.service';
+import { SuperBaseService } from '../../service/superbase-service/superbase.service';
+import { ButtonComponent } from '../../components/button/button.component';
 
 @Component({
   selector: 'app-navbar',
-  imports: [TitleCasePipe, CommonModule],
+  imports: [TitleCasePipe, CommonModule, ButtonComponent],
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.css',
 })
@@ -18,7 +20,10 @@ export class NavbarComponent {
   onItemSelection = output<TNavItem>();
 
   responseService = inject(ResponsiveService)
+  dbClient = inject(SuperBaseService)
   deviceType$ = this.responseService.deviceType$
+
+  resumeName = 'Resume_EN';
 
 
   // Handlers
@@ -36,6 +41,23 @@ export class NavbarComponent {
 
     if(nextFocusableIndex === undefined) return;
     (this.items()[nextFocusableIndex].nativeElement as HTMLElement).focus()
+  }
+
+  onResumeDownload() {
+    this.dbClient.getResume(this.resumeName).then((response) => {
+
+    debugger
+
+    const url = URL.createObjectURL(response.data.data);
+    const link = document.createElement('a');
+    link.href = url; // Use the URL directly
+    link.setAttribute('download', 'Shivank_Mittal_Resume.pdf'); // Set the file name
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    }).catch((error) => {
+      console.error('Error downloading resume:', error);
+    });
   }
 
 

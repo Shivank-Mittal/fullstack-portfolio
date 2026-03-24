@@ -1,7 +1,6 @@
 :host {
     display: block;
     position: relative;
-    overflow: hidden;
 }
 
 #available-icon{
