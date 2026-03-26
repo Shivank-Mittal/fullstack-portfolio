@@ -3,5 +3,6 @@ import { Routes } from '@angular/router';
 
 export const routes: Routes = [
     {path:'', loadComponent: ()=> import('./page/home/home.component').then((m) => m.HomeComponent) },
-    {path:'contact', loadComponent: ()=> import('./page/contact/contact.component').then((m) => m.ContactComponent) }
+    {path:'contact', loadComponent: ()=> import('./page/contact/contact.component').then((m) => m.ContactComponent) },
+    {path:'auth', loadComponent: ()=> import('./components/auth/auth.component').then((m) => m.AuthComponent) }
 ];

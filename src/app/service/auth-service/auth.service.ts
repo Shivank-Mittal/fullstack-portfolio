@@ -1,0 +1,63 @@
+import { inject, Injectable } from '@angular/core';
+import { SUPERBASE_CLIENT } from '../../../superbase/superbase.provider';
+import { ToastService } from '../toast-service/toast.service';
+import { BehaviorSubject } from 'rxjs';
+
+@Injectable({
+  providedIn: 'root',
+})
+export class AuthService {
+
+  private readonly superbaseClient = inject(SUPERBASE_CLIENT);
+  private readonly toasterService = inject(ToastService);
+
+  private readonly loginSubject = new BehaviorSubject<{loggedIn: false} | {loggedIn: true, user: any}>({loggedIn: false})
+
+  readonly auth$ = this.loginSubject.asObservable();
+
+
+  async signInWithGoogle() {
+    this.superbaseClient.auth.signInWithOAuth({provider: 'google'})
+  }
+
+  async verifyLogin() {
+    const {data, error} = await this.superbaseClient.auth.getUser();
+    if(error) this.errorSignInHandler(error);    
+    if(data) this.successSignInHandler(data.user);
+  }
+
+  async signOut() {
+    this.superbaseClient.auth.signOut();
+    this.loginSubject.next({loggedIn: false});
+    this.toasterService.success('Successfully logged out')
+  }
+
+
+  private successSignInHandler(user: any) {
+    this.loginSubject.next({loggedIn: true, user});
+    this.toasterService.success('Successfully logged in');
+    this.showToaster('Successfully logged in', 'success');
+  }
+
+  private errorSignInHandler(error: any) {
+    this.loginSubject.next({loggedIn: false});
+    console.error('Google sign-in failed:', error);
+    this.showToaster('Google sign-in failed. Please try again.', 'error');
+  }
+
+
+  private showToaster(message: string, type: 'success' | 'error' | 'neutral') {
+    switch (type) {
+      case 'success':
+        this.toasterService.success(message);
+        break;
+      case 'error':
+        this.toasterService.error(message);
+        break;
+      case 'neutral':
+        this.toasterService.neutral(message);
+        break;
+    }
+  }
+  
+}

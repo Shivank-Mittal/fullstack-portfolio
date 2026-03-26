@@ -84,6 +84,9 @@
   --transition-fast: 0.2s ease;
   --transition-normal: 0.3s ease;
 
+  --font-family-heading: "Space Grotesk";
+  --font-family-normal: "Inter";
+
   h3 {
     font-family: "Space Grotesk", sans-serif;
     font-optical-sizing: auto;

@@ -26,7 +26,7 @@
     </section>
 
     <section id="hero-actions" [class.visible]="typingComplete()">
-        <app-button size="md"> View Projects </app-button>
+        <app-button size="md" (click) = "onResumeDownload()"> Download Resume </app-button>
         <app-button [type]="getInTouchButton" size="md" (click)="getIntTouchHandler()" > Get In Touch</app-button>
     </section>
 

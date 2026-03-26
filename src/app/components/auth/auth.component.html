@@ -1,0 +1,91 @@
+<section class="auth-page" aria-labelledby="auth-title">
+  <div class="auth-card">
+    <header class="auth-header">
+      <h1 id="auth-title" class="auth-title">SHIVANK MITTAL</h1>
+      <p class="auth-subtitle">ACCESS PROTOCOL SECURE GATEWAY</p>
+    </header>
+
+    <form class="auth-form" [formGroup]="authForm" (submit)="onSubmit($event)" novalidate>
+      <div class="auth-field">
+        <label class="auth-label" for="email">EMAIL ADDRESS</label>
+        <input
+          id="email"
+          class="auth-input"
+          formControlName="email"
+          type="email"
+          placeholder="name@domain.com"
+          autocomplete="email"
+          [attr.aria-invalid]="authForm.controls.email.invalid && (authForm.controls.email.touched)"
+        />
+        @if (authForm.controls.email.invalid && (authForm.controls.email.touched )) {
+          <p class="auth-error">
+            @if (authForm.controls.email.hasError('required')) {
+              Email is required.
+            } @else if (authForm.controls.email.hasError('email')) {
+              Enter a valid email address.
+            }
+          </p>
+        }
+      </div>
+
+      <div class="auth-field">
+        <div class="auth-field__top">
+          <label class="auth-label" for="password">PASSWORD</label>
+          <a class="auth-forgot" href="#" (click)="onForgotClick($event)">FORGOT?</a>
+        </div>
+
+        <input
+          id="password"
+          class="auth-input"
+          formControlName="password"
+          type="password"
+          placeholder="••••••••"
+          autocomplete="current-password"
+          [attr.aria-invalid]="authForm.controls.password.invalid && (authForm.controls.password.touched )"
+        />
+
+        @if (authForm.controls.password.invalid && (authForm.controls.password.touched )) {
+          <p class="auth-error">
+            @if (authForm.controls.password.hasError('required')) {
+              Password is required.
+            } @else if (authForm.controls.password.hasError('minlength')) {
+              Password must be at least 6 characters.
+            }
+          </p>
+        }
+      </div>
+
+      <div class="auth-actions">
+        <app-button
+          class="auth-submit"
+          size="md"
+          htmlType="submit"
+          [disabled]="authForm.invalid"
+        >
+          SIGN IN ->
+        </app-button>
+      </div>
+
+      <div class="auth-divider" role="separator" aria-label="verification layer">
+        <span>VERIFICATION LAYER</span>
+      </div>
+
+      <div class="auth-social">
+        <app-button
+          class="auth-google"
+          size="md"
+          [type]="buttonSecondary"
+          (click)="onGoogleSignIn()"
+        >
+          <span class="google-icon" aria-hidden="true">G</span>
+          Continue with Google
+        </app-button>
+      </div>
+
+      <p class="auth-footer">
+        NO ACCESS?
+        <a href="#" (click)="onRequestAccessClick($event)">REQUEST ACCESS +</a>
+      </p>
+    </form>
+  </div>
+</section>

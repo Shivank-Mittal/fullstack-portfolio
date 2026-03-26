@@ -1,5 +1,6 @@
 <nav role="navigation">
-    <h3 class="logo" (click)="handleLogoClick()" >{{navbarInfo().name}}</h3>
+
+    <h3 class="logo" (click)="handleLogoClick()" >Shivank Mittal</h3>
 
     <ul class="item-section">
         @if((deviceType$ | async) !== "mobile") {
@@ -12,8 +13,19 @@
             }
         }
 
+        
         <li class="cta">
-            <app-button (click)="onResumeDownload()">Download CV </app-button>
+            <div class="identity">
+                @let navbarData = avatarInfo$ | async;
+                <app-avatar
+                    [name]="navbarData?.name"
+                    [src]="navbarData?.src || ''"
+                    [alt]="navbarData?.alt || navbarData?.name"
+                    [loggedIn]="navbarData?.loggedIn || false"
+                    [size]="'md'" 
+                    (click)="loginHandler(navbarData?.loggedIn ? 'logout' : 'login')"
+                    />
+            </div>
         </li>
     </ul>
 </nav>

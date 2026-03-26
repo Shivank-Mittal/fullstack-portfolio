@@ -1,0 +1,20 @@
+<div
+  class="avatar"
+  [class.avatar-sm]="size() === 'sm'"
+  [class.avatar-md]="size() === 'md'"
+  [class.avatar-lg]="size() === 'lg'"
+  [class.avatar-logged-in]="loggedIn()"
+  [class.avatar-logged-out]="!loggedIn()"
+  [attr.aria-label]="alt()"
+>
+  @if (showImage) {
+    <img [src]="src()" [alt]="alt()" (error)="onImageError()" />
+  } @else if (loggedIn()) {
+    <span>{{ initials() }}</span>
+  } @else {
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <path
+        d="M12 12a4.25 4.25 0 1 0 0-8.5 4.25 4.25 0 0 0 0 8.5Zm0 2.25c-4.27 0-7.75 2.78-7.75 6.2 0 .3.24.55.55.55h14.4c.3 0 .55-.24.55-.55 0-3.42-3.48-6.2-7.75-6.2Z" />
+    </svg>
+  }
+</div>

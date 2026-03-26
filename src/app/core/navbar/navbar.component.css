@@ -14,11 +14,8 @@
     font-size: var(--text-logo);
     font-weight: 600;
     margin: 0;
-    cursor: pointer;
     letter-spacing: 0.5px;
-    margin: 0;
     color: var(--color-text-primary);
-    cursor: pointer;
 
     /* gradient text */
     /* background: var(--gradient-primary); */
@@ -28,8 +25,15 @@
     transition: var(--transition-normal);
 }
 
+.identity {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-md);
+    cursor: pointer;
+}
+
 /* subtle hover */
-.logo:hover {
+.identity:hover .logo {
     transform: translateY(-1px) scale(1.02);
 }
 

@@ -1,3 +1,5 @@
+import { TAvatarInfo } from './TAvatar';
+
 export type TNavItem = {
     name: string,
     id: string,
@@ -9,5 +11,6 @@ export type TNavItem = {
 export type TNavbarInfo = {
     name: string,
     items: TNavItem[],
-    downloadInfo?: string, 
+    downloadInfo?: string,
+    avatar?: TAvatarInfo,
 }

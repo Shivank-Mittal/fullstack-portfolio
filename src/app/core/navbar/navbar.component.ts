@@ -1,31 +1,55 @@
-import { Component, ElementRef, inject, input, OnInit, output, viewChildren } from '@angular/core';
-import { single } from 'rxjs';
+import { Component, ElementRef, inject, input, OnInit, output, signal, viewChildren } from '@angular/core';
+import { map, Observable, single } from 'rxjs';
 import { TNavbarInfo, TNavItem } from '../../types/TNavItems';
 import { CommonModule, TitleCasePipe } from '@angular/common';
 import { ResponsiveService } from '../../service/responsive-service/responsive.service';
-import { SuperBaseService } from '../../service/superbase-service/superbase.service';
 import { ButtonComponent } from '../../components/button/button.component';
 import { Router } from '@angular/router';
+import { AvatarComponent } from '../../components/avatar/avatar.component';
+import { AuthService } from '../../service/auth-service/auth.service';
 
 @Component({
   selector: 'app-navbar',
-  imports: [TitleCasePipe, CommonModule, ButtonComponent],
+  imports: [TitleCasePipe, CommonModule, ButtonComponent, AvatarComponent],
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.css',
 })
 export class NavbarComponent {
   items = viewChildren<ElementRef>("navItem");
-
   navbarInfo = input.required<TNavbarInfo>()
+
   onItemSelection = output<TNavItem>();
-
+  
   private readonly responseService = inject(ResponsiveService)
-  private readonly dbClient = inject(SuperBaseService)
-  protected readonly deviceType$ = this.responseService.deviceType$
-
+  private readonly authService = inject(AuthService);
   private readonly router = inject(Router)
 
-  resumeName = 'Resume_EN';
+
+  protected readonly deviceType$ = this.responseService.deviceType$
+  protected readonly auth$ = this.authService.auth$;
+  
+  
+  avatarInfo$= this.auth$.pipe(
+    map(auth => {
+      if(auth.loggedIn) {
+        return {
+          loggedIn: true,
+          src: auth.user?.user_metadata?.avatar_url || '',
+          alt: auth.user?.user_metadata?.full_name || 'User Avatar',
+          name: auth.user?.user_metadata?.full_name || 'User',
+          size: 'md'
+        }
+      }
+      else {
+        return {
+          loggedIn: false,
+          alt: '',
+          name: '',
+          size: 'md'
+        }
+      }
+    })
+  )
 
 
   // Handlers
@@ -33,6 +57,16 @@ export class NavbarComponent {
     // const currentNavigation = this.router.routerState.snapshot.url;
     this.onItemSelection.emit(name)
 
+  }
+
+  loginHandler(value: 'login' | 'logout') {
+    if(value === 'login') {
+      this.authService.signInWithGoogle();
+    }
+    else {
+      this.authService.signOut();
+
+    }
   }
 
   handleLogoClick() {
@@ -50,24 +84,6 @@ export class NavbarComponent {
     if(nextFocusableIndex === undefined) return;
     (this.items()[nextFocusableIndex].nativeElement as HTMLElement).focus()
   }
-
-  onResumeDownload() {
-    this.dbClient.getResume(this.resumeName).then((response) => {
-
-    debugger
-
-    const url = URL.createObjectURL(response.data.data);
-    const link = document.createElement('a');
-    link.href = url; // Use the URL directly
-    link.setAttribute('download', 'Shivank_Mittal_Resume.pdf'); // Set the file name
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-    }).catch((error) => {
-      console.error('Error downloading resume:', error);
-    });
-  }
-
 
 
   // utilities

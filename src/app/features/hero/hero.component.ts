@@ -5,6 +5,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faBrain, faBriefcase, faGaugeHigh, faCode, faTerminal, faMicrochip } from '@fortawesome/free-solid-svg-icons';
 import { NetworkBackgroundComponent } from '../../components/network-background/network-background.component';
 import { Router } from '@angular/router';
+import { SuperBaseService } from '../../service/superbase-service/superbase.service';
 
 @Component({
   selector: 'app-hero',
@@ -17,6 +18,8 @@ export class HeroComponent {
   getInTouchButton = BUTTON.OUTLINE;
 
   router = inject(Router)
+  private readonly dbClient = inject(SuperBaseService)
+  resumeName = 'Resume_EN';
 
   readonly icons = {
     briefcase: faBriefcase,
@@ -55,6 +58,21 @@ export class HeroComponent {
   // handlers
   getIntTouchHandler() {
     this.router.navigateByUrl('/contact')
+  }
+
+  onResumeDownload() {
+    this.dbClient.getResume(this.resumeName).then((response) => {
+
+    const url = URL.createObjectURL(response.data.data);
+    const link = document.createElement('a');
+    link.href = url; // Use the URL directly
+    link.setAttribute('download', 'Shivank_Mittal_Resume.pdf'); // Set the file name
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    }).catch((error) => {
+      console.error('Error downloading resume:', error);
+    });
   }
 
   private getVisibleText(lineIdx: number): string {
