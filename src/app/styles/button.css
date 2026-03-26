@@ -128,3 +128,13 @@
   outline: none;
   box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.6);
 }
+
+/* Disabled Button Style */
+.btn:disabled {
+  background: var(--color-border); /* Neutral background for disabled state */
+  color: var(--color-text-secondary); /* Muted text color */
+  cursor: not-allowed; /* Indicates the button is not clickable */
+  opacity: 0.5; /* Adds a faded effect */
+  box-shadow: none; /* Removes any shadow for a flat look */
+  transform: none; /* Ensures no hover/active transformations */
+}

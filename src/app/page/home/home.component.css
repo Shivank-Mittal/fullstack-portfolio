@@ -1,0 +1,11 @@
+:host {
+    display: block;
+}
+
+.information {
+    display: flex;
+    flex-direction: column;
+    margin-top: var(--space-lg);
+    margin-bottom: var(--space-lg);
+    gap: calc( 3 * var(--space-2xl));
+}

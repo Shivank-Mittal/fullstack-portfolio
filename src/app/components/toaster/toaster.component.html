@@ -1,0 +1,32 @@
+@if (toastService.toasts().length > 0) {
+  <div class="toaster" role="region" aria-label="Notifications" aria-live="polite">
+    @for (toast of toastService.toasts(); track toast.id) {
+      <div
+        class="toast"
+        [class.toast--success]="toast.variant === 'success'"
+        [class.toast--error]="toast.variant === 'error'"
+        [class.toast--neutral]="toast.variant === 'neutral'"
+        [attr.role]="toast.variant === 'error' ? 'alert' : 'status'"
+      >
+        <div class="toast__content">
+          <span class="toast__kind">
+            @switch (toast.variant) {
+              @case ('success') { Success }
+              @case ('error') { Error }
+              @default { Notice }
+            }
+          </span>
+          <p class="toast__message">{{ toast.message }}</p>
+        </div>
+        <button
+          type="button"
+          class="toast__close"
+          aria-label="Dismiss"
+          (click)="toastService.dismiss(toast.id)"
+        >
+          ×
+        </button>
+      </div>
+    }
+  </div>
+}

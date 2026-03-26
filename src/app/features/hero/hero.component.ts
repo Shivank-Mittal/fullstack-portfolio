@@ -1,9 +1,10 @@
-import { Component, signal, computed, afterNextRender } from '@angular/core';
+import { Component, signal, computed, afterNextRender, inject } from '@angular/core';
 import { ButtonComponent } from '../../components/button/button.component';
 import { BUTTON } from '../../types/TButtons';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faBrain, faBriefcase, faGaugeHigh, faCode, faTerminal, faMicrochip } from '@fortawesome/free-solid-svg-icons';
 import { NetworkBackgroundComponent } from '../../components/network-background/network-background.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-hero',
@@ -14,6 +15,8 @@ import { NetworkBackgroundComponent } from '../../components/network-background/
 export class HeroComponent {
 
   getInTouchButton = BUTTON.OUTLINE;
+
+  router = inject(Router)
 
   readonly icons = {
     briefcase: faBriefcase,
@@ -47,6 +50,11 @@ export class HeroComponent {
     afterNextRender(() => {
       this.startTyping();
     });
+  }
+
+  // handlers
+  getIntTouchHandler() {
+    this.router.navigateByUrl('/contact')
   }
 
   private getVisibleText(lineIdx: number): string {

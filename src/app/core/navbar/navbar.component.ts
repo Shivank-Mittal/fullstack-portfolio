@@ -5,6 +5,7 @@ import { CommonModule, TitleCasePipe } from '@angular/common';
 import { ResponsiveService } from '../../service/responsive-service/responsive.service';
 import { SuperBaseService } from '../../service/superbase-service/superbase.service';
 import { ButtonComponent } from '../../components/button/button.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-navbar',
@@ -13,23 +14,30 @@ import { ButtonComponent } from '../../components/button/button.component';
   styleUrl: './navbar.component.css',
 })
 export class NavbarComponent {
-
   items = viewChildren<ElementRef>("navItem");
 
   navbarInfo = input.required<TNavbarInfo>()
   onItemSelection = output<TNavItem>();
 
-  responseService = inject(ResponsiveService)
-  dbClient = inject(SuperBaseService)
-  deviceType$ = this.responseService.deviceType$
+  private readonly responseService = inject(ResponsiveService)
+  private readonly dbClient = inject(SuperBaseService)
+  protected readonly deviceType$ = this.responseService.deviceType$
+
+  private readonly router = inject(Router)
 
   resumeName = 'Resume_EN';
 
 
   // Handlers
   handleElementSection(name: TNavItem){
+    // const currentNavigation = this.router.routerState.snapshot.url;
     this.onItemSelection.emit(name)
+
   }
+
+  handleLogoClick() {
+    this.router.navigateByUrl('')
+  } 
 
   keyInteractionHandler(event: KeyboardEvent) {
     const elementId = (event?.currentTarget as HTMLElement)?.id;

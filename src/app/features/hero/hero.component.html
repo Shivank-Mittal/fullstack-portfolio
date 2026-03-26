@@ -27,7 +27,7 @@
 
     <section id="hero-actions" [class.visible]="typingComplete()">
         <app-button size="md"> View Projects </app-button>
-        <app-button [type]="getInTouchButton" size="md" > Get In Touch</app-button>
+        <app-button [type]="getInTouchButton" size="md" (click)="getIntTouchHandler()" > Get In Touch</app-button>
     </section>
 
 </section>

@@ -1,0 +1,94 @@
+<section class="contact-form-shell" aria-labelledby="contact-form-title">
+  <h3 id="contact-form-title" class="sr-only">Contact form</h3>
+
+  <form class="contact-form" [formGroup]="contactForm" (submit)="onSubmit($event)" novalidate>
+    <div class="contact-form__group">
+    <div class="contact-form__row">
+      <div class="contact-form__field">
+        <label for="name">Full Name</label>
+        <input
+          id="name"
+          formControlName="name"
+          type="text"
+          placeholder="John Doe"
+          autocomplete="name"
+          [attr.aria-invalid]="contactForm.controls.name.invalid && (contactForm.controls.name.touched || isSubmitted())"
+        />
+        @if (contactForm.controls.name.invalid && (contactForm.controls.name.touched || isSubmitted())) {
+          <p class="contact-form__error">Name is required.</p>
+        }
+      </div>
+
+      <div class="contact-form__field">
+        <label for="companyName">Company Name</label>
+        <input
+          id="companyName"
+          formControlName="companyName"
+          type="text"
+          placeholder="Organization"
+          autocomplete="organization"
+          [attr.aria-invalid]="contactForm.controls.companyName.invalid && (contactForm.controls.companyName.touched || isSubmitted())"
+        />
+        @if (contactForm.controls.companyName.invalid && (contactForm.controls.companyName.touched || isSubmitted())) {
+          <p class="contact-form__error">Company name is required.</p>
+        }
+      </div>
+    </div>
+
+    <div class="contact-form__field contact-form__field--full">
+      <label for="email">Email Address</label>
+      <input
+        id="email"
+        formControlName="email"
+        type="email"
+        placeholder="hello@example.com"
+        autocomplete="email"
+        [attr.aria-invalid]="contactForm.controls.email.invalid && (contactForm.controls.email.touched || isSubmitted())"
+      />
+      @if (contactForm.controls.email.invalid && (contactForm.controls.email.touched || isSubmitted())) {
+        <p class="contact-form__error">
+          @if (contactForm.controls.email.hasError('required')) {
+            Email is required.
+          } @else if (contactForm.controls.email.hasError('email')) {
+            Enter a valid email address.
+          }
+        </p>
+      }
+    </div>
+
+    <div class="contact-form__field contact-form__field--full">
+      <label for="phoneNumber">Phone Number</label>
+      <input
+        id="phoneNumber"
+        formControlName="phoneNumber"
+        type="tel"
+        placeholder="+1 555 123 4567"
+        autocomplete="tel"
+      />
+    </div>
+
+    <div class="contact-form__field contact-form__field--full">
+      <label for="message">Message</label>
+      <textarea
+        id="message"
+        formControlName="message"
+        rows="6"
+        placeholder="Tell me about your project or inquiry..."
+      ></textarea>
+        @if (contactForm.controls.message.invalid && (contactForm.controls.name.touched || isSubmitted())) {
+          <p class="contact-form__error">Message is required.</p>
+        }
+      </div>
+
+      <app-button 
+        class="contact-form__submit" 
+        size="md" 
+        htmlType="submit"
+        [disabled]="contactForm.invalid" >
+        Send Message
+      </app-button>
+    </div>
+
+    <p class="contact-form__caption">I typically respond within 24 business hours.</p>
+  </form>
+</section>

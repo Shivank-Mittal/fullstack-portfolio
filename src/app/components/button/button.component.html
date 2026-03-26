@@ -1,4 +1,6 @@
-<button [class]="{
+<button [disabled]="disabled()"
+    [attr.type]="htmlType()"
+    [class]="{
         'btn': true, 
         'btn-primary': type() === 'Default',
         'btn-secondary': type() === 'Secondary',

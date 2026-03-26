@@ -1,6 +1,5 @@
 <nav role="navigation">
-    <h3 class="logo" >{{navbarInfo().name}}</h3>
-
+    <h3 class="logo" (click)="handleLogoClick()" >{{navbarInfo().name}}</h3>
 
     <ul class="item-section">
         @if((deviceType$ | async) !== "mobile") {

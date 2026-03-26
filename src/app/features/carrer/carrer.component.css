@@ -15,13 +15,19 @@
     padding-top: var(--space-xl);
 }
 
+#sticky-title {
+    background: rgba(16, 19, 24, 0.7);
+    z-index: 10;
+    margin-top: 3rem;
+    margin-bottom: var(--space-lg);
+    border-radius: var(--radius-lg);
+}
+
 #title {
     color: var(--color-text-primary);
     font-size: var(--text-heading-lg);
     text-align: center;
     word-wrap: break-word;
-    margin-top: 3rem;
-    z-index: 10;
 }
 
 #title > span {
@@ -33,8 +39,7 @@
     font-size: var(--text-body-lg);
     text-align: center;
     word-wrap: break-word;
-    margin-bottom: var(--space-lg);
-    z-index: 10;
+    
 }
 
 app-timeline {

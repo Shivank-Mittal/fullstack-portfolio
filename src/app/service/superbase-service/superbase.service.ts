@@ -14,14 +14,12 @@ type TSuperBaseResponse = {
 })
 export class SuperBaseService {
 
-  private readonly resumeDatabaseTable = 'resume_collection';
-
-  private dbClient: SupabaseClient | null = null;
+  private dbClient: SupabaseClient | null = inject(SUPERBASE_CLIENT);
   private platformId = inject(PLATFORM_ID);
 
   constructor() {
     if (this.platformId) {
-      this.dbClient = inject(SUPERBASE_CLIENT);
+      // this.dbClient = inject(SUPERBASE_CLIENT);
     }
   }
 
@@ -41,10 +39,8 @@ export class SuperBaseService {
   async getResumeInfo(client: SupabaseClient ,resumeName: string): Promise<TSuperBaseResponse> {
     const data:TSuperBaseResponse = {data: undefined, error: undefined, isError: false};
     try {
-      const response = await client.from(this.resumeDatabaseTable).select('*').eq('name', resumeName).single();
-      const info = await client.storage.from('resumes').createSignedUrl('Resume_Shivank_MITTAL.pdf', 60);
+      // const response = await client.from(this.resumeDatabaseTable).select('*').eq('name', resumeName).single();
       const download = await client.storage.from('resumes').download('Resume_Shivank_MITTAL.pdf');
-      console.log('Supabase response:', info);
       data.data = download;
     } catch (error) {
       data.error = error;

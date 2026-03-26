@@ -1,0 +1,8 @@
+<section #information class="information">
+    <app-hero id="hero"></app-hero>
+    @for (item of items; track $index) {
+        <div [id]="item.id" >
+            <ng-container *ngComponentOutlet="item.component"></ng-container>
+        </div>
+    }
+</section>
