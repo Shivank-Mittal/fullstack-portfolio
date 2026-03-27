@@ -14,7 +14,7 @@ type TSuperBaseResponse = {
 })
 export class SuperBaseService {
 
-  private dbClient: SupabaseClient | null = inject(SUPERBASE_CLIENT);
+  private dbClient: SupabaseClient = inject(SUPERBASE_CLIENT);
   private platformId = inject(PLATFORM_ID);
 
   constructor() {
@@ -47,6 +47,10 @@ export class SuperBaseService {
       data.isError = true;
     }
     return data;
+  }
+
+  async getAllResumes() {
+    return this.dbClient.storage.from('resumes').list('')
   }
 
 

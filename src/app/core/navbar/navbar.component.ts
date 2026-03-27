@@ -59,14 +59,8 @@ export class NavbarComponent {
 
   }
 
-  loginHandler(value: 'login' | 'logout') {
-    if(value === 'login') {
-      this.authService.signInWithGoogle();
-    }
-    else {
-      this.authService.signOut();
-
-    }
+  profileHandler() {
+    this.router.navigateByUrl('/resume')
   }
 
   handleLogoClick() {

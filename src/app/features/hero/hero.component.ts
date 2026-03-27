@@ -19,7 +19,7 @@ export class HeroComponent {
 
   router = inject(Router)
   private readonly dbClient = inject(SuperBaseService)
-  resumeName = 'Resume_EN';
+  resumeName = 'Resume_Shivank_MITTAL.pdf';
 
   readonly icons = {
     briefcase: faBriefcase,
