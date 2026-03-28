@@ -24,6 +24,7 @@
             "index": "src/index.html",
             "browser": "src/main.ts",
             "polyfills": [
+              "src/polyfils/promiseTry.ts",
               "zone.js",
               "@angular/localize/init"
             ],

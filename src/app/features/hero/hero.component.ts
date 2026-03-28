@@ -66,7 +66,7 @@ export class HeroComponent {
     const url = URL.createObjectURL(response.data.data);
     const link = document.createElement('a');
     link.href = url; // Use the URL directly
-    link.setAttribute('download', 'Shivank_Mittal_Resume.pdf'); // Set the file name
+    link.setAttribute('download', this.resumeName); // Set the file name
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);

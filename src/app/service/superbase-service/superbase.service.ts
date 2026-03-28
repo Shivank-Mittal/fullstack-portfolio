@@ -15,13 +15,7 @@ type TSuperBaseResponse = {
 export class SuperBaseService {
 
   private dbClient: SupabaseClient = inject(SUPERBASE_CLIENT);
-  private platformId = inject(PLATFORM_ID);
 
-  constructor() {
-    if (this.platformId) {
-      // this.dbClient = inject(SUPERBASE_CLIENT);
-    }
-  }
 
   async getResume(resumeName:string) {
     if(!this.dbClient) { 
@@ -40,7 +34,7 @@ export class SuperBaseService {
     const data:TSuperBaseResponse = {data: undefined, error: undefined, isError: false};
     try {
       // const response = await client.from(this.resumeDatabaseTable).select('*').eq('name', resumeName).single();
-      const download = await client.storage.from('resumes').download('Resume_Shivank_MITTAL.pdf');
+      const download = await this.getFileFromBucket('resumes', resumeName)
       data.data = download;
     } catch (error) {
       data.error = error;
@@ -50,16 +44,24 @@ export class SuperBaseService {
   }
 
   async getAllResumes() {
-    return this.dbClient.storage.from('resumes').list('')
+    return this.dbClient.storage.from('resumes').list()
   }
 
 
-  getFileFromBucket(client: SupabaseClient, bucketName: string, fileName: string) {
-    return client.storage.from(bucketName).download(fileName);
+  async getFileFromBucket(bucketName: string, fileName: string) {
+    return this.dbClient.storage.from(bucketName).download(fileName);
   }
 
-  getTableData(client: SupabaseClient, tableName: string) {
-    return client.from(tableName).select('*');
+  getFilePublicHTML(bucketName: string, fileName: string) {
+    return this.dbClient.storage.from(bucketName).getPublicUrl(fileName)
+  }
+
+  getSignedURL(bucketName: string, fileName: string) {
+     return this.dbClient.storage.from(bucketName).createSignedUrl(fileName, 3600)
+  }
+
+  getTableData(tableName: string) {
+    return this.dbClient.from(tableName).select('*');
   }
 
 

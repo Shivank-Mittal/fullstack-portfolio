@@ -1,0 +1,1 @@
+export type TThumbnailState = 'skeleton' | 'loading' | 'loaded' | 'error';

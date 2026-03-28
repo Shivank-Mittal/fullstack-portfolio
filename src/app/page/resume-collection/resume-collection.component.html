@@ -1,4 +1,23 @@
-<p>resume-collection works!</p>
 
+<div class="header-section">
+</div>
+<app-button (click)="signOutHandler()" size="md" [type]="buttonType" > Signout</app-button>
+testing
 
-<button (click)="signOutHandler()" > Signout</button>
+<div class="resume-grid">
+  @for (resume of resumes(); track resume.id) {
+    <div class="resume-card" (click)="download(resume)">
+
+      <app-resume-thumbnail
+        [pdfUrl]="resume.pdfUrl"
+        [alt]="resume.title"
+      />
+
+      <div class="card-info">
+        <span>{{ resume.title }}</span>
+        <span>{{ resume.updated_at | date:'MMM y' }}</span>
+      </div>
+
+    </div>
+  }
+</div>

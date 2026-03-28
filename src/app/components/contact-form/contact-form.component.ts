@@ -27,7 +27,6 @@ export class ContactFormComponent {
   });
 
   onSubmit(event: Event): void {
-    debugger
     event.preventDefault();
     this.isSubmitted.set(true);
 

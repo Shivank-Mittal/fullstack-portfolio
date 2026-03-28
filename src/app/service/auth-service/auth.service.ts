@@ -28,7 +28,6 @@ export class AuthService {
 
 
   constructor() {
-
     // route to the main page when we logout after being logged in
     this.authStatus$.subscribe((value) =>{
       this.routerService.navigateByUrl('/')
@@ -40,7 +39,7 @@ export class AuthService {
   }
 
   async signInWithGoogle() {
-    this.superbaseClient?.auth.signInWithOAuth({provider: 'google'})
+    this.superbaseClient?.auth.signInWithOAuth({provider: 'google', })
   }
 
   async verifyLogin() {
