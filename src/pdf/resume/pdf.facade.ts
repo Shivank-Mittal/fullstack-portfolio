@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { getDocument, GlobalWorkerOptions, PageViewport, PDFDocumentProxy, PDFPageProxy } from "pdfjs-dist";
+import { getDocument, GlobalWorkerOptions, PageViewport, PDFDocumentProxy, PDFPageProxy, version } from "pdfjs-dist";
 
 
 @Injectable({ providedIn: 'root' })
@@ -25,7 +25,7 @@ export class PdfJSFacade {
         if (this.workerInitialized) return;
     
         GlobalWorkerOptions.workerSrc = new URL(
-        'pdfjs-dist/build/pdf.worker.min.mjs',
+        `https://cdnjs.cloudflare.com/ajax/libs/pdf.js/${version}/pdf.worker.min.mjs`,
         import.meta.url
         ).toString();
     
