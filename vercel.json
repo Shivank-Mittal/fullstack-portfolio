@@ -3,7 +3,12 @@
   "rewrites": [
     {
       "source": "/(.*)",
-      "destination": "/dist/portfolio/server/server.mjs"
+      "destination": "/api/ssr"
     }
-  ]
+  ],
+  "functions": {
+    "api/ssr.js": {
+      "includeFiles": "dist/porfolio/**"
+    }
+  }
 }

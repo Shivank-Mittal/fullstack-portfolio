@@ -10,6 +10,7 @@
     "serve:ssr:porfolio": "node dist/porfolio/server/server.mjs",
     "build:ssr:porfolio": "ng build porfolio"
   },
+  "type": "module",
   "private": true,
   "dependencies": {
     "@angular/animations": "^21.2.4",
