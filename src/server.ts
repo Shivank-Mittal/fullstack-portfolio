@@ -6,12 +6,17 @@ import {
 } from '@angular/ssr/node';
 import express from 'express';
 import { join } from 'node:path';
-import { dirname, resolve } from 'node:path';
+import { basename, dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const serverDistFolder = dirname(fileURLToPath(import.meta.url));
-console.log('Server distribution folder:', serverDistFolder);
-const browserDistFolder = join(serverDistFolder, '../browser');
+// With i18n builds, server.mjs lives inside a locale subfolder (e.g. server/en-US/).
+// Walk up to dist root, then into the matching browser locale folder.
+const localeFolder = basename(serverDistFolder);
+const isLocaleSubfolder = /^[a-z]{2}-[A-Z]{2}$/.test(localeFolder);
+const browserDistFolder = isLocaleSubfolder
+  ? join(serverDistFolder, '../../browser', localeFolder)
+  : join(serverDistFolder, '../browser');
 
 const app = express();
 const angularApp = new AngularNodeAppEngine();
