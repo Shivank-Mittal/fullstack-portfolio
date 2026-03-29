@@ -6,16 +6,8 @@
       "dest": "/dist/porfolio/browser/fr-FR/assets/$1"
     },
     {
-      "src": "^/fr/(.*\\.(js|css|png|jpg|ico|svg|woff|woff2|ttf|eot|webp|pdf))$",
+      "src": "^/fr/(.*\\.(js|mjs|css|png|jpg|jpeg|ico|svg|woff|woff2|ttf|eot|webp|pdf))$",
       "dest": "/dist/porfolio/browser/fr-FR/$1"
-    },
-    {
-      "src": "^/en-US/assets/(.*)$",
-      "dest": "/dist/porfolio/browser/en-US/assets/$1"
-    },
-    {
-      "src": "^/en-US/(.*\\.(js|css|png|jpg|ico|svg|woff|woff2|ttf|eot|webp|pdf))$",
-      "dest": "/dist/porfolio/browser/en-US/$1"
     },
     {
       "src": "^/assets/(.*)$",
@@ -26,7 +18,7 @@
       "dest": "/dist/porfolio/browser/en-US/favicon.ico"
     },
     {
-      "src": "^/(.*\\.(js|css|png|jpg|svg|woff|woff2|ttf|eot|webp))$",
+      "src": "^/(.*\\.(js|mjs|css|png|jpg|jpeg|svg|woff|woff2|ttf|eot|webp|pdf))$",
       "dest": "/dist/porfolio/browser/en-US/$1"
     },
     {
@@ -36,7 +28,8 @@
   ],
   "functions": {
     "api/ssr.js": {
-      "includeFiles": "dist/porfolio/**"
+      "includeFiles": "dist/porfolio/server/**",
+      "memory": 1024
     }
   }
 }
