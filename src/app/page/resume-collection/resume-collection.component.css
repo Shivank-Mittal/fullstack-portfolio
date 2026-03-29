@@ -1,15 +1,9 @@
-
 :host {
-    display: block;
+  display: block;
 }
 
 .header-section {
-
   margin-bottom: var(--space-md);
-}
-
-.logout {
-  
 }
 
 .resume-grid {
@@ -24,15 +18,140 @@
   border-radius: var(--radius-lg);
   overflow: hidden;
   background: var(--color-surface);
-  transition: border-color var(--transition-fast);
+  transition: border-color var(--transition-fast),
+              box-shadow var(--transition-fast),
+              transform var(--transition-fast);
+  display: flex;
+  flex-direction: column;
 
-  &:hover { border-color: var(--color-primary); }
+  &:hover {
+    border-color: var(--color-primary);
+    box-shadow: var(--shadow-md);
+    transform: translateY(-2px);
+  }
+}
+.card-info {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);          /* was --space-sm */
+  padding: var(--space-sm) var(--space-md) var(--space-md);
+  border-top: 1px solid var(--color-border);
+  margin-top: auto;
 }
 
-.card-info {
-  padding: var(--space-sm) var(--space-md);
+.card-lang {
   display: flex;
-  justify-content: space-between;
-  font-size: var(--text-label);
+  align-items: center;
+  gap: var(--space-xs);
+  font-size: var(--text-caption); /* unchanged, already small */
+  font-weight: 600;
   color: var(--color-text-secondary);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.card-title {
+  font-size: var(--text-label);   /* was --text-heading-sm, much smaller */
+  font-weight: 700;
+  color: var(--color-text-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: var(--line-tight);
+}
+
+.card-subtitle {
+  font-size: var(--text-caption); /* was --text-body-sm */
+  color: var(--color-text-secondary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-sm);
+  padding-top: var(--space-xs);
+  border-top: 1px solid var(--color-border);
+  margin-top: var(--space-xs);
+}
+
+.card-date {
+  font-size: var(--text-caption);
+  color: var(--color-text-secondary);
+  white-space: nowrap;
+  font-family: monospace;
+}
+
+.btn-download {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--color-text-primary);
+  color: var(--color-bg);
+  border: none;
+  border-radius: var(--radius-sm);   /* was --radius-md */
+  padding: 5px var(--space-sm);      /* was --space-sm --space-md */
+  font-size: var(--text-caption);    /* was --text-button */
+  font-weight: 600;
+  cursor: pointer;
+  transition: opacity var(--transition-fast),
+              transform var(--transition-fast);
+  white-space: nowrap;
+
+  &:hover {
+    opacity: 0.85;
+    transform: translateY(-1px);
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
+}
+
+.signout-button{
+  margin-top: var(--space-lg);
+}
+
+/* ── Thumbnail wrapper ───────────────────── */
+.card-thumbnail-wrapper {
+  position: relative;
+}
+
+/* ── NEW tag on thumbnail ───────────────── */
+.tag-new {
+  position: absolute;
+  top: var(--space-sm);
+  right: var(--space-sm);
+  background: var(--color-primary);
+  color: #fff;
+  font-size: var(--text-caption);
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  padding: 2px 7px;
+  border-radius: var(--radius-sm);
+  box-shadow: 0 2px 8px rgba(99, 102, 241, 0.45);
+
+  /* subtle pulse so it catches the eye */
+  animation: pulse-new 2.5s ease-in-out infinite;
+}
+
+@keyframes pulse-new {
+  0%, 100% { box-shadow: 0 2px 8px rgba(99,102,241,0.45); }
+  50%       { box-shadow: 0 2px 16px rgba(99,102,241,0.75); }
+}
+
+/* ── Dot next to title ──────────────────── */
+.title-new-dot {
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--color-primary);
+  margin-left: 6px;
+  vertical-align: middle;
+  position: relative;
+  top: -1px;
 }

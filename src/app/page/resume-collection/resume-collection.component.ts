@@ -7,10 +7,12 @@ import { CommonModule } from '@angular/common';
 import { TResume } from '../../types/TResume';
 import { ButtonComponent } from '../../components/button/button.component';
 import { BUTTON } from '../../types/TButtons';
+import { FaIconComponent } from '@fortawesome/angular-fontawesome';
+import { faDownload } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-resume-collection',
-  imports: [ResumeThumbnailComponent, CommonModule, ButtonComponent],
+  imports: [ResumeThumbnailComponent, CommonModule, ButtonComponent, FaIconComponent],
   templateUrl: './resume-collection.component.html',
   styleUrl: './resume-collection.component.css',
 })
@@ -23,7 +25,9 @@ export class ResumeCollectionComponent implements OnInit {
 
   resumes = signal<TResume[]>([])
 
-  buttonType = BUTTON.Secondary
+  buttonType = BUTTON.OUTLINE
+  downloadIcon = faDownload;
+  tableName = "resume_collection";
 
   ngOnInit(): void {
       this.fetchResumes()
@@ -49,31 +53,38 @@ export class ResumeCollectionComponent implements OnInit {
   }
 
   private async fetchResumes(){
-    const information = await this.dbClient.getAllResumes();
-    if(information.error) {
+    debugger
+
+    const resumesInformation = await this.dbClient.getTableData(this.tableName)
+    if(resumesInformation.error) {
       this.toasterService.error("Error fetching the resumes");
       return;
     }
 
-
-    
-    const resumes = information.data.map(file => this.mapInformationToResume(file))
+    const resumes = resumesInformation.data.map(file => this.mapInformationToResume(file))
     const t: TResume[] = await Promise.all(
             resumes.map(async resume => {
-              const url = await this.dbClient.getSignedURL('resumes', resume.title);
+              const fileName = resume.title + '.' + resume.fileType
+              const url = await this.dbClient.getSignedURL('resumes', fileName);
               return { ...resume, pdfUrl: url.data?.signedUrl };
             })
           );
 
-
-    
     this.resumes.set(t)
-
   }
 
 
   private mapInformationToResume(file: any):TResume {
-    return {id: file.id, title: file.name, tag: 'tech', updated_at: file.updated_at, }
+    return {
+      id: file.id, 
+      language: file.language,
+      updated_at: file.created_at,
+      title: file.file_name, 
+      type: file.type,
+      jobTitle: file.job_title,
+      fileType: file.file_type,
+      isNew: file.is_new
+    }
   }
 
 

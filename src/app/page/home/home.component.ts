@@ -1,7 +1,6 @@
 import { Component, effect, ElementRef, input, untracked, viewChild } from '@angular/core';
 import { AboutComponent } from '../../features/about/about.component';
-import { TitleCasePipe, CommonModule } from '@angular/common';
-import { NavbarComponent } from '../../core/navbar/navbar.component';
+import { CommonModule } from '@angular/common';
 import { CarrerComponent } from '../../features/carrer/carrer.component';
 import { HeroComponent } from '../../features/hero/hero.component';
 import { TechDepthComponent } from '../../features/tech-depth/tech-depth.component';
@@ -9,7 +8,7 @@ import { ContactComponent } from '../../features/contact/contact.component';
 
 @Component({
   selector: 'app-home',
-  imports: [ TitleCasePipe, NavbarComponent, CommonModule, TechDepthComponent , HeroComponent, AboutComponent, CarrerComponent, ContactComponent,],
+  imports: [ CommonModule , HeroComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css',
 })

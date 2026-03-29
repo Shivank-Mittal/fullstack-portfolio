@@ -21,20 +21,20 @@ export class SuperBaseService {
     if(!this.dbClient) { 
       return { data: null, error: new Error('Supabase not initialized on server') };
     }
-    const superbaseResponse = await this.getResumeInfo(this.dbClient ,resumeName);
+    const superbaseResponse = await this.getResumeInfo(resumeName);
     if(superbaseResponse.isError) {
       console.error('Error fetching resume info:', superbaseResponse.error);
       return { data: null, error: superbaseResponse.error };
-    }
+    }   
     return superbaseResponse;
   }
 
 
-  async getResumeInfo(client: SupabaseClient ,resumeName: string): Promise<TSuperBaseResponse> {
+  async getResumeInfo(resumeName: string): Promise<TSuperBaseResponse> {
     const data:TSuperBaseResponse = {data: undefined, error: undefined, isError: false};
     try {
       // const response = await client.from(this.resumeDatabaseTable).select('*').eq('name', resumeName).single();
-      const download = await this.getFileFromBucket('resumes', resumeName)
+      const download = await this.getFileFromStorage('resumes', resumeName)
       data.data = download;
     } catch (error) {
       data.error = error;
@@ -43,12 +43,18 @@ export class SuperBaseService {
     return data;
   }
 
-  async getAllResumes() {
+  // ---- Table API ---------------------
+  async getTableData(tableName: string) {
+    return this.dbClient.from(tableName).select('*');
+  }
+
+  // ---- Storage API ---------------------
+  async getAllResumeFromStorage() {
     return this.dbClient.storage.from('resumes').list()
   }
 
 
-  async getFileFromBucket(bucketName: string, fileName: string) {
+  async getFileFromStorage(bucketName: string, fileName: string) {
     return this.dbClient.storage.from(bucketName).download(fileName);
   }
 
@@ -60,10 +66,6 @@ export class SuperBaseService {
      return this.dbClient.storage.from(bucketName).createSignedUrl(fileName, 3600)
   }
 
-  getTableData(tableName: string) {
-    return this.dbClient.from(tableName).select('*');
-  }
-
-
+  
   
 }

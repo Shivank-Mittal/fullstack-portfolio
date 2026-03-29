@@ -1,23 +1,55 @@
-
-<div class="header-section">
-</div>
-<app-button (click)="signOutHandler()" size="md" [type]="buttonType" > Signout</app-button>
-testing
+<div class="header-section"></div>
 
 <div class="resume-grid">
   @for (resume of resumes(); track resume.id) {
-    <div class="resume-card" (click)="download(resume)">
+   <div class="resume-card">
 
-      <app-resume-thumbnail
-        [pdfUrl]="resume.pdfUrl"
-        [alt]="resume.title"
-      />
+      <div class="card-thumbnail-wrapper">
+        <app-resume-thumbnail
+          [pdfUrl]="resume.pdfUrl"
+          [alt]="resume.title"
+        />
+        @if (resume.isNew) {
+          <span class="tag-new">NEW</span>
+        }
+      </div>
 
       <div class="card-info">
-        <span>{{ resume.title }}</span>
-        <span>{{ resume.updated_at | date:'MMM y' }}</span>
+
+        <div class="card-lang">
+          <span class="lang-dot"></span>
+          {{ resume.language === 'en' ? '🇬🇧 ENGLISH'
+           : resume.language === 'fr' ? '🇫🇷 FRENCH'
+           : '🇮🇳 HINDI' }}
+          <span class="badge badge--{{ resume.type }}">
+            {{ resume.type === 'stage' ? 'Internship'
+             : resume.type === 'CDI'   ? 'Full-time'
+             : 'Fixed-term' }}
+          </span>
+        </div>
+
+        <div class="card-title">
+          {{ resume.title }}
+          @if (resume.isNew) {
+            <span class="title-new-dot"></span>
+          }
+        </div>
+        <div class="card-subtitle">{{ resume.jobTitle }}</div>
+
+        <div class="card-footer">
+          <span class="card-date">{{ resume.updated_at | date:'MMM y' }}</span>
+          <button class="btn-download" (click)="download(resume)">
+            <fa-icon [icon]="downloadIcon"></fa-icon>
+            {{ resume.language === 'fr' ? 'Télécharger' : 'Download' }}
+          </button>
+        </div>
+
       </div>
 
     </div>
   }
 </div>
+
+<app-button class="signout-button" (click)="signOutHandler()" size="md" [type]="buttonType">
+  Signout
+</app-button>
