@@ -2,17 +2,33 @@
   "version": 2,
   "routes": [
     {
-      "src": "^/fr/(.*\\.(js|css|png|jpg|ico|svg))$",
+      "src": "^/fr/assets/(.*)$",
+      "dest": "/dist/porfolio/browser/fr-FR/assets/$1"
+    },
+    {
+      "src": "^/fr/(.*\\.(js|css|png|jpg|ico|svg|woff|woff2|ttf|eot|webp|pdf))$",
       "dest": "/dist/porfolio/browser/fr-FR/$1"
     },
     {
-      "src": "^/en/(.*\\.(js|css|png|jpg|ico|svg))$",
+      "src": "^/assets/(.*)$",
+      "dest": "/dist/porfolio/browser/en-US/assets/$1"
+    },
+    {
+      "src": "^/favicon\\.ico$",
+      "dest": "/dist/porfolio/browser/en-US/favicon.ico"
+    },
+    {
+      "src": "^/(.*\\.(js|css|png|jpg|svg|woff|woff2|ttf|eot|webp))$",
       "dest": "/dist/porfolio/browser/en-US/$1"
     },
     {
       "src": "/(.*)",
       "dest": "/api/ssr"
     }
-  ]
-
+  ],
+  "functions": {
+    "api/ssr.js": {
+      "includeFiles": "dist/porfolio/**"
+    }
+  }
 }
