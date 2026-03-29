@@ -39,11 +39,13 @@ export class ResumeCollectionComponent implements OnInit {
   }
 
   async download(resume: TResume) {
-    this.dbClient.getResume(resume.title).then((response) => {
-        const url = URL.createObjectURL(response.data.data);
+    const fileName = resume.title + '.'+resume.fileType;
+    debugger
+    this.dbClient.getResume(fileName).then((response) => {
+      const url = URL.createObjectURL(response.data.data);
       const link = document.createElement('a');
       link.href = url; // Use the URL directly
-      link.setAttribute('download', resume.title); // Set the file name
+      link.setAttribute('download', fileName); // Set the file name
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);

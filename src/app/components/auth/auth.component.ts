@@ -5,6 +5,7 @@ import { ButtonComponent } from '../button/button.component';
 import { BUTTON } from '../../types/TButtons';
 import { AuthService } from '../../service/auth-service/auth.service';
 import { ToastService } from '../../service/toast-service/toast.service';
+import { strongPasswordValidator } from '../../../validators/strong_password.validator';
 
 @Component({
   selector: 'app-auth',
@@ -21,7 +22,7 @@ export class AuthComponent {
 
   readonly authForm = this.formBuilder.nonNullable.group({
     email: ['', [Validators.required, Validators.email]],
-    password: ['', [Validators.required, Validators.minLength(6)]],
+    password: ['', [Validators.required, Validators.minLength(6), strongPasswordValidator]],
   });
 
   onSubmit(event: Event): void {
