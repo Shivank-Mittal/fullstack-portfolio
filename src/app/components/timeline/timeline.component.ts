@@ -11,68 +11,68 @@ import { isPlatformBrowser } from '@angular/common';
 export class TimelineComponent implements OnInit, OnDestroy {
   experiences = [
     {
-      title: 'Software and AI Systems Engineer',
+      title: $localize`:@@timeline.job1.title:Software and AI Systems Engineer`,
       company: 'Securigeek',
-      duration: 'November 2024 - November 2025',
+      duration: $localize`:@@timeline.job1.duration:November 2024 - November 2025`,
       description: [
-          'Built scalable Angular application with reusable components, interactive dashboards, and data visualizations using charts (E-Charts, Cytoscape) and modern UI patterns.',
-          'Used SSR, Redux state management, lazy loading, and performance profiling.',
-          'Implemented RAG workflows utilizing LLMs for scalable, low-latency information retrieval.',
-          'Integrated hybrid search combining dense and sparse embeddings with Neo4j graph traversal.'
+        $localize`:@@timeline.job1.desc1:Built scalable Angular application with reusable components, interactive dashboards, and data visualizations using charts (E-Charts, Cytoscape) and modern UI patterns.`,
+        $localize`:@@timeline.job1.desc2:Used SSR, Redux state management, lazy loading, and performance profiling.`,
+        $localize`:@@timeline.job1.desc3:Implemented RAG workflows utilizing LLMs for scalable, low-latency information retrieval.`,
+        $localize`:@@timeline.job1.desc4:Integrated hybrid search combining dense and sparse embeddings with Neo4j graph traversal.`
       ]
     },
     {
-      title: 'Software Engineer (Full Stack)',
+      title: $localize`:@@timeline.job2.title:Software Engineer (Full Stack)`,
       company: 'Murex',
-      duration: 'February 2022 - October 2024',
-      description:[
-        'Built and maintained portfolio manager dashboards using Angular 17 and Node JS BFF.',
-        'Ensured seamless migration from Polymer 1 to 3, implemented unit tests with Jest.',
-        'Developed BFF for consuming FIXatdl files and structured it for frontend.'
-      ]
-    },
-    {
-      title: 'Angular Developer Internship',
-      company: 'Murex',
-      duration: 'May 2021 - October 2021',
+      duration: $localize`:@@timeline.job2.duration:February 2022 - October 2024`,
       description: [
-        'Created Angular components for the UI library of Murex with Documentation.',
-        'Wrote UI component Unit Tests ensuring high code coverage.'
+        $localize`:@@timeline.job2.desc1:Built and maintained portfolio manager dashboards using Angular 17 and Node JS BFF.`,
+        $localize`:@@timeline.job2.desc2:Ensured seamless migration from Polymer 1 to 3, implemented unit tests with Jest.`,
+        $localize`:@@timeline.job2.desc3:Developed BFF for consuming FIXatdl files and structured it for frontend.`
       ]
     },
     {
-      title: 'Angular Developer | Designer',
+      title: $localize`:@@timeline.job3.title:Angular Developer Internship`,
+      company: 'Murex',
+      duration: $localize`:@@timeline.job3.duration:May 2021 - October 2021`,
+      description: [
+        $localize`:@@timeline.job3.desc1:Created Angular components for the UI library of Murex with Documentation.`,
+        $localize`:@@timeline.job3.desc2:Wrote UI component Unit Tests ensuring high code coverage.`
+      ]
+    },
+    {
+      title: $localize`:@@timeline.job4.title:Angular Developer | Designer`,
       company: 'Scure Infosec (Freelancer)',
-      duration: 'April 2020 - January 2021',
+      duration: $localize`:@@timeline.job4.duration:April 2020 - January 2021`,
       description: [
-        'Responsible for creation of website designs and prototypes using XD and FIGMA.',
-        'Developed frontend using Angular 8, Material Design, and Bootstrap.'
+        $localize`:@@timeline.job4.desc1:Responsible for creation of website designs and prototypes using XD and FIGMA.`,
+        $localize`:@@timeline.job4.desc2:Developed frontend using Angular 8, Material Design, and Bootstrap.`
       ]
     },
     {
-      title: 'Angular Developer',
+      title: $localize`:@@timeline.job5.title:Angular Developer`,
       company: 'SNEXT',
-      duration: 'March 2019 - February 2020',
+      duration: $localize`:@@timeline.job5.duration:March 2019 - February 2020`,
       description: [
-        'Built an intelligent web dashboard for supply chain management.',
-        'Worked with REST APIs, Angular 7, and TypeScript.'
+        $localize`:@@timeline.job5.desc1:Built an intelligent web dashboard for supply chain management.`,
+        $localize`:@@timeline.job5.desc2:Worked with REST APIs, Angular 7, and TypeScript.`
       ]
     },
     {
-      title: 'SQL Developer',
+      title: $localize`:@@timeline.job6.title:SQL Developer`,
       company: 'QuickSun Technologies',
-      duration: 'August 2017 - February 2019',
+      duration: $localize`:@@timeline.job6.duration:August 2017 - February 2019`,
       description: [
-        'Developed relational database on MS Server and designed schemas.',
-        'Used MS-Business Intelligence tools for reporting.'
+        $localize`:@@timeline.job6.desc1:Developed relational database on MS Server and designed schemas.`,
+        $localize`:@@timeline.job6.desc2:Used MS-Business Intelligence tools for reporting.`
       ]
     },
     {
-      title: 'Junior Java Developer',
+      title: $localize`:@@timeline.job7.title:Junior Java Developer`,
       company: 'Keptbug Technologies',
-      duration: 'November 2015 - November 2016',
+      duration: $localize`:@@timeline.job7.duration:November 2015 - November 2016`,
       description: [
-        'Created backend services according to client needs.'
+        $localize`:@@timeline.job7.desc1:Created backend services according to client needs.`
       ]
     }
   ];

@@ -35,10 +35,10 @@ export class HeroComponent {
 
   // Typing logic
   private readonly fullLines = [
-    'Engineering intelligent',
-    'frontend systems',
-    'powered by',
-    'scalable AI architectures'
+    $localize`:@@hero.line1:Engineering intelligent`,
+    $localize`:@@hero.line2:frontend systems`,
+    $localize`:@@hero.line3:powered by`,
+    $localize`:@@hero.line4:scalable AI architectures`
   ];
 
   private readonly currentCharIndex = signal(0);

@@ -128,3 +128,37 @@ nav {
 .cta a:active {
     transform: scale(0.97);
 }
+
+/* LANGUAGE SWITCHER */
+.lang-switcher {
+    display: flex;
+    align-items: center;
+    gap: var(--space-xs);
+}
+
+.lang-option {
+    font-size: var(--text-sm);
+    font-weight: 500;
+    color: var(--color-text-secondary);
+    cursor: pointer;
+    transition: var(--transition-normal);
+    letter-spacing: 0.5px;
+    text-decoration: none;
+    padding: 2px 4px;
+    border-radius: var(--radius-sm);
+}
+
+.lang-option:hover {
+    color: var(--color-text-primary);
+}
+
+.lang-active {
+    color: var(--color-primary) !important;
+    font-weight: 600;
+}
+
+.lang-divider {
+    color: var(--color-border);
+    font-size: var(--text-sm);
+    user-select: none;
+}

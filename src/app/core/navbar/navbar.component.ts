@@ -1,5 +1,7 @@
-import { Component, ElementRef, inject, input, OnInit, output, signal, viewChildren } from '@angular/core';
+import { Component, ElementRef, inject, input, OnInit, output, signal, viewChildren, PLATFORM_ID } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
 import { map, Observable, single } from 'rxjs';
+import { DOCUMENT } from '@angular/common';
 import { TNavbarInfo, TNavItem } from '../../types/TNavItems';
 import { CommonModule, TitleCasePipe } from '@angular/common';
 import { ResponsiveService } from '../../service/responsive-service/responsive.service';
@@ -14,7 +16,7 @@ import { AuthService } from '../../service/auth-service/auth.service';
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.css',
 })
-export class NavbarComponent {
+export class NavbarComponent implements OnInit {
   items = viewChildren<ElementRef>("navItem");
   navbarInfo = input.required<TNavbarInfo>()
 
@@ -23,6 +25,8 @@ export class NavbarComponent {
   private readonly responseService = inject(ResponsiveService)
   private readonly authService = inject(AuthService);
   private readonly router = inject(Router)
+  private readonly platformId = inject(PLATFORM_ID)
+  private readonly document = inject(DOCUMENT)
 
 
   protected readonly deviceType$ = this.responseService.deviceType$
@@ -51,6 +55,22 @@ export class NavbarComponent {
     })
   )
 
+
+  currentLang: 'en' | 'fr' = 'en';
+
+  ngOnInit() {
+    if (isPlatformBrowser(this.platformId)) {
+      this.currentLang = this.document.location.pathname.startsWith('/fr/') ? 'fr' : 'en';
+    }
+  }
+
+  switchLang(lang: 'en' | 'fr') {
+    if (lang === this.currentLang || !isPlatformBrowser(this.platformId)) return;
+    const path = this.document.location.pathname;
+    this.document.location.href = lang === 'fr'
+      ? '/fr/' + path.replace(/^\//, '')
+      : path.replace(/^\/fr\//, '/');
+  }
 
   // Handlers
   handleElementSection(name: TNavItem){

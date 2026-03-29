@@ -2,27 +2,28 @@
   <div class="auth-card">
     <header class="auth-header">
       <h1 id="auth-title" class="auth-title">SHIVANK MITTAL</h1>
-      <p class="auth-subtitle">ACCESS PROTOCOL · SECURE GATEWAY</p>
+      <p class="auth-subtitle" i18n="@@auth.subtitle">ACCESS PROTOCOL · SECURE GATEWAY</p>
     </header>
 
     <form class="auth-form" [formGroup]="authForm" (ngSubmit)="onSubmit($event)" novalidate>
       <div class="auth-field">
-        <label class="auth-label" for="email">EMAIL ADDRESS</label>
+        <label class="auth-label" for="email" i18n="@@auth.emailLabel">EMAIL ADDRESS</label>
         <input
           id="email"
           class="auth-input"
           formControlName="email"
           type="email"
           placeholder="name@domain.com"
+          i18n-placeholder="@@auth.emailPlaceholder"
           autocomplete="email"
           [attr.aria-invalid]="authForm.controls.email.invalid && authForm.controls.email.touched"
         />
         @if (authForm.controls.email.invalid && authForm.controls.email.touched) {
           <p class="auth-error" role="alert">
             @if (authForm.controls.email.hasError('required')) {
-              Email is required.
+              <span i18n="@@auth.emailRequired">Email is required.</span>
             } @else if (authForm.controls.email.hasError('email')) {
-              Enter a valid email address.
+              <span i18n="@@auth.emailInvalid">Enter a valid email address.</span>
             }
           </p>
         }
@@ -30,8 +31,8 @@
 
       <div class="auth-field">
         <div class="auth-field__top">
-          <label class="auth-label" for="password">PASSWORD</label>
-          <a class="auth-forgot" href="#" (click)="onForgotClick($event)">FORGOT?</a>
+          <label class="auth-label" for="password" i18n="@@auth.passwordLabel">PASSWORD</label>
+          <a class="auth-forgot" href="#" (click)="onForgotClick($event)" i18n="@@auth.forgotPassword">FORGOT?</a>
         </div>
         <input
           id="password"
@@ -45,22 +46,22 @@
         @if (authForm.controls.password.invalid && authForm.controls.password.touched) {
           <p class="auth-error" role="alert">
             @if (authForm.controls.password.hasError('required')) {
-              Password is required.
+              <span i18n="@@auth.passwordRequired">Password is required.</span>
             } @else if (authForm.controls.password.hasError('minlength')) {
-              Password must be at least 6 characters.
+              <span i18n="@@auth.passwordMinLength">Password must be at least 6 characters.</span>
             }
           </p>
         }
       </div>
 
       <div class="auth-actions">
-        <app-button class="auth-submit" size="md" htmlType="submit" [disabled]="authForm.invalid">
+        <app-button class="auth-submit" size="md" htmlType="submit" [disabled]="authForm.invalid" i18n="@@auth.signIn">
           SIGN IN →
         </app-button>
       </div>
 
       <div class="auth-divider" role="separator">
-        <span>OR CONTINUE WITH</span>
+        <span i18n="@@auth.orContinueWith">OR CONTINUE WITH</span>
       </div>
 
       <div class="auth-social">
@@ -71,13 +72,13 @@
             <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z" fill="#FBBC05"/>
             <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/>
           </svg>
-          Continue with Google
+          <span i18n="@@auth.continueWithGoogle">Continue with Google</span>
         </button>
       </div>
 
       <p class="auth-footer">
-        NO ACCESS?
-        <a href="#" (click)="onRequestAccessClick($event)">REQUEST ACCESS +</a>
+        <span i18n="@@auth.noAccess">NO ACCESS?</span>
+        <a href="#" (click)="onRequestAccessClick($event)" i18n="@@auth.requestAccess">REQUEST ACCESS +</a>
       </p>
     </form>
   </div>

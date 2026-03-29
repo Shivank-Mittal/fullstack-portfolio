@@ -1,5 +1,5 @@
 <div class="thumbnail-wrapper" [attr.data-state]="state()">
- 
+
       <!-- Skeleton shimmer -->
       @if (state() === 'skeleton' || state() === 'loading') {
         <div class="skeleton">
@@ -21,7 +21,7 @@
         </div>
       }
 
- 
+
       <!-- PDF.js canvas path -->
       <canvas
         #pdfCanvas
@@ -29,7 +29,7 @@
         [class.visible]="state() === 'loaded'"
         [attr.aria-label]="alt()"
       ></canvas>
-      
+
 
       <!-- Error state -->
       @if (state() === 'error') {
@@ -42,8 +42,8 @@
             <line x1="12" y1="18" x2="12" y2="12"/>
             <line x1="12" y1="10" x2="12.01" y2="10"/>
           </svg>
-          <span>Preview unavailable</span>
+          <span i18n="@@resumeThumbnail.previewUnavailable">Preview unavailable</span>
         </div>
       }
- 
+
     </div>

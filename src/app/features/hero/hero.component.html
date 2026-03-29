@@ -2,7 +2,7 @@
 
 <div id="available-icon">
     <div id="icon"></div>
-    <span id="available-content"> Available for the coloration</span>
+    <span id="available-content" i18n="@@hero.availableStatus"> Available for the coloration</span>
 </div>
 
 <section id="hero">
@@ -22,12 +22,12 @@
     </div>
 
     <section id="hero-info" [class.visible]="typingComplete()">
-        <p>Crafting end-to-end systems that transform complex data into real-time, intelligent user experiences — powered by Angular, AI, and scalable backend architectures</p>
+        <p i18n="@@hero.description">Crafting end-to-end systems that transform complex data into real-time, intelligent user experiences — powered by Angular, AI, and scalable backend architectures</p>
     </section>
 
     <section id="hero-actions" [class.visible]="typingComplete()">
-        <app-button size="md" (click) = "onResumeDownload()"> Download Resume </app-button>
-        <app-button [type]="getInTouchButton" size="md" (click)="getIntTouchHandler()" > Get In Touch</app-button>
+        <app-button size="md" (click) = "onResumeDownload()" i18n="@@hero.downloadResume"> Download Resume </app-button>
+        <app-button [type]="getInTouchButton" size="md" (click)="getIntTouchHandler()" i18n="@@hero.getInTouch"> Get In Touch</app-button>
     </section>
 
 </section>
@@ -39,7 +39,7 @@
         <fa-icon [icon]="icons.briefcase" class="info-icon"></fa-icon>
         <div class="info-text">
             <h1 class="info-header">5+</h1>
-            <p class="info-content">Years of Experience</p>
+            <p class="info-content" i18n="@@hero.yearsOfExperience">Years of Experience</p>
         </div>
     </div>
 
@@ -47,7 +47,7 @@
         <fa-icon [icon]="icons.projectDiagram" class="info-icon"></fa-icon>
         <div class="info-text">
             <h1 class="info-header">AI</h1>
-            <p class="info-content">RAG, Context, Prompts</p>
+            <p class="info-content" i18n="@@hero.aiTopics">RAG, Context, Prompts</p>
         </div>
     </div>
 
@@ -55,7 +55,7 @@
         <fa-icon [icon]="icons.user" class="info-icon"></fa-icon>
         <div class="info-text">
             <h1 class="info-header">Performance</h1>
-            <p class="info-content">SSR, lazy loading</p>
+            <p class="info-content" i18n="@@hero.performanceTopics">SSR, lazy loading</p>
         </div>
     </div>
 

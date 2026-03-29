@@ -14,6 +14,16 @@
         }
 
         
+        <li class="lang-switcher">
+            <a class="lang-option" [class.lang-active]="currentLang === 'en'" (click)="switchLang('en')">
+                🇬🇧 EN
+            </a>
+            <span class="lang-divider">|</span>
+            <a class="lang-option" [class.lang-active]="currentLang === 'fr'" (click)="switchLang('fr')">
+                🇫🇷 FR
+            </a>
+        </li>
+
         <li class="cta" (click)="profileHandler()">
             <div class="identity">
                 @let navbarData = avatarInfo$ | async;

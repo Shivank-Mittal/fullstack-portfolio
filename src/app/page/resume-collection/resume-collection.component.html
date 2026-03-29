@@ -10,7 +10,7 @@
           [alt]="resume.title"
         />
         @if (resume.isNew) {
-          <span class="tag-new">NEW</span>
+          <span class="tag-new" i18n="@@resumeCollection.newTag">NEW</span>
         }
       </div>
 
@@ -18,13 +18,9 @@
 
         <div class="card-lang">
           <span class="lang-dot"></span>
-          {{ resume.language === 'en' ? '🇬🇧 ENGLISH'
-           : resume.language === 'fr' ? '🇫🇷 FRENCH'
-           : '🇮🇳 HINDI' }}
+          {{ getLanguageLabel(resume.language) }}
           <span class="badge badge--{{ resume.type }}">
-            {{ resume.type === 'stage' ? 'Internship'
-             : resume.type === 'CDI'   ? 'Full-time'
-             : 'Fixed-term' }}
+            {{ getTypeLabel(resume.type) }}
           </span>
         </div>
 
@@ -40,7 +36,7 @@
           <span class="card-date">{{ resume.updated_at | date:'MMM y' }}</span>
           <button class="btn-download" (click)="download(resume)">
             <fa-icon [icon]="downloadIcon"></fa-icon>
-            {{ resume.language === 'fr' ? 'Télécharger' : 'Download' }}
+            {{ getDownloadLabel(resume.language) }}
           </button>
         </div>
 
@@ -50,6 +46,6 @@
   }
 </div>
 
-<app-button class="signout-button" (click)="signOutHandler()" size="md" [type]="buttonType">
+<app-button class="signout-button" (click)="signOutHandler()" size="md" [type]="buttonType" i18n="@@resumeCollection.signout">
   Signout
 </app-button>
