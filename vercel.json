@@ -1,14 +1,18 @@
 {
   "version": 2,
-  "rewrites": [
+  "routes": [
     {
-      "source": "/(.*)",
-      "destination": "/api/ssr"
+      "src": "^/fr/(.*\\.(js|css|png|jpg|ico|svg))$",
+      "dest": "/dist/porfolio/browser/fr-FR/$1"
+    },
+    {
+      "src": "^/en/(.*\\.(js|css|png|jpg|ico|svg))$",
+      "dest": "/dist/porfolio/browser/en-US/$1"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/api/ssr"
     }
-  ],
-  "functions": {
-    "api/ssr.js": {
-      "includeFiles": "dist/porfolio/**"
-    }
-  }
+  ]
+
 }
