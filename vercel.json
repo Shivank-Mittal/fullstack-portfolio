@@ -10,6 +10,14 @@
       "dest": "/dist/porfolio/browser/fr-FR/$1"
     },
     {
+      "src": "^/en-US/assets/(.*)$",
+      "dest": "/dist/porfolio/browser/en-US/assets/$1"
+    },
+    {
+      "src": "^/en-US/(.*\\.(js|css|png|jpg|ico|svg|woff|woff2|ttf|eot|webp|pdf))$",
+      "dest": "/dist/porfolio/browser/en-US/$1"
+    },
+    {
       "src": "^/assets/(.*)$",
       "dest": "/dist/porfolio/browser/en-US/assets/$1"
     },
