@@ -21,6 +21,8 @@ import { AuthService } from './service/auth-service/auth.service';
 })
 export class AppComponent implements OnInit{
 
+  informationSection = viewChild.required<ElementRef<HTMLElement>>("information");
+
   responseService = inject(ResponsiveService);
   authClient = inject(AuthService)
 
@@ -45,7 +47,10 @@ export class AppComponent implements OnInit{
 
   // handlers
   navigationHandler(navItem: TNavItem) {
-    this.navItem.set(navItem.id)
+    const homeChildren = document.getElementById("home")?.children[0]?.children as HTMLCollection
+    if(!homeChildren || !homeChildren.length) return;
+    const itemToScroll = homeChildren.namedItem(navItem.id)
+    itemToScroll?.scrollIntoView({behavior: "smooth", block: "start", inline: "nearest"})
   }
 
   ngOnInit(): void {

@@ -3,7 +3,7 @@
     <h3 class="logo" (click)="handleLogoClick()" >Shivank Mittal</h3>
 
     <ul class="item-section">
-        <!-- @if((deviceType$ | async) !== "mobile") {
+        @if((deviceType$ | async) !== "mobile") {
             @for (item of navbarInfo().items; track $index) {
                 <li [id]="item.id" (keydown)="keyInteractionHandler($event)">
                     <a #navItem (click)="handleElementSection(item)">
@@ -11,7 +11,7 @@
                     </a>
                 </li>
             }
-        } -->
+        }
 
         
         <li class="cta" (click)="profileHandler()">

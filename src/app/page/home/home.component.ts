@@ -11,6 +11,9 @@ import { ContactComponent } from '../../features/contact/contact.component';
   imports: [ CommonModule , HeroComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css',
+  host: {
+    'id': 'home'
+  }
 })
 export class HomeComponent {
 
