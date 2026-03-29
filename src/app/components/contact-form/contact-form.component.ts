@@ -3,6 +3,7 @@ import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ButtonComponent } from '../button/button.component';
 import { type TContactForm } from '../../types/TContactForm';
 import { ContactService } from '../../service/contact-service/contact.service';
+import { take } from 'rxjs';
 
 @Component({
   selector: 'app-contact-form',
@@ -36,15 +37,21 @@ export class ContactFormComponent {
     // }
 
     const payload: TContactForm = this.contactForm.getRawValue();
-    this.contactService.addNewContactInfo(payload);
     console.log('Contact form submitted:', payload);
-    this.contactForm.reset({
-      name: '',
-      companyName: '',
-      email: '',
-      phoneNumber: '',
-      message: '',
-    } satisfies TContactForm);
-    this.isSubmitted.set(false);
+    this.contactService.addNewContactInfo(payload)
+      .pipe(take(1))
+      .subscribe({
+        complete: () => {
+              this.contactForm.reset({
+              name: '',
+              companyName: '',
+              email: '',
+              phoneNumber: '',
+              message: '',
+            } satisfies TContactForm);
+            this.isSubmitted.set(false);
+        }
+      }
+      )
   }
 }

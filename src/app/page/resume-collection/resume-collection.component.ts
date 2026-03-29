@@ -53,8 +53,6 @@ export class ResumeCollectionComponent implements OnInit {
   }
 
   private async fetchResumes(){
-    debugger
-
     const resumesInformation = await this.dbClient.getTableData(this.tableName)
     if(resumesInformation.error) {
       this.toasterService.error("Error fetching the resumes");
