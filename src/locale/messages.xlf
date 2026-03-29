@@ -2,6 +2,715 @@
 <xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
   <file source-language="en-US" datatype="plaintext" original="ng2.template">
     <body>
+      <trans-unit id="resumeThumbnail.previewUnavailable" datatype="html">
+        <source>Preview unavailable</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/componenets/resume-thumbnail/resume-thumbnail.component.html</context>
+          <context context-type="linenumber">45,50</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="auth.subtitle" datatype="html">
+        <source>ACCESS PROTOCOL · SECURE GATEWAY</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/auth/auth.component.html</context>
+          <context context-type="linenumber">5,8</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="auth.emailLabel" datatype="html">
+        <source>EMAIL ADDRESS</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/auth/auth.component.html</context>
+          <context context-type="linenumber">10,12</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="auth.emailPlaceholder" datatype="html">
+        <source>name@domain.com</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/auth/auth.component.html</context>
+          <context context-type="linenumber">16,17</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="auth.emailRequired" datatype="html">
+        <source>Email is required.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/auth/auth.component.html</context>
+          <context context-type="linenumber">24,25</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="auth.emailInvalid" datatype="html">
+        <source>Enter a valid email address.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/auth/auth.component.html</context>
+          <context context-type="linenumber">26,28</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="auth.passwordLabel" datatype="html">
+        <source>PASSWORD</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/auth/auth.component.html</context>
+          <context context-type="linenumber">34,35</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="auth.forgotPassword" datatype="html">
+        <source>FORGOT?</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/auth/auth.component.html</context>
+          <context context-type="linenumber">35,37</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="auth.passwordRequired" datatype="html">
+        <source>Password is required.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/auth/auth.component.html</context>
+          <context context-type="linenumber">49,50</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="auth.passwordMinLength" datatype="html">
+        <source>Password must be at least 6 characters.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/auth/auth.component.html</context>
+          <context context-type="linenumber">51,54</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="auth.signIn" datatype="html">
+        <source> SIGN IN → </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/auth/auth.component.html</context>
+          <context context-type="linenumber">59,60</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="auth.orContinueWith" datatype="html">
+        <source>OR CONTINUE WITH</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/auth/auth.component.html</context>
+          <context context-type="linenumber">64,67</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="auth.continueWithGoogle" datatype="html">
+        <source>Continue with Google</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/auth/auth.component.html</context>
+          <context context-type="linenumber">75,77</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="auth.noAccess" datatype="html">
+        <source>NO ACCESS?</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/auth/auth.component.html</context>
+          <context context-type="linenumber">80,81</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="auth.requestAccess" datatype="html">
+        <source>REQUEST ACCESS +</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/auth/auth.component.html</context>
+          <context context-type="linenumber">81,84</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="auth.toast.emailPasswordNotImplemented" datatype="html">
+        <source>Email/password sign-in is not implemented yet. Use &quot;Continue with Google&quot;.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/auth/auth.component.ts</context>
+          <context context-type="linenumber">38</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="auth.toast.googleSignInFailed" datatype="html">
+        <source>Google sign-in failed. Please try again.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/auth/auth.component.ts</context>
+          <context context-type="linenumber">47</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/service/auth-service/auth.service.ts</context>
+          <context context-type="linenumber">72</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="auth.toast.passwordReset" datatype="html">
+        <source>Password can not be reset, Please try the Google sign-in option.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/auth/auth.component.ts</context>
+          <context context-type="linenumber">53</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="auth.toast.noAccess" datatype="html">
+        <source>We are not accepting new users at the moment. Please try again later.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/auth/auth.component.ts</context>
+          <context context-type="linenumber">58</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="contactForm.title" datatype="html">
+        <source>Contact form</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/contact-form/contact-form.component.html</context>
+          <context context-type="linenumber">2,4</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="contactForm.nameLabel" datatype="html">
+        <source>Full Name</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/contact-form/contact-form.component.html</context>
+          <context context-type="linenumber">8,10</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="contactForm.namePlaceholder" datatype="html">
+        <source>John Doe</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/contact-form/contact-form.component.html</context>
+          <context context-type="linenumber">13,14</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="contactForm.nameRequired" datatype="html">
+        <source>Name is required.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/contact-form/contact-form.component.html</context>
+          <context context-type="linenumber">19,23</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="contactForm.companyLabel" datatype="html">
+        <source>Company Name</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/contact-form/contact-form.component.html</context>
+          <context context-type="linenumber">24,26</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="contactForm.companyPlaceholder" datatype="html">
+        <source>Organization</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/contact-form/contact-form.component.html</context>
+          <context context-type="linenumber">29,30</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="contactForm.companyRequired" datatype="html">
+        <source>Company name is required.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/contact-form/contact-form.component.html</context>
+          <context context-type="linenumber">35,40</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="contactForm.emailLabel" datatype="html">
+        <source>Email Address</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/contact-form/contact-form.component.html</context>
+          <context context-type="linenumber">41,43</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="contactForm.emailPlaceholder" datatype="html">
+        <source>hello@example.com</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/contact-form/contact-form.component.html</context>
+          <context context-type="linenumber">46,47</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="contactForm.emailRequired" datatype="html">
+        <source>Email is required.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/contact-form/contact-form.component.html</context>
+          <context context-type="linenumber">54,55</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="contactForm.emailInvalid" datatype="html">
+        <source>Enter a valid email address.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/contact-form/contact-form.component.html</context>
+          <context context-type="linenumber">56,59</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="contactForm.phoneLabel" datatype="html">
+        <source>Phone Number</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/contact-form/contact-form.component.html</context>
+          <context context-type="linenumber">63,65</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="contactForm.phonePlaceholder" datatype="html">
+        <source>+1 555 123 4567</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/contact-form/contact-form.component.html</context>
+          <context context-type="linenumber">68,69</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="contactForm.messageLabel" datatype="html">
+        <source>Message</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/contact-form/contact-form.component.html</context>
+          <context context-type="linenumber">75,77</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="contactForm.messagePlaceholder" datatype="html">
+        <source>Tell me about your project or inquiry...</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/contact-form/contact-form.component.html</context>
+          <context context-type="linenumber">80,81</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="contactForm.messageRequired" datatype="html">
+        <source>Message is required.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/contact-form/contact-form.component.html</context>
+          <context context-type="linenumber">84,88</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="contactForm.sendMessage" datatype="html">
+        <source> Send Message </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/contact-form/contact-form.component.html</context>
+          <context context-type="linenumber">94,96</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="contactForm.caption" datatype="html">
+        <source>I typically respond within 24 business hours.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/contact-form/contact-form.component.html</context>
+          <context context-type="linenumber">98,101</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="toast.notifications" datatype="html">
+        <source>Notifications</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/toaster/toaster.component.html</context>
+          <context context-type="linenumber">2</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="toast.success" datatype="html">
+        <source>Success</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/toaster/toaster.component.html</context>
+          <context context-type="linenumber">14,15</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="toast.error" datatype="html">
+        <source>Error</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/toaster/toaster.component.html</context>
+          <context context-type="linenumber">15,16</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="toast.notice" datatype="html">
+        <source>Notice</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/toaster/toaster.component.html</context>
+          <context context-type="linenumber">16,18</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="toast.dismiss" datatype="html">
+        <source>Dismiss</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/toaster/toaster.component.html</context>
+          <context context-type="linenumber">25</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="footer.headline" datatype="html">
+        <source> Let&apos;s build something <x id="START_TAG_SPAN" ctype="x-span" equiv-text="&lt;span&gt;"/>impactful<x id="CLOSE_TAG_SPAN" ctype="x-span" equiv-text="&lt;/span&gt;"/></source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/core/footer/footer.component.html</context>
+          <context context-type="linenumber">7,11</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="footer.subtext" datatype="html">
+        <source> I design scalable frontend systems with performance and clarity in mind. </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/core/footer/footer.component.html</context>
+          <context context-type="linenumber">12,15</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="footer.getInTouch" datatype="html">
+        <source>Get In Touch</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/core/footer/footer.component.html</context>
+          <context context-type="linenumber">16,18</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="footer.copyright" datatype="html">
+        <source>© 2026 Shivank Mittal</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/core/footer/footer.component.html</context>
+          <context context-type="linenumber">25,26</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="footer.availableStatus" datatype="html">
+        <source>Available for opportunities</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/core/footer/footer.component.html</context>
+          <context context-type="linenumber">27,31</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="about.heading" datatype="html">
+        <source>Engineering systems that <x id="START_TAG_SPAN" ctype="x-span" equiv-text="&lt;span id=&quot;header-content_highlight&quot;&gt;"/> scale beyond <x id="CLOSE_TAG_SPAN" ctype="x-span" equiv-text="&lt;/span&gt;"/> the interface. </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/about/about.component.html</context>
+          <context context-type="linenumber">2,6</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="about.para1" datatype="html">
+        <source> With 6+ years building production systems, I specialize in frontend architecture, distributed system design, and integrating AI pipelines into user-facing products. </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/about/about.component.html</context>
+          <context context-type="linenumber">9,11</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="about.para2" datatype="html">
+        <source> I&apos;ve led micro-frontend migrations serving 2M+ users, optimized Core Web Vitals across enterprise applications, and designed real-time data pipelines for ML-powered features. </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/about/about.component.html</context>
+          <context context-type="linenumber">12,14</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="about.para3" datatype="html">
+        <source> My approach is systems-first: every component, every abstraction, every API boundary is designed for resilience, observability, and team velocity </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/about/about.component.html</context>
+          <context context-type="linenumber">15,17</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="about.card1Header" datatype="html">
+        <source> Clean Architecture </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/about/about.component.html</context>
+          <context context-type="linenumber">23,24</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="about.card1Content" datatype="html">
+        <source> Systems-first thinking with composable, testable abstractions</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/about/about.component.html</context>
+          <context context-type="linenumber">24,25</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="about.card2Header" datatype="html">
+        <source> Scalable Systems </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/about/about.component.html</context>
+          <context context-type="linenumber">29,30</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="about.card2Content" datatype="html">
+        <source> Designed platforms serving millions with sub-second latency</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/about/about.component.html</context>
+          <context context-type="linenumber">30,31</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="about.card3Header" datatype="html">
+        <source> Performance Obsessed </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/about/about.component.html</context>
+          <context context-type="linenumber">35,36</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="about.card3Content" datatype="html">
+        <source> Optimized Core Web Vitals across enterprise applications</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/about/about.component.html</context>
+          <context context-type="linenumber">36,37</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="about.card4Header" datatype="html">
+        <source> Full Stack Reach </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/about/about.component.html</context>
+          <context context-type="linenumber">41,42</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="about.card4Content" datatype="html">
+        <source> From database schemas to pixel-perfect interfaces</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/about/about.component.html</context>
+          <context context-type="linenumber">42,43</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="career.title" datatype="html">
+        <source> 5 Years of <x id="START_TAG_SPAN" ctype="x-span" equiv-text="&lt;span&gt;"/> Evolution <x id="CLOSE_TAG_SPAN" ctype="x-span" equiv-text="&lt;/span&gt;"/></source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/carrer/carrer.component.html</context>
+          <context context-type="linenumber">3,4</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="career.caption" datatype="html">
+        <source> POFFESTIONAL EXPERIENCE </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/carrer/carrer.component.html</context>
+          <context context-type="linenumber">4,6</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="contact.heading" datatype="html">
+        <source> Let&apos;s build something <x id="START_TAG_SPAN" ctype="x-span" equiv-text="&lt;span&gt;"/> together <x id="CLOSE_TAG_SPAN" ctype="x-span" equiv-text="&lt;/span&gt;"/>. </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/contact/contact.component.html</context>
+          <context context-type="linenumber">3,6</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="contact.description" datatype="html">
+        <source>Open to discussing architecture challenges, system design consulting, or full-time engineering roles. Let&apos;s talk.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/contact/contact.component.html</context>
+          <context context-type="linenumber">6,11</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="hero.availableStatus" datatype="html">
+        <source> Available for the coloration</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/hero/hero.component.html</context>
+          <context context-type="linenumber">5,8</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="hero.description" datatype="html">
+        <source>Crafting end-to-end systems that transform complex data into real-time, intelligent user experiences — powered by Angular, AI, and scalable backend architectures</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/hero/hero.component.html</context>
+          <context context-type="linenumber">25,28</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="hero.downloadResume" datatype="html">
+        <source> Download Resume </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/hero/hero.component.html</context>
+          <context context-type="linenumber">29,30</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="hero.getInTouch" datatype="html">
+        <source> Get In Touch</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/hero/hero.component.html</context>
+          <context context-type="linenumber">30,33</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="hero.yearsOfExperience" datatype="html">
+        <source>Years of Experience</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/hero/hero.component.html</context>
+          <context context-type="linenumber">42,46</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="hero.aiTopics" datatype="html">
+        <source>RAG, Context, Prompts</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/hero/hero.component.html</context>
+          <context context-type="linenumber">50,52</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="hero.performanceTopics" datatype="html">
+        <source>SSR, lazy loading</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/hero/hero.component.html</context>
+          <context context-type="linenumber">58,62</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="hero.line1" datatype="html">
+        <source>Engineering intelligent</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/hero/hero.component.ts</context>
+          <context context-type="linenumber">38</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="hero.line2" datatype="html">
+        <source>frontend systems</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/hero/hero.component.ts</context>
+          <context context-type="linenumber">39</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="hero.line3" datatype="html">
+        <source>powered by</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/hero/hero.component.ts</context>
+          <context context-type="linenumber">40</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="hero.line4" datatype="html">
+        <source>scalable AI architectures</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/hero/hero.component.ts</context>
+          <context context-type="linenumber">41</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="techDepth.heading" datatype="html">
+        <source>Technical depth <x id="START_TAG_SPAN" ctype="x-span" equiv-text="&lt;span&gt;"/> across the stack. <x id="CLOSE_TAG_SPAN" ctype="x-span" equiv-text="&lt;/span&gt;"/></source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/tech-depth/tech-depth.component.html</context>
+          <context context-type="linenumber">1,3</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="techDepth.card.frontend" datatype="html">
+        <source>frontend</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/tech-depth/tech-depth.component.ts</context>
+          <context context-type="linenumber">17</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="techDepth.card.backend" datatype="html">
+        <source>backend</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/tech-depth/tech-depth.component.ts</context>
+          <context context-type="linenumber">27</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="techDepth.card.systemDesign" datatype="html">
+        <source>System Design</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/tech-depth/tech-depth.component.ts</context>
+          <context context-type="linenumber">37</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="techDepth.card.devopsAi" datatype="html">
+        <source>DevOps &amp; AI</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/features/tech-depth/tech-depth.component.ts</context>
+          <context context-type="linenumber">47</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="pageContact.heading" datatype="html">
+        <source>Let&apos;s build something <x id="START_TAG_SPAN" ctype="x-span" equiv-text="&lt;span class=&quot;colored-text&quot;&gt;"/>exceptional.<x id="CLOSE_TAG_SPAN" ctype="x-span" equiv-text="&lt;/span&gt;"/></source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/page/contact/contact.component.html</context>
+          <context context-type="linenumber">2,3</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="pageContact.description1" datatype="html">
+        <source>With over 5 years of experience architecting digital solutions, I specialize in building high-performance frontend interfaces, robust backend systems, and integrated AI applications.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/page/contact/contact.component.html</context>
+          <context context-type="linenumber">3,4</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="pageContact.description2" datatype="html">
+        <source>Whether you&apos;re a startup looking for an MVP or an established enterprise seeking technical leadership, I help turn complex ideas into seamless user experiences.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/page/contact/contact.component.html</context>
+          <context context-type="linenumber">4,7</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="pageContact.formAriaLabel" datatype="html">
+        <source>Contact form</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/page/contact/contact.component.html</context>
+          <context context-type="linenumber">7</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="nav.about" datatype="html">
+        <source>about</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/page/home/home.component.ts</context>
+          <context context-type="linenumber">24</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="nav.tech" datatype="html">
+        <source>tech</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/page/home/home.component.ts</context>
+          <context context-type="linenumber">25</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="nav.careerTimeline" datatype="html">
+        <source>carrier timeline</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/page/home/home.component.ts</context>
+          <context context-type="linenumber">26</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="nav.contact" datatype="html">
+        <source>contact</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/page/home/home.component.ts</context>
+          <context context-type="linenumber">27</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="resumeCollection.newTag" datatype="html">
+        <source>NEW</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/page/resume-collection/resume-collection.component.html</context>
+          <context context-type="linenumber">13,17</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="resumeCollection.signout" datatype="html">
+        <source> Signout
+</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/page/resume-collection/resume-collection.component.html</context>
+          <context context-type="linenumber">50,52</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="resumeCollection.lang.en" datatype="html">
+        <source>🇬🇧 ENGLISH</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/page/resume-collection/resume-collection.component.ts</context>
+          <context context-type="linenumber">59</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="resumeCollection.lang.fr" datatype="html">
+        <source>🇫🇷 FRENCH</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/page/resume-collection/resume-collection.component.ts</context>
+          <context context-type="linenumber">60</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="resumeCollection.lang.hi" datatype="html">
+        <source>🇮🇳 HINDI</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/page/resume-collection/resume-collection.component.ts</context>
+          <context context-type="linenumber">61</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="resumeCollection.type.internship" datatype="html">
+        <source>Internship</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/page/resume-collection/resume-collection.component.ts</context>
+          <context context-type="linenumber">67</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="resumeCollection.type.fullTime" datatype="html">
+        <source>Full-time</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/page/resume-collection/resume-collection.component.ts</context>
+          <context context-type="linenumber">68</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="resumeCollection.type.fixedTerm" datatype="html">
+        <source>Fixed-term</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/page/resume-collection/resume-collection.component.ts</context>
+          <context context-type="linenumber">69</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="resumeCollection.download.fr" datatype="html">
+        <source>Télécharger</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/page/resume-collection/resume-collection.component.ts</context>
+          <context context-type="linenumber">75</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="resumeCollection.download.en" datatype="html">
+        <source>Download</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/page/resume-collection/resume-collection.component.ts</context>
+          <context context-type="linenumber">76</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="resumeCollection.toast.fetchError" datatype="html">
+        <source>Error fetching the resumes</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/page/resume-collection/resume-collection.component.ts</context>
+          <context context-type="linenumber">82</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="auth.toast.loggedOut" datatype="html">
+        <source>Successfully logged out</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/service/auth-service/auth.service.ts</context>
+          <context context-type="linenumber">59</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="auth.toast.loggedIn" datatype="html">
+        <source>Successfully logged in</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/service/auth-service/auth.service.ts</context>
+          <context context-type="linenumber">65</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/service/auth-service/auth.service.ts</context>
+          <context context-type="linenumber">66</context>
+        </context-group>
+      </trans-unit>
     </body>
   </file>
 </xliff>

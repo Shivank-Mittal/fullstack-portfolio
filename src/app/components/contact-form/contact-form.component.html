@@ -1,94 +1,100 @@
 <section class="contact-form-shell" aria-labelledby="contact-form-title">
-  <h3 id="contact-form-title" class="sr-only">Contact form</h3>
+  <h3 id="contact-form-title" class="sr-only" i18n="@@contactForm.title">Contact form</h3>
 
   <form class="contact-form" [formGroup]="contactForm" (submit)="onSubmit($event)" novalidate>
     <div class="contact-form__group">
     <div class="contact-form__row">
       <div class="contact-form__field">
-        <label for="name">Full Name</label>
+        <label for="name" i18n="@@contactForm.nameLabel">Full Name</label>
         <input
           id="name"
           formControlName="name"
           type="text"
           placeholder="John Doe"
+          i18n-placeholder="@@contactForm.namePlaceholder"
           autocomplete="name"
           [attr.aria-invalid]="contactForm.controls.name.invalid && (contactForm.controls.name.touched || isSubmitted())"
         />
         @if (contactForm.controls.name.invalid && (contactForm.controls.name.touched || isSubmitted())) {
-          <p class="contact-form__error">Name is required.</p>
+          <p class="contact-form__error" i18n="@@contactForm.nameRequired">Name is required.</p>
         }
       </div>
 
       <div class="contact-form__field">
-        <label for="companyName">Company Name</label>
+        <label for="companyName" i18n="@@contactForm.companyLabel">Company Name</label>
         <input
           id="companyName"
           formControlName="companyName"
           type="text"
           placeholder="Organization"
+          i18n-placeholder="@@contactForm.companyPlaceholder"
           autocomplete="organization"
           [attr.aria-invalid]="contactForm.controls.companyName.invalid && (contactForm.controls.companyName.touched || isSubmitted())"
         />
         @if (contactForm.controls.companyName.invalid && (contactForm.controls.companyName.touched || isSubmitted())) {
-          <p class="contact-form__error">Company name is required.</p>
+          <p class="contact-form__error" i18n="@@contactForm.companyRequired">Company name is required.</p>
         }
       </div>
     </div>
 
     <div class="contact-form__field contact-form__field--full">
-      <label for="email">Email Address</label>
+      <label for="email" i18n="@@contactForm.emailLabel">Email Address</label>
       <input
         id="email"
         formControlName="email"
         type="email"
         placeholder="hello@example.com"
+        i18n-placeholder="@@contactForm.emailPlaceholder"
         autocomplete="email"
         [attr.aria-invalid]="contactForm.controls.email.invalid && (contactForm.controls.email.touched || isSubmitted())"
       />
       @if (contactForm.controls.email.invalid && (contactForm.controls.email.touched || isSubmitted())) {
         <p class="contact-form__error">
           @if (contactForm.controls.email.hasError('required')) {
-            Email is required.
+            <span i18n="@@contactForm.emailRequired">Email is required.</span>
           } @else if (contactForm.controls.email.hasError('email')) {
-            Enter a valid email address.
+            <span i18n="@@contactForm.emailInvalid">Enter a valid email address.</span>
           }
         </p>
       }
     </div>
 
     <div class="contact-form__field contact-form__field--full">
-      <label for="phoneNumber">Phone Number</label>
+      <label for="phoneNumber" i18n="@@contactForm.phoneLabel">Phone Number</label>
       <input
         id="phoneNumber"
         formControlName="phoneNumber"
         type="tel"
         placeholder="+1 555 123 4567"
+        i18n-placeholder="@@contactForm.phonePlaceholder"
         autocomplete="tel"
       />
     </div>
 
     <div class="contact-form__field contact-form__field--full">
-      <label for="message">Message</label>
+      <label for="message" i18n="@@contactForm.messageLabel">Message</label>
       <textarea
         id="message"
         formControlName="message"
         rows="6"
         placeholder="Tell me about your project or inquiry..."
+        i18n-placeholder="@@contactForm.messagePlaceholder"
       ></textarea>
         @if (contactForm.controls.message.invalid && (contactForm.controls.name.touched || isSubmitted())) {
-          <p class="contact-form__error">Message is required.</p>
+          <p class="contact-form__error" i18n="@@contactForm.messageRequired">Message is required.</p>
         }
       </div>
 
-      <app-button 
-        class="contact-form__submit" 
-        size="md" 
+      <app-button
+        class="contact-form__submit"
+        size="md"
         htmlType="submit"
-        [disabled]="contactForm.invalid" >
+        [disabled]="contactForm.invalid"
+        i18n="@@contactForm.sendMessage">
         Send Message
       </app-button>
     </div>
 
-    <p class="contact-form__caption">I typically respond within 24 business hours.</p>
+    <p class="contact-form__caption" i18n="@@contactForm.caption">I typically respond within 24 business hours.</p>
   </form>
 </section>

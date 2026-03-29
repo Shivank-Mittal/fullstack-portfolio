@@ -1,45 +1,45 @@
 <section id="about-info">
-    <h3 id="header-content" #animatedPara>Engineering systems that 
+    <h3 id="header-content" #animatedPara i18n="@@about.heading">Engineering systems that
         <span id="header-content_highlight"> scale beyond </span>
         the interface.
     </h3>
 
     <div id="content-section">
-        <p id="content" #animatedPara>
+        <p id="content" #animatedPara i18n="@@about.para1">
             With 6+ years building production systems, I specialize in frontend architecture, distributed system design, and integrating AI pipelines into user-facing products.
         </p>
-        <p id="content" #animatedPara>
+        <p id="content" #animatedPara i18n="@@about.para2">
             I've led micro-frontend migrations serving 2M+ users, optimized Core Web Vitals across enterprise applications, and designed real-time data pipelines for ML-powered features.
         </p>
-        <p id="content" #animatedPara>
+        <p id="content" #animatedPara i18n="@@about.para3">
              My approach is systems-first: every component, every abstraction, every API boundary is designed for resilience, observability, and team velocity
         </p>
     </div>
 
 
     <section id="cards">
-        <app-card icon="test" heading="Testing" #animatedPara> 
+        <app-card icon="test" heading="Testing" #animatedPara>
             <fa-icon [icon]="icons.code" ></fa-icon>
-            <ng-container ngProjectAs="card-header"> Clean Architecture </ng-container>
-            <ng-container ngProjectAs="card-content"> Systems-first thinking with composable, testable abstractions</ng-container>
+            <ng-container ngProjectAs="card-header" i18n="@@about.card1Header"> Clean Architecture </ng-container>
+            <ng-container ngProjectAs="card-content" i18n="@@about.card1Content"> Systems-first thinking with composable, testable abstractions</ng-container>
         </app-card>
 
-        <app-card icon="test" heading="Testing" #animatedPara> 
+        <app-card icon="test" heading="Testing" #animatedPara>
             <fa-icon [icon]="icons.boxStack"></fa-icon>
-            <ng-container ngProjectAs="card-header"> Scalable Systems </ng-container>
-            <ng-container ngProjectAs="card-content"> Designed platforms serving millions with sub-second latency</ng-container>
+            <ng-container ngProjectAs="card-header" i18n="@@about.card2Header"> Scalable Systems </ng-container>
+            <ng-container ngProjectAs="card-content" i18n="@@about.card2Content"> Designed platforms serving millions with sub-second latency</ng-container>
         </app-card>
 
-        <app-card icon="test" heading="Testing" #animatedPara> 
+        <app-card icon="test" heading="Testing" #animatedPara>
             <fa-icon [icon]="icons.lightning"></fa-icon>
-            <ng-container ngProjectAs="card-header"> Performance Obsessed </ng-container>
-            <ng-container ngProjectAs="card-content"> Optimized Core Web Vitals across enterprise applications</ng-container>
+            <ng-container ngProjectAs="card-header" i18n="@@about.card3Header"> Performance Obsessed </ng-container>
+            <ng-container ngProjectAs="card-content" i18n="@@about.card3Content"> Optimized Core Web Vitals across enterprise applications</ng-container>
         </app-card>
 
-        <app-card icon="test" heading="Testing" #animatedPara> 
+        <app-card icon="test" heading="Testing" #animatedPara>
             <fa-icon [icon]="icons.cubeStack"></fa-icon>
-            <ng-container ngProjectAs="card-header"> Full Stack Reach </ng-container>
-            <ng-container ngProjectAs="card-content"> From database schemas to pixel-perfect interfaces</ng-container>
+            <ng-container ngProjectAs="card-header" i18n="@@about.card4Header"> Full Stack Reach </ng-container>
+            <ng-container ngProjectAs="card-content" i18n="@@about.card4Content"> From database schemas to pixel-perfect interfaces</ng-container>
         </app-card>
     </section>
 
@@ -47,7 +47,7 @@
 
 <section id="about-code">
 
-    <app-code-view 
+    <app-code-view
         title="Testing"
         [showHeader]="true"
         code='const approach = {

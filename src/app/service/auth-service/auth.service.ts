@@ -56,20 +56,20 @@ export class AuthService {
   async signOut() {
     this.superbaseClient.auth.signOut();
     this.loginSubject.next({loggedIn: false});
-    this.toasterService.success('Successfully logged out')
+    this.toasterService.success($localize`:@@auth.toast.loggedOut:Successfully logged out`)
   }
 
 
   private successSignInHandler(user: any) {
     this.loginSubject.next({loggedIn: true, user});
-    this.toasterService.success('Successfully logged in');
-    this.showToaster('Successfully logged in', 'success');
+    this.toasterService.success($localize`:@@auth.toast.loggedIn:Successfully logged in`);
+    this.showToaster($localize`:@@auth.toast.loggedIn:Successfully logged in`, 'success');
   }
 
   private errorSignInHandler(error: any) {
     this.loginSubject.next({loggedIn: false});
     console.error('Google sign-in failed:', error);
-    this.showToaster('Google sign-in failed. Please try again.', 'error');
+    this.showToaster($localize`:@@auth.toast.googleSignInFailed:Google sign-in failed. Please try again.`, 'error');
   }
 
 

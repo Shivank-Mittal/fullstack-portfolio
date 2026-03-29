@@ -35,7 +35,7 @@ export class AuthComponent {
 
     // Your `AuthService` currently implements Google OAuth only.
     this.toastService.neutral(
-      'Email/password sign-in is not implemented yet. Use "Continue with Google".',
+      $localize`:@@auth.toast.emailPasswordNotImplemented:Email/password sign-in is not implemented yet. Use "Continue with Google".`,
     );
   }
 
@@ -44,18 +44,18 @@ export class AuthComponent {
       await this.authService.signInWithGoogle();
     } catch (error: unknown) {
       console.error('Google sign-in failed:', error);
-      this.toastService.error('Google sign-in failed. Please try again.');
+      this.toastService.error($localize`:@@auth.toast.googleSignInFailed:Google sign-in failed. Please try again.`);
     }
   }
 
   onForgotClick(event: Event): void {
     event.preventDefault();
-    this.toastService.neutral('Password can not be reset, Please try the Google sign-in option.');
+    this.toastService.neutral($localize`:@@auth.toast.passwordReset:Password can not be reset, Please try the Google sign-in option.`);
   }
 
   onRequestAccessClick(event: Event): void {
     event.preventDefault();
-    this.toastService.neutral('We are not accepting new users at the moment. Please try again later.');
+    this.toastService.neutral($localize`:@@auth.toast.noAccess:We are not accepting new users at the moment. Please try again later.`);
   }
 }
 

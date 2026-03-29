@@ -14,7 +14,7 @@ export class TechDepthComponent {
 
   cardsInfo = [
     {
-      name: "frontend",
+      name: $localize`:@@techDepth.card.frontend:frontend`,
       icon: faLaptopCode,
       data: `React (Server Components, Render Optimization)
 TypeScript (Strict Mode, Advanced Generics)
@@ -24,7 +24,7 @@ Micro-Frontends (Module Federation)
 Performance (CWV, Bundle Analysis, Tree-shaking)`
     },
     {
-      name: "backend",
+      name: $localize`:@@techDepth.card.backend:backend`,
       icon: faServer,
       data: `Node.js (Express, Fastify, NestJS)
 Python (FastAPI, Django REST)
@@ -34,7 +34,7 @@ GraphQL (Federation, DataLoader, Subscriptions)
 REST API Design (OpenAPI, Versioning)`
     },
     {
-      name: "System Design",
+      name: $localize`:@@techDepth.card.systemDesign:System Design`,
       icon: faSitemap,
       data: `Distributed Systems & CAP Theorem
 Event-Driven Architecture (Kafka, RabbitMQ)
@@ -44,7 +44,7 @@ Observability (Datadog, Grafana, OTel)
 CI/CD Pipeline Design (GitHub Actions)`
     },
     {
-      name: "DevOps & AI",
+      name: $localize`:@@techDepth.card.devopsAi:DevOps & AI`,
       icon: faMicrochip, // Using Microchip for the AI/Infrastructure focus
       data: `LLM Integration (OpenAI, Anthropic APIs)
 RAG Pipelines (Pinecone, Weaviate)

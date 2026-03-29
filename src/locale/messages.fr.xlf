@@ -1,7 +1,409 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
-  <file source-language="en-US" datatype="plaintext" original="ng2.template">
+  <file source-language="en-US" target-language="fr-FR" datatype="plaintext" original="ng2.template">
     <body>
+      <trans-unit id="resumeThumbnail.previewUnavailable" datatype="html">
+        <source>Preview unavailable</source>
+        <target>Aperçu indisponible</target>
+      </trans-unit>
+      <trans-unit id="auth.subtitle" datatype="html">
+        <source>ACCESS PROTOCOL · SECURE GATEWAY</source>
+        <target>PROTOCOLE D'ACCÈS · PASSERELLE SÉCURISÉE</target>
+      </trans-unit>
+      <trans-unit id="auth.emailLabel" datatype="html">
+        <source>EMAIL ADDRESS</source>
+        <target>ADRESSE E-MAIL</target>
+      </trans-unit>
+      <trans-unit id="auth.emailPlaceholder" datatype="html">
+        <source>name@domain.com</source>
+        <target>nom@domaine.com</target>
+      </trans-unit>
+      <trans-unit id="auth.emailRequired" datatype="html">
+        <source>Email is required.</source>
+        <target>L'e-mail est requis.</target>
+      </trans-unit>
+      <trans-unit id="auth.emailInvalid" datatype="html">
+        <source>Enter a valid email address.</source>
+        <target>Entrez une adresse e-mail valide.</target>
+      </trans-unit>
+      <trans-unit id="auth.passwordLabel" datatype="html">
+        <source>PASSWORD</source>
+        <target>MOT DE PASSE</target>
+      </trans-unit>
+      <trans-unit id="auth.forgotPassword" datatype="html">
+        <source>FORGOT?</source>
+        <target>OUBLIÉ ?</target>
+      </trans-unit>
+      <trans-unit id="auth.passwordRequired" datatype="html">
+        <source>Password is required.</source>
+        <target>Le mot de passe est requis.</target>
+      </trans-unit>
+      <trans-unit id="auth.passwordMinLength" datatype="html">
+        <source>Password must be at least 6 characters.</source>
+        <target>Le mot de passe doit contenir au moins 6 caractères.</target>
+      </trans-unit>
+      <trans-unit id="auth.signIn" datatype="html">
+        <source> SIGN IN → </source>
+        <target> SE CONNECTER → </target>
+      </trans-unit>
+      <trans-unit id="auth.orContinueWith" datatype="html">
+        <source>OR CONTINUE WITH</source>
+        <target>OU CONTINUER AVEC</target>
+      </trans-unit>
+      <trans-unit id="auth.continueWithGoogle" datatype="html">
+        <source>Continue with Google</source>
+        <target>Continuer avec Google</target>
+      </trans-unit>
+      <trans-unit id="auth.noAccess" datatype="html">
+        <source>NO ACCESS?</source>
+        <target>PAS D'ACCÈS ?</target>
+      </trans-unit>
+      <trans-unit id="auth.requestAccess" datatype="html">
+        <source>REQUEST ACCESS +</source>
+        <target>DEMANDER L'ACCÈS +</target>
+      </trans-unit>
+      <trans-unit id="auth.toast.emailPasswordNotImplemented" datatype="html">
+        <source>Email/password sign-in is not implemented yet. Use &quot;Continue with Google&quot;.</source>
+        <target>La connexion par e-mail/mot de passe n'est pas encore disponible. Utilisez &quot;Continuer avec Google&quot;.</target>
+      </trans-unit>
+      <trans-unit id="auth.toast.googleSignInFailed" datatype="html">
+        <source>Google sign-in failed. Please try again.</source>
+        <target>La connexion Google a échoué. Veuillez réessayer.</target>
+      </trans-unit>
+      <trans-unit id="auth.toast.passwordReset" datatype="html">
+        <source>Password can not be reset, Please try the Google sign-in option.</source>
+        <target>Le mot de passe ne peut pas être réinitialisé. Veuillez utiliser l'option de connexion Google.</target>
+      </trans-unit>
+      <trans-unit id="auth.toast.noAccess" datatype="html">
+        <source>We are not accepting new users at the moment. Please try again later.</source>
+        <target>Nous n'acceptons pas de nouveaux utilisateurs pour le moment. Veuillez réessayer plus tard.</target>
+      </trans-unit>
+      <trans-unit id="contactForm.title" datatype="html">
+        <source>Contact form</source>
+        <target>Formulaire de contact</target>
+      </trans-unit>
+      <trans-unit id="contactForm.nameLabel" datatype="html">
+        <source>Full Name</source>
+        <target>Nom complet</target>
+      </trans-unit>
+      <trans-unit id="contactForm.namePlaceholder" datatype="html">
+        <source>John Doe</source>
+        <target>Jean Dupont</target>
+      </trans-unit>
+      <trans-unit id="contactForm.nameRequired" datatype="html">
+        <source>Name is required.</source>
+        <target>Le nom est requis.</target>
+      </trans-unit>
+      <trans-unit id="contactForm.companyLabel" datatype="html">
+        <source>Company Name</source>
+        <target>Nom de l'entreprise</target>
+      </trans-unit>
+      <trans-unit id="contactForm.companyPlaceholder" datatype="html">
+        <source>Organization</source>
+        <target>Organisation</target>
+      </trans-unit>
+      <trans-unit id="contactForm.companyRequired" datatype="html">
+        <source>Company name is required.</source>
+        <target>Le nom de l'entreprise est requis.</target>
+      </trans-unit>
+      <trans-unit id="contactForm.emailLabel" datatype="html">
+        <source>Email Address</source>
+        <target>Adresse e-mail</target>
+      </trans-unit>
+      <trans-unit id="contactForm.emailPlaceholder" datatype="html">
+        <source>hello@example.com</source>
+        <target>bonjour@exemple.com</target>
+      </trans-unit>
+      <trans-unit id="contactForm.emailRequired" datatype="html">
+        <source>Email is required.</source>
+        <target>L'e-mail est requis.</target>
+      </trans-unit>
+      <trans-unit id="contactForm.emailInvalid" datatype="html">
+        <source>Enter a valid email address.</source>
+        <target>Entrez une adresse e-mail valide.</target>
+      </trans-unit>
+      <trans-unit id="contactForm.phoneLabel" datatype="html">
+        <source>Phone Number</source>
+        <target>Numéro de téléphone</target>
+      </trans-unit>
+      <trans-unit id="contactForm.phonePlaceholder" datatype="html">
+        <source>+1 555 123 4567</source>
+        <target>+33 6 12 34 56 78</target>
+      </trans-unit>
+      <trans-unit id="contactForm.messageLabel" datatype="html">
+        <source>Message</source>
+        <target>Message</target>
+      </trans-unit>
+      <trans-unit id="contactForm.messagePlaceholder" datatype="html">
+        <source>Tell me about your project or inquiry...</source>
+        <target>Parlez-moi de votre projet ou de votre demande...</target>
+      </trans-unit>
+      <trans-unit id="contactForm.messageRequired" datatype="html">
+        <source>Message is required.</source>
+        <target>Le message est requis.</target>
+      </trans-unit>
+      <trans-unit id="contactForm.sendMessage" datatype="html">
+        <source> Send Message </source>
+        <target> Envoyer le message </target>
+      </trans-unit>
+      <trans-unit id="contactForm.caption" datatype="html">
+        <source>I typically respond within 24 business hours.</source>
+        <target>Je réponds généralement dans les 24 heures ouvrables.</target>
+      </trans-unit>
+      <trans-unit id="toast.notifications" datatype="html">
+        <source>Notifications</source>
+        <target>Notifications</target>
+      </trans-unit>
+      <trans-unit id="toast.success" datatype="html">
+        <source>Success</source>
+        <target>Succès</target>
+      </trans-unit>
+      <trans-unit id="toast.error" datatype="html">
+        <source>Error</source>
+        <target>Erreur</target>
+      </trans-unit>
+      <trans-unit id="toast.notice" datatype="html">
+        <source>Notice</source>
+        <target>Avis</target>
+      </trans-unit>
+      <trans-unit id="toast.dismiss" datatype="html">
+        <source>Dismiss</source>
+        <target>Fermer</target>
+      </trans-unit>
+      <trans-unit id="footer.headline" datatype="html">
+        <source> Let&apos;s build something <x id="START_TAG_SPAN" ctype="x-span" equiv-text="&lt;span&gt;"/>impactful<x id="CLOSE_TAG_SPAN" ctype="x-span" equiv-text="&lt;/span&gt;"/></source>
+        <target> Construisons quelque chose <x id="START_TAG_SPAN" ctype="x-span" equiv-text="&lt;span&gt;"/>d'impactant<x id="CLOSE_TAG_SPAN" ctype="x-span" equiv-text="&lt;/span&gt;"/></target>
+      </trans-unit>
+      <trans-unit id="footer.subtext" datatype="html">
+        <source> I design scalable frontend systems with performance and clarity in mind. </source>
+        <target> Je conçois des systèmes frontend évolutifs axés sur la performance et la clarté. </target>
+      </trans-unit>
+      <trans-unit id="footer.getInTouch" datatype="html">
+        <source>Get In Touch</source>
+        <target>Prendre contact</target>
+      </trans-unit>
+      <trans-unit id="footer.copyright" datatype="html">
+        <source>© 2026 Shivank Mittal</source>
+        <target>© 2026 Shivank Mittal</target>
+      </trans-unit>
+      <trans-unit id="footer.availableStatus" datatype="html">
+        <source>Available for opportunities</source>
+        <target>Disponible pour de nouvelles opportunités</target>
+      </trans-unit>
+      <trans-unit id="about.heading" datatype="html">
+        <source>Engineering systems that <x id="START_TAG_SPAN" ctype="x-span" equiv-text="&lt;span id=&quot;header-content_highlight&quot;&gt;"/> scale beyond <x id="CLOSE_TAG_SPAN" ctype="x-span" equiv-text="&lt;/span&gt;"/> the interface. </source>
+        <target>Des systèmes conçus pour <x id="START_TAG_SPAN" ctype="x-span" equiv-text="&lt;span id=&quot;header-content_highlight&quot;&gt;"/> dépasser <x id="CLOSE_TAG_SPAN" ctype="x-span" equiv-text="&lt;/span&gt;"/> l'interface. </target>
+      </trans-unit>
+      <trans-unit id="about.para1" datatype="html">
+        <source> With 6+ years building production systems, I specialize in frontend architecture, distributed system design, and integrating AI pipelines into user-facing products. </source>
+        <target> Avec plus de 6 ans d'expérience en systèmes de production, je me spécialise dans l'architecture frontend, la conception de systèmes distribués et l'intégration de pipelines IA dans des produits orientés utilisateur. </target>
+      </trans-unit>
+      <trans-unit id="about.para2" datatype="html">
+        <source> I&apos;ve led micro-frontend migrations serving 2M+ users, optimized Core Web Vitals across enterprise applications, and designed real-time data pipelines for ML-powered features. </source>
+        <target> J'ai dirigé des migrations micro-frontend pour plus de 2M d'utilisateurs, optimisé les Core Web Vitals pour des applications d'entreprise et conçu des pipelines de données en temps réel pour des fonctionnalités alimentées par ML. </target>
+      </trans-unit>
+      <trans-unit id="about.para3" datatype="html">
+        <source> My approach is systems-first: every component, every abstraction, every API boundary is designed for resilience, observability, and team velocity </source>
+        <target> Mon approche est axée sur les systèmes : chaque composant, chaque abstraction, chaque frontière d'API est conçu pour la résilience, l'observabilité et la vélocité de l'équipe. </target>
+      </trans-unit>
+      <trans-unit id="about.card1Header" datatype="html">
+        <source> Clean Architecture </source>
+        <target> Architecture propre </target>
+      </trans-unit>
+      <trans-unit id="about.card1Content" datatype="html">
+        <source> Systems-first thinking with composable, testable abstractions</source>
+        <target> Réflexion axée sur les systèmes avec des abstractions composables et testables</target>
+      </trans-unit>
+      <trans-unit id="about.card2Header" datatype="html">
+        <source> Scalable Systems </source>
+        <target> Systèmes évolutifs </target>
+      </trans-unit>
+      <trans-unit id="about.card2Content" datatype="html">
+        <source> Designed platforms serving millions with sub-second latency</source>
+        <target> Plateformes conçues pour des millions d'utilisateurs avec une latence inférieure à la seconde</target>
+      </trans-unit>
+      <trans-unit id="about.card3Header" datatype="html">
+        <source> Performance Obsessed </source>
+        <target> Obsédé par la performance </target>
+      </trans-unit>
+      <trans-unit id="about.card3Content" datatype="html">
+        <source> Optimized Core Web Vitals across enterprise applications</source>
+        <target> Core Web Vitals optimisés pour des applications d'entreprise</target>
+      </trans-unit>
+      <trans-unit id="about.card4Header" datatype="html">
+        <source> Full Stack Reach </source>
+        <target> Portée full-stack </target>
+      </trans-unit>
+      <trans-unit id="about.card4Content" datatype="html">
+        <source> From database schemas to pixel-perfect interfaces</source>
+        <target> Des schémas de base de données aux interfaces pixel-perfect</target>
+      </trans-unit>
+      <trans-unit id="career.title" datatype="html">
+        <source> 5 Years of <x id="START_TAG_SPAN" ctype="x-span" equiv-text="&lt;span&gt;"/> Evolution <x id="CLOSE_TAG_SPAN" ctype="x-span" equiv-text="&lt;/span&gt;"/></source>
+        <target> 5 ans d'<x id="START_TAG_SPAN" ctype="x-span" equiv-text="&lt;span&gt;"/>Évolution<x id="CLOSE_TAG_SPAN" ctype="x-span" equiv-text="&lt;/span&gt;"/></target>
+      </trans-unit>
+      <trans-unit id="career.caption" datatype="html">
+        <source> POFFESTIONAL EXPERIENCE </source>
+        <target> EXPÉRIENCE PROFESSIONNELLE </target>
+      </trans-unit>
+      <trans-unit id="contact.heading" datatype="html">
+        <source> Let&apos;s build something <x id="START_TAG_SPAN" ctype="x-span" equiv-text="&lt;span&gt;"/> together <x id="CLOSE_TAG_SPAN" ctype="x-span" equiv-text="&lt;/span&gt;"/>. </source>
+        <target> Construisons quelque chose <x id="START_TAG_SPAN" ctype="x-span" equiv-text="&lt;span&gt;"/>ensemble<x id="CLOSE_TAG_SPAN" ctype="x-span" equiv-text="&lt;/span&gt;"/>. </target>
+      </trans-unit>
+      <trans-unit id="contact.description" datatype="html">
+        <source>Open to discussing architecture challenges, system design consulting, or full-time engineering roles. Let&apos;s talk.</source>
+        <target>Disponible pour discuter de défis d'architecture, de conseil en conception de systèmes ou de postes d'ingénieur à temps plein. Parlons-en.</target>
+      </trans-unit>
+      <trans-unit id="hero.availableStatus" datatype="html">
+        <source> Available for the coloration</source>
+        <target> Disponible pour la collaboration</target>
+      </trans-unit>
+      <trans-unit id="hero.description" datatype="html">
+        <source>Crafting end-to-end systems that transform complex data into real-time, intelligent user experiences — powered by Angular, AI, and scalable backend architectures</source>
+        <target>Création de systèmes de bout en bout qui transforment des données complexes en expériences utilisateur intelligentes en temps réel — propulsés par Angular, l'IA et des architectures backend évolutives</target>
+      </trans-unit>
+      <trans-unit id="hero.downloadResume" datatype="html">
+        <source> Download Resume </source>
+        <target> Télécharger le CV </target>
+      </trans-unit>
+      <trans-unit id="hero.getInTouch" datatype="html">
+        <source> Get In Touch</source>
+        <target> Prendre contact</target>
+      </trans-unit>
+      <trans-unit id="hero.yearsOfExperience" datatype="html">
+        <source>Years of Experience</source>
+        <target>Années d'expérience</target>
+      </trans-unit>
+      <trans-unit id="hero.aiTopics" datatype="html">
+        <source>RAG, Context, Prompts</source>
+        <target>RAG, Contexte, Prompts</target>
+      </trans-unit>
+      <trans-unit id="hero.performanceTopics" datatype="html">
+        <source>SSR, lazy loading</source>
+        <target>SSR, chargement différé</target>
+      </trans-unit>
+      <trans-unit id="hero.line1" datatype="html">
+        <source>Engineering intelligent</source>
+        <target>Ingénierie intelligente</target>
+      </trans-unit>
+      <trans-unit id="hero.line2" datatype="html">
+        <source>frontend systems</source>
+        <target>des systèmes frontend</target>
+      </trans-unit>
+      <trans-unit id="hero.line3" datatype="html">
+        <source>powered by</source>
+        <target>propulsés par</target>
+      </trans-unit>
+      <trans-unit id="hero.line4" datatype="html">
+        <source>scalable AI architectures</source>
+        <target>des architectures IA évolutives</target>
+      </trans-unit>
+      <trans-unit id="techDepth.heading" datatype="html">
+        <source>Technical depth <x id="START_TAG_SPAN" ctype="x-span" equiv-text="&lt;span&gt;"/> across the stack. <x id="CLOSE_TAG_SPAN" ctype="x-span" equiv-text="&lt;/span&gt;"/></source>
+        <target>Expertise technique <x id="START_TAG_SPAN" ctype="x-span" equiv-text="&lt;span&gt;"/> sur toute la stack. <x id="CLOSE_TAG_SPAN" ctype="x-span" equiv-text="&lt;/span&gt;"/></target>
+      </trans-unit>
+      <trans-unit id="techDepth.card.frontend" datatype="html">
+        <source>frontend</source>
+        <target>frontend</target>
+      </trans-unit>
+      <trans-unit id="techDepth.card.backend" datatype="html">
+        <source>backend</source>
+        <target>backend</target>
+      </trans-unit>
+      <trans-unit id="techDepth.card.systemDesign" datatype="html">
+        <source>System Design</source>
+        <target>Architecture système</target>
+      </trans-unit>
+      <trans-unit id="techDepth.card.devopsAi" datatype="html">
+        <source>DevOps &amp; AI</source>
+        <target>DevOps &amp; IA</target>
+      </trans-unit>
+      <trans-unit id="pageContact.heading" datatype="html">
+        <source>Let&apos;s build something <x id="START_TAG_SPAN" ctype="x-span" equiv-text="&lt;span class=&quot;colored-text&quot;&gt;"/>exceptional.<x id="CLOSE_TAG_SPAN" ctype="x-span" equiv-text="&lt;/span&gt;"/></source>
+        <target>Construisons quelque chose <x id="START_TAG_SPAN" ctype="x-span" equiv-text="&lt;span class=&quot;colored-text&quot;&gt;"/>d'exceptionnel.<x id="CLOSE_TAG_SPAN" ctype="x-span" equiv-text="&lt;/span&gt;"/></target>
+      </trans-unit>
+      <trans-unit id="pageContact.description1" datatype="html">
+        <source>With over 5 years of experience architecting digital solutions, I specialize in building high-performance frontend interfaces, robust backend systems, and integrated AI applications.</source>
+        <target>Avec plus de 5 ans d'expérience dans la conception de solutions numériques, je me spécialise dans la création d'interfaces frontend haute performance, de systèmes backend robustes et d'applications IA intégrées.</target>
+      </trans-unit>
+      <trans-unit id="pageContact.description2" datatype="html">
+        <source>Whether you&apos;re a startup looking for an MVP or an established enterprise seeking technical leadership, I help turn complex ideas into seamless user experiences.</source>
+        <target>Que vous soyez une startup cherchant un MVP ou une grande entreprise en quête de leadership technique, je transforme des idées complexes en expériences utilisateur fluides.</target>
+      </trans-unit>
+      <trans-unit id="pageContact.formAriaLabel" datatype="html">
+        <source>Contact form</source>
+        <target>Formulaire de contact</target>
+      </trans-unit>
+      <trans-unit id="nav.about" datatype="html">
+        <source>about</source>
+        <target>à propos</target>
+      </trans-unit>
+      <trans-unit id="nav.tech" datatype="html">
+        <source>tech</source>
+        <target>tech</target>
+      </trans-unit>
+      <trans-unit id="nav.careerTimeline" datatype="html">
+        <source>carrier timeline</source>
+        <target>parcours de carrière</target>
+      </trans-unit>
+      <trans-unit id="nav.contact" datatype="html">
+        <source>contact</source>
+        <target>contact</target>
+      </trans-unit>
+      <trans-unit id="resumeCollection.newTag" datatype="html">
+        <source>NEW</source>
+        <target>NOUVEAU</target>
+      </trans-unit>
+      <trans-unit id="resumeCollection.signout" datatype="html">
+        <source> Signout
+</source>
+        <target> Déconnexion
+</target>
+      </trans-unit>
+      <trans-unit id="resumeCollection.lang.en" datatype="html">
+        <source>🇬🇧 ENGLISH</source>
+        <target>🇬🇧 ANGLAIS</target>
+      </trans-unit>
+      <trans-unit id="resumeCollection.lang.fr" datatype="html">
+        <source>🇫🇷 FRENCH</source>
+        <target>🇫🇷 FRANÇAIS</target>
+      </trans-unit>
+      <trans-unit id="resumeCollection.lang.hi" datatype="html">
+        <source>🇮🇳 HINDI</source>
+        <target>🇮🇳 HINDI</target>
+      </trans-unit>
+      <trans-unit id="resumeCollection.type.internship" datatype="html">
+        <source>Internship</source>
+        <target>Stage</target>
+      </trans-unit>
+      <trans-unit id="resumeCollection.type.fullTime" datatype="html">
+        <source>Full-time</source>
+        <target>CDI</target>
+      </trans-unit>
+      <trans-unit id="resumeCollection.type.fixedTerm" datatype="html">
+        <source>Fixed-term</source>
+        <target>CDD</target>
+      </trans-unit>
+      <trans-unit id="resumeCollection.download.fr" datatype="html">
+        <source>Télécharger</source>
+        <target>Télécharger</target>
+      </trans-unit>
+      <trans-unit id="resumeCollection.download.en" datatype="html">
+        <source>Download</source>
+        <target>Télécharger</target>
+      </trans-unit>
+      <trans-unit id="resumeCollection.toast.fetchError" datatype="html">
+        <source>Error fetching the resumes</source>
+        <target>Erreur lors du chargement des CV</target>
+      </trans-unit>
+      <trans-unit id="auth.toast.loggedOut" datatype="html">
+        <source>Successfully logged out</source>
+        <target>Déconnexion réussie</target>
+      </trans-unit>
+      <trans-unit id="auth.toast.loggedIn" datatype="html">
+        <source>Successfully logged in</source>
+        <target>Connexion réussie</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
