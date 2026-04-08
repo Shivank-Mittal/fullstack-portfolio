@@ -1,4 +1,5 @@
 import { inject, Injectable } from '@angular/core';
+import { environment } from '../../../environments/environment';
 import { SUPERBASE_CLIENT } from '../../../superbase/superbase.provider';
 import { ToastService } from '../toast-service/toast.service';
 import { BehaviorSubject, filter, pairwise } from 'rxjs';
@@ -39,7 +40,7 @@ export class AuthService {
   }
 
   async signInWithGoogle() {
-    this.superbaseClient?.auth.signInWithOAuth({provider: 'google', })
+    this.superbaseClient?.auth.signInWithOAuth({provider: 'google', options: {redirectTo: environment.authRedirectUrl}});
   }
 
   async verifyLogin() {

@@ -1,5 +1,6 @@
 import { inject, Injectable } from '@angular/core';
 import { SupabaseClient } from '@supabase/supabase-js';
+import { environment } from '../../../environments/environment';
 import { SUPERBASE_CLIENT } from '../../../superbase/superbase.provider';
 import { TContactForm } from '../../types/TContactForm';
 import { ToastService } from '../toast-service/toast.service';
@@ -14,8 +15,8 @@ export class ContactService {
   private readonly toasterService = inject(ToastService)
   private readonly httpClient: HttpClient = inject(HttpClient);
 
-  private readonly functionAPI = "https://fsbpaqjdrnzjtbdfzrju.supabase.co/functions/v1/contact"
-  private readonly anonKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZzYnBhcWpkcm56anRiZGZ6cmp1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQyOTIwMTAsImV4cCI6MjA4OTg2ODAxMH0.HBH6BM0PfAs0QX34GpS9NTQS9wmMZCaezG3YgMaP_Fo';
+  private readonly functionAPI = environment.supabaseFunctionUrl;
+  private readonly anonKey = environment.supabaseAnonKey;
 
   private headers = new HttpHeaders({
       'Content-Type': 'application/json',

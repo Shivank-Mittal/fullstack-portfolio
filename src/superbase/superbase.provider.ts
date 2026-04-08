@@ -1,10 +1,7 @@
 import { isPlatformBrowser } from '@angular/common';
 import { inject, InjectionToken, PLATFORM_ID } from '@angular/core';
 import { createClient, SupabaseClient } from '@supabase/supabase-js';
-
-
-const superBaseUrl = 'https://fsbpaqjdrnzjtbdfzrju.supabase.co';
-const superBaseKeyPUBLISHABLE_DEFAULT_KEY = 'sb_publishable_SMloEHJrqstoES99FCdXlA_xMs86FmB';
+import { environment } from '../environments/environment';
 
 export const SUPERBASE_CLIENT = new InjectionToken<SupabaseClient>('SUPERBASE_CLIENT');
 export const superbaseProvider = {
@@ -17,8 +14,8 @@ export const superbaseProvider = {
     }
 
     return createClient(
-      superBaseUrl,
-      superBaseKeyPUBLISHABLE_DEFAULT_KEY
+      environment.supabaseUrl,
+      environment.supabaseKey
     );
   },
 };
