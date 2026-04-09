@@ -26,7 +26,7 @@
 
         <li class="cta" (click)="profileHandler()">
             <div class="identity">
-                @let navbarData = avatarInfo$ | async;
+                @let navbarData = avatarInfo();
                 <app-avatar
                     [name]="navbarData?.name"
                     [src]="navbarData?.src || ''"

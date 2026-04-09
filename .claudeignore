@@ -1,0 +1,41 @@
+# Dependencies — massive, never useful to Claude
+node_modules/
+
+# Build output
+dist/
+out-tsc/
+bazel-out/
+
+# Angular cache
+.angular/
+
+# Lock file — huge, no signal
+package-lock.json
+yarn.lock
+
+# Static assets — binary files Claude can't use
+src/assets/
+src/favicon.ico
+src/pdf/
+
+# i18n translation files — verbose XML, rarely needed
+src/locale/
+
+# Test spec files — exclude unless actively working on tests
+# Comment this out if you need Claude to see tests
+*.spec.ts
+
+# Coverage reports
+coverage/
+
+# Editor & OS noise
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Git internals
+.git/
+
+# Vercel build cache
+.vercel/

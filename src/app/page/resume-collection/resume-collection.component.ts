@@ -4,7 +4,7 @@ import { SuperBaseService } from '../../service/superbase-service/superbase.serv
 import { ToastService } from '../../service/toast-service/toast.service';
 import { ResumeThumbnailComponent } from '../../componenets/resume-thumbnail/resume-thumbnail.component';
 import { CommonModule } from '@angular/common';
-import { TResume } from '../../types/TResume';
+import { TResume } from '../../types/interfaces/IResume';
 import { ButtonComponent } from '../../components/button/button.component';
 import { BUTTON } from '../../types/TButtons';
 import { FaIconComponent } from '@fortawesome/angular-fontawesome';

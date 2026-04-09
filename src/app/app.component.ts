@@ -19,7 +19,7 @@ import { AuthService } from './service/auth-service/auth.service';
     templateUrl: './app.component.html',
     styleUrl: './app.component.css'
 })
-export class AppComponent implements OnInit{
+export class AppComponent{
 
   informationSection = viewChild.required<ElementRef<HTMLElement>>("information");
 
@@ -53,7 +53,4 @@ export class AppComponent implements OnInit{
     itemToScroll?.scrollIntoView({behavior: "smooth", block: "start", inline: "nearest"})
   }
 
-  ngOnInit(): void {
-      this.authClient.verifyLogin()
-  }
 }

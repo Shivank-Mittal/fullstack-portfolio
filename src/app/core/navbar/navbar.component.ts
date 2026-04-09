@@ -1,6 +1,5 @@
-import { Component, ElementRef, inject, input, OnInit, output, signal, viewChildren, PLATFORM_ID } from '@angular/core';
+import { Component, ElementRef, inject, input, LOCALE_ID, OnInit, output, signal, viewChildren, PLATFORM_ID } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
-import { map, Observable, single } from 'rxjs';
 import { DOCUMENT } from '@angular/common';
 import { TNavbarInfo, TNavItem } from '../../types/TNavItems';
 import { CommonModule, TitleCasePipe } from '@angular/common';
@@ -8,7 +7,7 @@ import { ResponsiveService } from '../../service/responsive-service/responsive.s
 import { ButtonComponent } from '../../components/button/button.component';
 import { Router } from '@angular/router';
 import { AvatarComponent } from '../../components/avatar/avatar.component';
-import { AuthService } from '../../service/auth-service/auth.service';
+import { AuthStore } from '../../store/auth/auth.store';
 
 @Component({
   selector: 'app-navbar',
@@ -23,53 +22,41 @@ export class NavbarComponent implements OnInit {
   onItemSelection = output<TNavItem>();
   
   private readonly responseService = inject(ResponsiveService)
-  private readonly authService = inject(AuthService);
+  private readonly authStore = inject(AuthStore);
   private readonly router = inject(Router)
   private readonly platformId = inject(PLATFORM_ID)
   private readonly document = inject(DOCUMENT)
-
+  private readonly localeId = inject(LOCALE_ID)
 
   protected readonly deviceType$ = this.responseService.deviceType$
-  protected readonly auth$ = this.authService.auth$;
-  
-  
-  avatarInfo$= this.auth$.pipe(
-    map(auth => {
-      if(auth.loggedIn) {
-        return {
-          loggedIn: true,
-          src: auth.user?.user_metadata?.avatar_url || '',
-          alt: auth.user?.user_metadata?.full_name || 'User Avatar',
-          name: auth.user?.user_metadata?.full_name || 'User',
-          size: 'md'
-        }
-      }
-      else {
-        return {
-          loggedIn: false,
-          alt: '',
-          name: '',
-          size: 'md'
-        }
-      }
-    })
-  )
+  protected readonly avatarInfo = this.authStore.avatarInfo;
+  protected readonly isLoggedIn = this.authStore.isLoggedIn;
 
 
   currentLang: 'en' | 'fr' = 'en';
 
   ngOnInit() {
-    if (isPlatformBrowser(this.platformId)) {
-      this.currentLang = this.document.location.pathname.startsWith('/fr/') ? 'fr' : 'en';
-    }
+    // Use the build-time LOCALE_ID to detect the current language reliably.
+    // Angular i18n sets this at compile time for each locale build.
+    this.currentLang = this.localeId.startsWith('fr') ? 'fr' : 'en';
   }
 
   switchLang(lang: 'en' | 'fr') {
     if (lang === this.currentLang || !isPlatformBrowser(this.platformId)) return;
-    const path = this.document.location.pathname;
-    this.document.location.href = lang === 'fr'
-      ? '/fr/' + path.replace(/^\//, '')
-      : path.replace(/^\/fr\//, '/');
+
+    // Angular i18n produces separate builds per locale.
+    // Switching locale requires navigating to the other build's base path.
+    // English is served at "/" and French at "/fr/" (based on angular.json baseHref).
+    const currentPath = this.document.location.pathname;
+    if (lang === 'fr') {
+      // Strip current base and prepend /fr/
+      const pathWithoutBase = currentPath.replace(/^\//, '');
+      this.document.location.href = '/fr/' + pathWithoutBase;
+    } else {
+      // Remove /fr/ prefix to go back to English root
+      const pathWithoutFr = currentPath.replace(/^\/fr\/?/, '/');
+      this.document.location.href = pathWithoutFr;
+    }
   }
 
   // Handlers
@@ -125,7 +112,5 @@ export class NavbarComponent implements OnInit {
     }
     return undefined
   }
-
-
 
 }
