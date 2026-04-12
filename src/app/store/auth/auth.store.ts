@@ -59,8 +59,9 @@ export const AuthStore = signalStore(
 
       async verifyLogin() {
         const { data, error } = await supabaseClient.auth.getSession();
+        await authService.upsert();
         const user = data?.session?.user ?? undefined;
-        const session = data?.session ?? undefined;
+        
         if (error || !user) {
           clearUser();
           console.error('Sign-in failed:', error);

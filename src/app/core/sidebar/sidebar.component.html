@@ -1,0 +1,16 @@
+@for (item of navbarInfo(); track $index) {
+    <div class="nav-section">
+        <div class="nav-section-name">{{item.name}}</div>
+        <div class="nav-items">
+
+            @for (navItem of item.items; track $index) {
+                <div class="nav-item" [class.disabled]="!navItem.enabled" (click)="handleItemSelection(navItem.router)">
+                    @if (navItem.icon) {
+                        <fa-icon [icon]="navItem.icon" class="nav-item-icon"></fa-icon>
+                    }
+                    {{navItem.name}}
+                </div>
+            }
+        </div>
+    </div>
+}

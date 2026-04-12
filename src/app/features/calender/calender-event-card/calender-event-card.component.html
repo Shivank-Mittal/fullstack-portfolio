@@ -1,0 +1,32 @@
+<div class="event-card"
+  [class.event-card--cancelled]="event().cancelled"
+  [class.event-card--google]="event().source === 'google'"
+  [class.event-card--apple]="event().source === 'apple'">
+  <div class="event-card__accent" [class.event-card__accent--apple]="event().source === 'apple'"></div>
+  <div class="event-card__body">
+    <div class="event-card__top">
+      <span class="event-card__title">{{ event().title }}</span>
+      <span class="event-card__source" [class.event-card__source--apple]="event().source === 'apple'">
+        <span class="event-card__dot"></span>
+        {{ event().source === 'google' ? 'Google' : 'Apple' }}
+      </span>
+    </div>
+    <div class="event-card__time">
+      {{ formatTime(event().start) }} - {{ formatTime(event().end) }}
+    </div>
+    @if (event().description) {
+      <div class="event-card__desc">{{ event().description }}</div>
+    }
+    <div class="event-card__actions">
+      @if (meetingLink()) {
+        <a class="event-card__join" [href]="meetingLink()!" target="_blank" rel="noopener" title="Join meeting">
+          <fa-icon [icon]="faVideo" />
+          Join
+        </a>
+      }
+      @if (event().htmlLink) {
+        <a class="event-card__link" [href]="event().htmlLink" target="_blank" rel="noopener">Open link ↗</a>
+      }
+    </div>
+  </div>
+</div>

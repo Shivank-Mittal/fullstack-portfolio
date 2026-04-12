@@ -1,0 +1,16 @@
+<full-calendar #calendar [options]="calendarOptions"></full-calendar>
+
+<div class="events-panel">
+  <div class="events-header">
+    <span class="events-date">{{ selectedDateLabel() }}</span>
+    <span class="events-count">{{ selectedDayEvents().length }} event{{ selectedDayEvents().length !== 1 ? 's' : '' }}</span>
+  </div>
+
+  @if (selectedDayEvents().length === 0) {
+    <div class="events-empty">No events for this day.</div>
+  }
+
+  @for (event of selectedDayEvents(); track event.start + event.title) {
+    <app-calender-event-card [event]="event" />
+  }
+</div>

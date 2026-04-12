@@ -1,6 +1,10 @@
 import { inject, Injectable, PLATFORM_ID } from '@angular/core';
 import { createClient, SupabaseClient } from '@supabase/supabase-js';
 import { SUPERBASE_CLIENT } from '../../../superbase/superbase.provider';
+import { EFunction } from './functions';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { environment } from '../../../environments/environment.production';
+import { EMPTY, firstValueFrom, Observable, of } from 'rxjs';
 
 
 type TSuperBaseResponse = {
@@ -15,7 +19,14 @@ type TSuperBaseResponse = {
 export class SuperBaseService {
 
   private dbClient: SupabaseClient = inject(SUPERBASE_CLIENT);
+  private httpClient = inject(HttpClient);
+  private readonly functionAPI = environment.supabaseFunctionUrl;
+  private readonly anonKey = environment.supabaseAnonKey;
 
+  private headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${this.anonKey}`
+    });
 
   async getResume(resumeName:string) {
     if(!this.dbClient) { 
@@ -33,7 +44,6 @@ export class SuperBaseService {
   async getResumeInfo(resumeName: string): Promise<TSuperBaseResponse> {
     const data:TSuperBaseResponse = {data: undefined, error: undefined, isError: false};
     try {
-      // const response = await client.from(this.resumeDatabaseTable).select('*').eq('name', resumeName).single();
       const download = await this.getFileFromStorage('resumes', resumeName)
       data.data = download;
     } catch (error) {
@@ -66,6 +76,57 @@ export class SuperBaseService {
      return this.dbClient.storage.from(bucketName).createSignedUrl(fileName, 3600)
   }
 
-  
-  
+
+  // ---- Functions API ---------------------
+
+  public async callFunction(functionName: EFunction, body?: any) {
+    const { data: { session }, error: sessionError } = await this.dbClient.auth.getSession();
+
+    if (!session) {
+      console.error("No active session found. Are you logged in?");
+      // Trigger your login flow here if needed
+      return;
+    }
+
+    const info = {data: undefined, error: undefined, isError: false};
+    try {
+      const {data, error} = await this.dbClient.functions.invoke(functionName, {
+        body,
+        headers: {
+          Authorization: `Bearer ${session.access_token}`
+        }
+      });
+      info.data = data;
+      info.error = error;
+      info.isError = false;
+      if (error) {
+        console.error(`Error calling function ${functionName}:`, error);
+        info.isError = true;
+      }
+      return info;
+    } catch (error) {
+      console.error(`Error calling function ${functionName}:`, error);
+      return {data: undefined, error, isError: true};
+    }
+  }
+
+
+  public async callFunctionWithHTTP(functionName: EFunction, body?: any) {
+    const uri =`${this.functionAPI}/${functionName}`;
+    const formattedData = JSON.stringify(body);
+    const headers = await this.getHeaders();
+    return firstValueFrom(this.httpClient.post(uri, formattedData, {headers}));
+  }
+
+
+  private async getHeaders() {
+    const { data: { session }, error } = await this.dbClient.auth.getSession();
+    const token = session?.access_token;
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`,
+      'apikey': this.anonKey // Supabase Gateway still needs the anonKey here
+    });
+    return headers;
+  }
 }

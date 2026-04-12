@@ -8,6 +8,7 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "serve:ssr:porfolio": "node dist/porfolio/server/server.mjs",
+    "serve:ssr:dev": "nodemon",
     "build:ssr:porfolio": "ng build porfolio"
   },
   "type": "module",
@@ -30,6 +31,10 @@
     "@fortawesome/free-brands-svg-icons": "^7.2.0",
     "@fortawesome/free-regular-svg-icons": "^7.2.0",
     "@fortawesome/free-solid-svg-icons": "^7.2.0",
+    "@fullcalendar/angular": "^6.1.20",
+    "@fullcalendar/core": "^6.1.20",
+    "@fullcalendar/daygrid": "^6.1.20",
+    "@fullcalendar/interaction": "^6.1.20",
     "@ngrx/signals": "^21.1.0",
     "@supabase/supabase-js": "^2.100.0",
     "express": "^5.1.0",
@@ -55,6 +60,7 @@
     "karma-jasmine-html-reporter": "~2.1.0",
     "nodemon": "^3.1.14",
     "postcss": "^8.5.8",
+    "supabase": "^2.89.0",
     "tailwindcss": "^4.2.1",
     "typescript": "~5.9.3"
   }

@@ -27,7 +27,7 @@ export class ContactFormComponent {
     message: ['', [Validators.required]],
   });
 
-  onSubmit(event: Event): void {
+  async onSubmit(event: Event) {
     event.preventDefault();
     this.isSubmitted.set(true);
 
@@ -38,20 +38,16 @@ export class ContactFormComponent {
 
     const payload: TContactForm = this.contactForm.getRawValue();
     console.log('Contact form submitted:', payload);
-    this.contactService.addNewContactInfo(payload)
-      .pipe(take(1))
-      .subscribe({
-        complete: () => {
-              this.contactForm.reset({
-              name: '',
-              companyName: '',
-              email: '',
-              phoneNumber: '',
-              message: '',
-            } satisfies TContactForm);
-            this.isSubmitted.set(false);
-        }
-      }
-      )
+    const resp = await this.contactService.addNewContactInfo(payload)
+    if (resp) {
+      this.contactForm.reset({
+        name: '',
+        companyName: '',
+        email: '',
+        phoneNumber: '',
+        message: '',
+      } satisfies TContactForm);
+      this.isSubmitted.set(false);
+    }
   }
 }

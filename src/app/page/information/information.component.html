@@ -1,0 +1,14 @@
+
+<div class="navbar">
+    @if (deviceType$ | async) {
+        <aside class="sidebar">
+            <app-sidebar [navbarInfo]="userNavbarInfo"></app-sidebar>
+        </aside>
+    } @else {
+        <app-bottombar></app-bottombar>
+    }
+
+</div>
+<main class="content">
+    <router-outlet></router-outlet>
+</main>

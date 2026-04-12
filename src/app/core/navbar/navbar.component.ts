@@ -8,6 +8,7 @@ import { ButtonComponent } from '../../components/button/button.component';
 import { Router } from '@angular/router';
 import { AvatarComponent } from '../../components/avatar/avatar.component';
 import { AuthStore } from '../../store/auth/auth.store';
+import { CalenderService } from '../../service/calender/calender.service';
 
 @Component({
   selector: 'app-navbar',
@@ -61,9 +62,7 @@ export class NavbarComponent implements OnInit {
 
   // Handlers
   handleElementSection(name: TNavItem){
-    // const currentNavigation = this.router.routerState.snapshot.url;
     this.onItemSelection.emit(name)
-
   }
 
   profileHandler() {

@@ -1,0 +1,291 @@
+:host {
+  display: block;
+  font-family: var(--font-family-normal), sans-serif;
+}
+
+/* ─── Wrapper ─────────────────────────────────────────────── */
+:host ::ng-deep .fc {
+  background: var(--color-bg-secondary);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-lg);
+  color: var(--color-text-primary);
+  font-family: var(--font-family-normal), sans-serif;
+  font-size: var(--text-body-sm);
+}
+
+/* ─── Toolbar / Header ────────────────────────────────────── */
+:host ::ng-deep .fc-toolbar {
+  padding: var(--space-md) var(--space-lg);
+  background: var(--color-surface);
+  border-bottom: 1px solid var(--color-border);
+  margin-bottom: 0 !important;
+}
+
+:host ::ng-deep .fc-toolbar-title {
+  font-family: var(--font-family-heading), sans-serif;
+  font-size: var(--text-heading-sm);
+  font-weight: 600;
+  color: var(--color-text-primary);
+  letter-spacing: -0.02em;
+}
+
+/* Nav buttons */
+:host ::ng-deep .fc-button {
+  background: transparent;
+  border: 1px solid var(--color-border);
+  color: var(--color-text-secondary);
+  border-radius: var(--radius-sm);
+  padding: 6px 12px;
+  font-size: var(--text-label);
+  font-family: var(--font-family-normal), sans-serif;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  box-shadow: none !important;
+  outline: none !important;
+}
+
+:host ::ng-deep .fc-button:hover {
+  background: var(--color-surface);
+  border-color: var(--color-primary);
+  color: var(--color-text-primary);
+}
+
+:host ::ng-deep .fc-button-primary:not(:disabled).fc-button-active,
+:host ::ng-deep .fc-button-primary:not(:disabled):active {
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+  color: #fff;
+}
+
+:host ::ng-deep .fc-button:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+:host ::ng-deep .fc-today-button {
+  background: var(--gradient-primary);
+  border: none;
+  color: #fff;
+  font-weight: 500;
+}
+
+:host ::ng-deep .fc-today-button:hover:not(:disabled) {
+  opacity: 0.85;
+  border: none;
+}
+
+/* ─── Day Grid ────────────────────────────────────────────── */
+:host ::ng-deep .fc-scrollgrid {
+  border: none !important;
+}
+
+:host ::ng-deep .fc-scrollgrid td,
+:host ::ng-deep .fc-scrollgrid th {
+  border-color: var(--color-border) !important;
+}
+
+/* Column headers (Mon, Tue…) */
+:host ::ng-deep .fc-col-header-cell {
+  background: var(--color-surface);
+  padding: var(--space-sm) 0;
+}
+
+:host ::ng-deep .fc-col-header-cell-cushion {
+  font-family: var(--font-family-normal), sans-serif;
+  font-size: var(--text-label);
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-text-secondary);
+  text-decoration: none;
+}
+
+/* Day cells */
+:host ::ng-deep .fc-daygrid-day {
+  background: transparent;
+  transition: background var(--transition-fast);
+}
+
+:host ::ng-deep .fc-daygrid-day:hover {
+  background: rgba(99, 102, 241, 0.04);
+  cursor: pointer;
+}
+
+:host ::ng-deep .fc-daygrid-day-number {
+  font-size: var(--text-label);
+  color: var(--color-text-secondary);
+  padding: var(--space-xs) var(--space-sm);
+  text-decoration: none;
+  transition: color var(--transition-fast);
+}
+
+:host ::ng-deep .fc-daygrid-day:hover .fc-daygrid-day-number {
+  color: var(--color-text-primary);
+}
+
+/* Today highlight */
+:host ::ng-deep .fc-day-today {
+  background: rgba(99, 102, 241, 0.08) !important;
+}
+
+:host ::ng-deep .fc-day-today .fc-daygrid-day-number {
+  background: var(--gradient-primary);
+  color: #fff;
+  border-radius: 50%;
+  width: 26px;
+  height: 26px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  margin: var(--space-xs);
+}
+
+/* Other month days */
+:host ::ng-deep .fc-day-other .fc-daygrid-day-number {
+  color: var(--color-border);
+}
+
+/* Selected day highlight */
+:host ::ng-deep .fc-day-selected {
+  background: rgba(99, 102, 241, 0.14) !important;
+}
+
+:host ::ng-deep .fc-day-selected .fc-daygrid-day-number {
+  color: var(--color-primary);
+  font-weight: 600;
+  outline: 2px solid var(--color-primary);
+  outline-offset: -3px;
+  border-radius: 50%;
+  width: 26px;
+  height: 26px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: var(--space-xs);
+}
+
+/* ─── Events ──────────────────────────────────────────────── */
+
+/* Hide the time — only show title */
+:host ::ng-deep .fc-event-time {
+  display: none;
+}
+
+/* Dot-style events (month view default) */
+:host ::ng-deep .fc-daygrid-dot-event {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 2px 6px;
+  border-radius: var(--radius-sm);
+  background: transparent;
+  transition: background var(--transition-fast), transform var(--transition-fast);
+}
+
+:host ::ng-deep .fc-daygrid-dot-event:hover {
+  background: rgba(99, 102, 241, 0.12);
+  transform: translateY(-1px);
+}
+
+/* The colored dot — FullCalendar sets border-color inline; reflect that as a solid fill */
+:host ::ng-deep .fc-daygrid-event-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  /* border-color is set inline by FC — use it as background via box-shadow trick */
+  border-style: solid;
+  border-width: 4px;
+  background-color: transparent;
+  box-sizing: border-box;
+}
+
+:host ::ng-deep .fc-daygrid-dot-event .fc-event-title {
+  font-size: var(--text-caption);
+  font-weight: 500;
+  color: var(--color-text-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: 1.4;
+}
+
+/* Block-style events (multi-day / all-day) */
+:host ::ng-deep .fc-daygrid-block-event {
+  border-radius: var(--radius-sm);
+  padding: 2px 6px;
+  border: none !important;
+  margin-bottom: 2px;
+  transition: opacity var(--transition-fast), transform var(--transition-fast);
+}
+
+:host ::ng-deep .fc-daygrid-block-event:hover {
+  opacity: 0.85;
+  transform: translateY(-1px);
+}
+
+:host ::ng-deep .fc-daygrid-block-event .fc-event-title {
+  font-size: var(--text-caption);
+  font-weight: 500;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Cancelled events */
+:host ::ng-deep .fc-event-cancelled {
+  opacity: 0.4;
+  text-decoration: line-through;
+}
+
+/* "more" link */
+:host ::ng-deep .fc-daygrid-more-link {
+  font-size: var(--text-caption);
+  color: var(--color-accent);
+  font-weight: 500;
+}
+
+:host ::ng-deep .fc-daygrid-more-link:hover {
+  color: var(--color-accent-2);
+}
+
+/* ─── Events Panel ────────────────────────────────────────── */
+.events-panel {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  margin-top: var(--space-lg);
+}
+
+.events-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 var(--space-xs);
+  margin-bottom: var(--space-xs);
+}
+
+.events-date {
+  font-family: var(--font-family-heading), sans-serif;
+  font-size: var(--text-heading-sm);
+  font-weight: 600;
+  color: var(--color-text-primary);
+}
+
+.events-count {
+  font-size: var(--text-body-sm);
+  color: var(--color-text-secondary);
+}
+
+.events-empty {
+  padding: var(--space-lg);
+  text-align: center;
+  color: var(--color-text-secondary);
+  font-size: var(--text-body-sm);
+  background: var(--color-bg-secondary);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+}

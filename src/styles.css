@@ -19,6 +19,14 @@
   --color-primary: #6366f1;
   --color-primary-hover: #4f46e5;
 
+  /* 📅 CALENDAR SOURCES */
+  --color-google: #4f8ef7;
+  --color-google-bg: rgba(79, 142, 247, 0.12);
+  --color-google-border: rgba(79, 142, 247, 0.3);
+  --color-apple: #e05c3a;
+  --color-apple-bg: rgba(224, 92, 58, 0.12);
+  --color-apple-border: rgba(224, 92, 58, 0.3);
+
   --color-accent: #22d3ee;
   --color-accent-2: #a78bfa;
 
@@ -115,6 +123,7 @@
 
 
     /* Spacing increases */
+    --space-sm: 12px;
     --space-md: 20px;
     --space-lg: 32px;
     --space-xl: 48px;
@@ -147,6 +156,7 @@
     --text-hero: 3.75rem;
 
     /* Spacing */
+    --space-sm: 16px;
     --space-md: 24px;
     --space-lg: 40px;
     --space-xl: 64px;

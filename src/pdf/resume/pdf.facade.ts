@@ -24,10 +24,7 @@ export class PdfJSFacade {
     private initWorker(): void {
         if (this.workerInitialized) return;
     
-        GlobalWorkerOptions.workerSrc = new URL(
-        `https://cdnjs.cloudflare.com/ajax/libs/pdf.js/${version}/pdf.worker.min.mjs`,
-        import.meta.url
-        ).toString();
+        GlobalWorkerOptions.workerSrc = `https://cdnjs.cloudflare.com/ajax/libs/pdf.js/${version}/pdf.worker.min.mjs`;
     
         this.workerInitialized = true;
     }
