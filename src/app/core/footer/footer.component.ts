@@ -10,15 +10,12 @@ import { Router } from '@angular/router';
   styleUrl: './footer.component.css',
 })
 export class FooterComponent {
-
   private readonly router = inject(Router);
 
-  viewButtonType = BUTTON.OUTLINE
-
+  viewButtonType = BUTTON.OUTLINE;
 
   // handlers
   handleContactUs() {
-    this.router.navigateByUrl('/contact')
+    this.router.navigateByUrl('/contact');
   }
-
 }

@@ -2,7 +2,14 @@ import { Component, signal, computed, afterNextRender, inject } from '@angular/c
 import { ButtonComponent } from '../../components/button/button.component';
 import { BUTTON } from '../../types/TButtons';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { faBrain, faBriefcase, faGaugeHigh, faCode, faTerminal, faMicrochip } from '@fortawesome/free-solid-svg-icons';
+import {
+  faBrain,
+  faBriefcase,
+  faGaugeHigh,
+  faCode,
+  faTerminal,
+  faMicrochip,
+} from '@fortawesome/free-solid-svg-icons';
 import { NetworkBackgroundComponent } from '../../components/network-background/network-background.component';
 import { Router } from '@angular/router';
 import { SuperBaseService } from '../../service/superbase-service/superbase.service';
@@ -14,11 +21,10 @@ import { SuperBaseService } from '../../service/superbase-service/superbase.serv
   styleUrl: './hero.component.css',
 })
 export class HeroComponent {
-
   getInTouchButton = BUTTON.OUTLINE;
 
-  router = inject(Router)
-  private readonly dbClient = inject(SuperBaseService)
+  router = inject(Router);
+  private readonly dbClient = inject(SuperBaseService);
   resumeName = 'Resume_Shivank_MITTAL.pdf';
 
   readonly icons = {
@@ -28,7 +34,7 @@ export class HeroComponent {
     code: faCode,
     brain: faBrain,
     terminal: faTerminal,
-    microchip: faMicrochip
+    microchip: faMicrochip,
   };
 
   private readonly writingSpeed = 45; // ms per character
@@ -38,7 +44,7 @@ export class HeroComponent {
     $localize`:@@hero.line1:Engineering intelligent`,
     $localize`:@@hero.line2:frontend systems`,
     $localize`:@@hero.line3:powered by`,
-    $localize`:@@hero.line4:scalable AI architectures`
+    $localize`:@@hero.line4:scalable AI architectures`,
   ];
 
   private readonly currentCharIndex = signal(0);
@@ -57,22 +63,24 @@ export class HeroComponent {
 
   // handlers
   getIntTouchHandler() {
-    this.router.navigateByUrl('/contact')
+    this.router.navigateByUrl('/contact');
   }
 
   onResumeDownload() {
-    this.dbClient.getResume(this.resumeName).then((response) => {
-
-    const url = URL.createObjectURL(response.data.data);
-    const link = document.createElement('a');
-    link.href = url; // Use the URL directly
-    link.setAttribute('download', this.resumeName); // Set the file name
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-    }).catch((error) => {
-      console.error('Error downloading resume:', error);
-    });
+    this.dbClient
+      .getResume(this.resumeName)
+      .then((response) => {
+        const url = URL.createObjectURL(response.data.data);
+        const link = document.createElement('a');
+        link.href = url; // Use the URL directly
+        link.setAttribute('download', this.resumeName); // Set the file name
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+      })
+      .catch((error) => {
+        console.error('Error downloading resume:', error);
+      });
   }
 
   private getVisibleText(lineIdx: number): string {

@@ -12,7 +12,7 @@ export class ButtonComponent {
 
   /** Visual variant (maps to `.btn-*` classes) */
   type = input<BUTTON>(BUTTON.Default);
-  size = input<'sm'| 'md' |'lg'>('sm');
+  size = input<'sm' | 'md' | 'lg'>('sm');
 
   /**
    * Native `<button type="...">`. Default `button` avoids accidental form submits.

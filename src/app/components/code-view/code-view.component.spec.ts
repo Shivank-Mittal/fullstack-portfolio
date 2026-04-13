@@ -8,9 +8,8 @@ describe('CodeViewComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [CodeViewComponent]
-    })
-    .compileComponents();
+      imports: [CodeViewComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(CodeViewComponent);
     component = fixture.componentInstance;

@@ -7,6 +7,8 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
+    "format": "prettier --write . --ignore-unknown",
+    "format:check": "prettier --check . --ignore-unknown",
     "serve:ssr:porfolio": "node dist/porfolio/server/server.mjs",
     "serve:ssr:dev": "nodemon",
     "build:ssr:porfolio": "ng build porfolio"
@@ -60,6 +62,7 @@
     "karma-jasmine-html-reporter": "~2.1.0",
     "nodemon": "^3.1.14",
     "postcss": "^8.5.8",
+    "prettier": "^3.8.2",
     "supabase": "^2.89.0",
     "tailwindcss": "^4.2.1",
     "typescript": "~5.9.3"

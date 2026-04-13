@@ -35,9 +35,15 @@ import { Component, input } from '@angular/core';
     }
 
     @keyframes slide {
-      0%   { transform: translateX(-100%); }
-      50%  { transform: translateX(200%); }
-      100% { transform: translateX(-100%); }
+      0% {
+        transform: translateX(-100%);
+      }
+      50% {
+        transform: translateX(200%);
+      }
+      100% {
+        transform: translateX(-100%);
+      }
     }
   `,
 })

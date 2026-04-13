@@ -1,6 +1,13 @@
 import { inject } from '@angular/core';
 import { Router } from '@angular/router';
-import { patchState, signalStore, withState, withComputed, withMethods, withHooks } from '@ngrx/signals';
+import {
+  patchState,
+  signalStore,
+  withState,
+  withComputed,
+  withMethods,
+  withHooks,
+} from '@ngrx/signals';
 import { computed } from '@angular/core';
 import { withDevtools } from '@angular-architects/ngrx-toolkit';
 import { SUPERBASE_CLIENT } from '../../../superbase/superbase.provider';
@@ -24,7 +31,13 @@ export const AuthStore = signalStore(
       const loggedIn = store.loggedIn();
       const user = store.user();
       if (loggedIn && user) {
-        return { loggedIn: true as const, src: user.avatarUrl, alt: user.fullName, name: user.fullName, size: 'md' };
+        return {
+          loggedIn: true as const,
+          src: user.avatarUrl,
+          alt: user.fullName,
+          name: user.fullName,
+          size: 'md',
+        };
       }
       return { loggedIn: false as const, src: '', alt: '', name: '', size: 'md' };
     }),
@@ -54,18 +67,20 @@ export const AuthStore = signalStore(
 
     return {
       async signInWithGoogle() {
-        await authService.signInWithGoogle()
+        await authService.signInWithGoogle();
       },
 
       async verifyLogin() {
         const { data, error } = await supabaseClient.auth.getSession();
         await authService.upsert();
         const user = data?.session?.user ?? undefined;
-        
+
         if (error || !user) {
           clearUser();
           console.error('Sign-in failed:', error);
-          toastService.error($localize`:@@auth.toast.googleSignInFailed:Google sign-in failed. Please try again.`);
+          toastService.error(
+            $localize`:@@auth.toast.googleSignInFailed:Google sign-in failed. Please try again.`,
+          );
           return;
         }
         setUser(user);
@@ -87,9 +102,9 @@ export const AuthStore = signalStore(
       },
     };
   }),
-  withHooks(store => ({
-    onInit(){
+  withHooks((store) => ({
+    onInit() {
       store.verifyLogin();
-    }
-  }))
+    },
+  })),
 );

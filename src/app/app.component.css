@@ -1,13 +1,12 @@
-:host{
-    display: block;
-    background-color: var(--color-bg);
-    color: var(--color-text-primary);
+:host {
+  display: block;
+  background-color: var(--color-bg);
+  color: var(--color-text-primary);
 }
 
 .information {
-    margin-bottom: var(--space-lg);
+  margin-bottom: var(--space-lg);
 }
-
 
 /* @media (min-width: 768px) {
     .information{

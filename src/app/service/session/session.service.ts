@@ -7,10 +7,7 @@ import { SUPERBASE_CLIENT } from '../../../superbase/superbase.provider';
 export class SessionService {
   private readonly superbaseClient = inject(SUPERBASE_CLIENT);
 
-
   async getSession() {
     return this.superbaseClient?.auth.getSession();
   }
-
-  
 }

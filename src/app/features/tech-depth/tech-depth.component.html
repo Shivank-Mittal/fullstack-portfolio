@@ -1,13 +1,11 @@
-<h3 id="header" i18n="@@techDepth.heading">Technical depth <span> across the stack. </span> </h3>
+<h3 id="header" i18n="@@techDepth.heading">Technical depth <span> across the stack. </span></h3>
 
 <section id="card">
-
-    @for (card of cardsInfo; track $index) {
-        <app-card>
-            <fa-icon [icon]="card.icon" > </fa-icon>
-            <ng-container ngProjectAs="card-header"> {{card.name | titlecase}} </ng-container>
-            <ng-container ngProjectAs="card-content">{{card.data}}</ng-container>
-        </app-card>
-    }
-
+  @for (card of cardsInfo; track $index) {
+    <app-card>
+      <fa-icon [icon]="card.icon"> </fa-icon>
+      <ng-container ngProjectAs="card-header"> {{ card.name | titlecase }} </ng-container>
+      <ng-container ngProjectAs="card-content">{{ card.data }}</ng-container>
+    </app-card>
+  }
 </section>

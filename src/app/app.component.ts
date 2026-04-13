@@ -4,7 +4,7 @@ import { RouterOutlet } from '@angular/router';
 import { NavbarComponent } from './core/navbar/navbar.component';
 import { TNavbarInfo, TNavItem } from './types/TNavItems';
 import { ResponsiveService } from './service/responsive-service/responsive.service';
-import { AboutComponent } from "./features/about/about.component";
+import { AboutComponent } from './features/about/about.component';
 import { TechDepthComponent } from './features/tech-depth/tech-depth.component';
 import { CarrerComponent } from './features/carrer/carrer.component';
 import { ContactComponent } from './features/contact/contact.component';
@@ -14,43 +14,53 @@ import { ToasterComponent } from './components/toaster/toaster.component';
 import { AuthService } from './service/auth-service/auth.service';
 
 @Component({
-    selector: 'app-root',
-    imports: [RouterOutlet, TitleCasePipe, NavbarComponent, CommonModule, HomeComponent, FooterComponent, ToasterComponent],
-    templateUrl: './app.component.html',
-    styleUrl: './app.component.css'
+  selector: 'app-root',
+  imports: [
+    RouterOutlet,
+    TitleCasePipe,
+    NavbarComponent,
+    CommonModule,
+    HomeComponent,
+    FooterComponent,
+    ToasterComponent,
+  ],
+  templateUrl: './app.component.html',
+  styleUrl: './app.component.css',
 })
-export class AppComponent{
-
-  informationSection = viewChild.required<ElementRef<HTMLElement>>("information");
+export class AppComponent {
+  informationSection = viewChild.required<ElementRef<HTMLElement>>('information');
 
   responseService = inject(ResponsiveService);
-  authClient = inject(AuthService)
+  authClient = inject(AuthService);
 
   deviceType$ = this.responseService.deviceType$;
   title = signal('porfolio');
-  navItem = signal<string>('')
+  navItem = signal<string>('');
   navbarInfo = signal<TNavbarInfo>({
-    name: "Shivank Mittal",
+    name: 'Shivank Mittal',
     avatar: {
-      alt: "Shivank Mittal",
-      size: "md",
-      loggedIn: true
+      alt: 'Shivank Mittal',
+      size: 'md',
+      loggedIn: true,
     },
     items: [
-      {name: "about", id: "about", route: "about", component: AboutComponent},
-      {name: "tech", id: "tech", route: "tech-depth", component: TechDepthComponent},
-      {name: "carrier timeline", id: "carrier-timeline", route: "carrer", component: CarrerComponent},
-      {name: "contact", id: "contact", route: "contact",  component: ContactComponent},
-    ]
-  })
-
+      { name: 'about', id: 'about', route: 'about', component: AboutComponent },
+      { name: 'tech', id: 'tech', route: 'tech-depth', component: TechDepthComponent },
+      {
+        name: 'carrier timeline',
+        id: 'carrier-timeline',
+        route: 'carrer',
+        component: CarrerComponent,
+      },
+      { name: 'contact', id: 'contact', route: 'contact', component: ContactComponent },
+    ],
+  });
 
   // handlers
   navigationHandler(navItem: TNavItem) {
-    const homeChildren = document.getElementById("home")?.children[0]?.children as HTMLCollection
-    if(!homeChildren || !homeChildren.length) return;
-    const itemToScroll = homeChildren.namedItem(navItem.id)
-    itemToScroll?.scrollIntoView({behavior: "smooth", block: "start", inline: "nearest"})
+    const homeChildren = document.getElementById('home')?.children[0]?.children as HTMLCollection;
+    if (!homeChildren || !homeChildren.length) return;
+    const itemToScroll = homeChildren.namedItem(navItem.id);
+    itemToScroll?.scrollIntoView({ behavior: 'smooth', block: 'start', inline: 'nearest' });
   }
-
 }

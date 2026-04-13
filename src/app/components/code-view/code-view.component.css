@@ -11,7 +11,7 @@
   border: 1px solid var(--color-border);
   box-shadow: var(--shadow-lg);
 
-  font-family: "Fira Code", monospace;
+  font-family: 'Fira Code', monospace;
   transition: var(--transition-normal);
 }
 
@@ -77,7 +77,7 @@
 }
 
 code {
-    font-size: calc( var(--text-body-sm) / 1.2);
+  font-size: calc(var(--text-body-sm) / 1.2);
 }
 
 /* Scrollbar (clean + consistent) */
@@ -92,7 +92,7 @@ code {
 
 /* Optional: subtle gradient border glow */
 .code-container::after {
-  content: "";
+  content: '';
   position: absolute;
   inset: 0;
   border-radius: var(--radius-lg);
@@ -100,7 +100,9 @@ code {
   opacity: 0;
   transition: var(--transition-fast);
   background: var(--gradient-primary);
-  mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
   mask-composite: exclude;
   padding: 1px;
 }
@@ -110,13 +112,13 @@ code {
 }
 
 @media (min-width: 768px) {
-    .code-body {
-        padding: var(--space-md);
-    }
+  .code-body {
+    padding: var(--space-md);
+  }
 
-    code {
-        font-size: var(--text-body-sm);
-    }
+  code {
+    font-size: var(--text-body-sm);
+  }
 }
 
 /* @media (min-width: 1024px) { 

@@ -16,7 +16,7 @@ import { strongPasswordValidator } from '../../../validators/strong_password.val
 export class AuthComponent {
   private readonly formBuilder = inject(FormBuilder);
   private readonly authService = inject(AuthService);
-  private readonly toastService = inject(ToastService);;
+  private readonly toastService = inject(ToastService);
 
   readonly buttonSecondary = BUTTON.Secondary;
 
@@ -44,18 +44,23 @@ export class AuthComponent {
       await this.authService.signInWithGoogle();
     } catch (error: unknown) {
       console.error('Google sign-in failed:', error);
-      this.toastService.error($localize`:@@auth.toast.googleSignInFailed:Google sign-in failed. Please try again.`);
+      this.toastService.error(
+        $localize`:@@auth.toast.googleSignInFailed:Google sign-in failed. Please try again.`,
+      );
     }
   }
 
   onForgotClick(event: Event): void {
     event.preventDefault();
-    this.toastService.neutral($localize`:@@auth.toast.passwordReset:Password can not be reset, Please try the Google sign-in option.`);
+    this.toastService.neutral(
+      $localize`:@@auth.toast.passwordReset:Password can not be reset, Please try the Google sign-in option.`,
+    );
   }
 
   onRequestAccessClick(event: Event): void {
     event.preventDefault();
-    this.toastService.neutral($localize`:@@auth.toast.noAccess:We are not accepting new users at the moment. Please try again later.`);
+    this.toastService.neutral(
+      $localize`:@@auth.toast.noAccess:We are not accepting new users at the moment. Please try again later.`,
+    );
   }
 }
-

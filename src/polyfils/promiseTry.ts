@@ -6,11 +6,8 @@
 // Tell Zone.js not to patch ReadableStream
 (window as any).__zone_symbol__UNPATCHED_EVENTS = ['readablestream'];
 
-
 if (typeof (Promise as any).try !== 'function') {
-  (Promise as any).try = function <T>(
-    fn: () => T | Promise<T>
-  ): Promise<T> {
+  (Promise as any).try = function <T>(fn: () => T | Promise<T>): Promise<T> {
     return new Promise<T>((resolve, reject) => {
       try {
         resolve(fn());
@@ -21,11 +18,10 @@ if (typeof (Promise as any).try !== 'function') {
   };
 }
 
-
 // Fix Zone.js breaking ReadableStream for pdfjs-dist
 const OriginalReadableStream = (window as any).ReadableStream;
 if (OriginalReadableStream) {
-  (window as any).ReadableStream = function(...args: any[]) {
+  (window as any).ReadableStream = function (...args: any[]) {
     const stream = new OriginalReadableStream(...args);
     return stream;
   };

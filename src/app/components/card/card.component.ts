@@ -7,5 +7,4 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
   templateUrl: './card.component.html',
   styleUrl: './card.component.css',
 })
-export class CardComponent {
-}
+export class CardComponent {}

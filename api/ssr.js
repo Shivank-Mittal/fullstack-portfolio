@@ -31,7 +31,6 @@ export default async function handler(req, res) {
         else resolve();
       });
     });
-
   } catch (err) {
     console.error('SSR ERROR:', err.message);
     console.error('STACK:', err?.stack);

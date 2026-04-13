@@ -1,4 +1,15 @@
-import { Component, ElementRef, input, viewChild, afterNextRender, OnDestroy, HostListener, signal, PLATFORM_ID, inject } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  input,
+  viewChild,
+  afterNextRender,
+  OnDestroy,
+  HostListener,
+  signal,
+  PLATFORM_ID,
+  inject,
+} from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 
 interface Node {
@@ -28,13 +39,13 @@ interface Node {
     canvas {
       display: block;
     }
-  `
+  `,
 })
 export class NetworkBackgroundComponent implements OnDestroy {
   // Angular Signals (v17+)
   canvasRef = viewChild<ElementRef<HTMLCanvasElement>>('networkCanvas');
-  
-  nodeColor = input<string>('rgba(59, 130, 246, 0.2)'); 
+
+  nodeColor = input<string>('rgba(59, 130, 246, 0.2)');
   nodeCount = input<number>(60);
   connectionDistance = input<number>(180);
 
@@ -87,7 +98,7 @@ export class NetworkBackgroundComponent implements OnDestroy {
       x: Math.random() * canvas.width,
       y: Math.random() * canvas.height,
       vx: (Math.random() - 0.5) * 0.4,
-      vy: (Math.random() - 0.5) * 0.4
+      vy: (Math.random() - 0.5) * 0.4,
     }));
   }
 
@@ -119,7 +130,7 @@ export class NetworkBackgroundComponent implements OnDestroy {
         const dist = Math.sqrt(dx * dx + dy * dy);
 
         if (dist < this.connectionDistance()) {
-          const opacity = 1 - (dist / this.connectionDistance());
+          const opacity = 1 - dist / this.connectionDistance();
           this.ctx.beginPath();
           this.ctx.moveTo(node.x, node.y);
           this.ctx.lineTo(other.x, other.y);

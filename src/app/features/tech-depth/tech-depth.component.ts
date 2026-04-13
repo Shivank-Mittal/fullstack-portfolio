@@ -11,7 +11,6 @@ import { CommonModule } from '@angular/common';
   styleUrl: './tech-depth.component.css',
 })
 export class TechDepthComponent {
-
   cardsInfo = [
     {
       name: $localize`:@@techDepth.card.frontend:frontend`,
@@ -21,7 +20,7 @@ TypeScript (Strict Mode, Advanced Generics)
 Next.js / Vite (SSR, ISR, Edge Runtime)
 State Management (Zustand, Jotai, XState)
 Micro-Frontends (Module Federation)
-Performance (CWV, Bundle Analysis, Tree-shaking)`
+Performance (CWV, Bundle Analysis, Tree-shaking)`,
     },
     {
       name: $localize`:@@techDepth.card.backend:backend`,
@@ -31,7 +30,7 @@ Python (FastAPI, Django REST)
 PostgreSQL (Query Optimization, Indexing)
 Redis (Caching Strategies, Pub/Sub)
 GraphQL (Federation, DataLoader, Subscriptions)
-REST API Design (OpenAPI, Versioning)`
+REST API Design (OpenAPI, Versioning)`,
     },
     {
       name: $localize`:@@techDepth.card.systemDesign:System Design`,
@@ -41,7 +40,7 @@ Event-Driven Architecture (Kafka, RabbitMQ)
 CQRS / Event Sourcing Patterns
 Load Balancing & CDN Strategy
 Observability (Datadog, Grafana, OTel)
-CI/CD Pipeline Design (GitHub Actions)`
+CI/CD Pipeline Design (GitHub Actions)`,
     },
     {
       name: $localize`:@@techDepth.card.devopsAi:DevOps & AI`,
@@ -51,8 +50,7 @@ RAG Pipelines (Pinecone, Weaviate)
 Prompt Engineering & Evaluation
 Docker / Kubernetes (Helm, ArgoCD)
 Terraform / Infrastructure as Code
-Git Workflows (Monorepo, Trunk-Based)`
-    }
-  ]
-
+Git Workflows (Monorepo, Trunk-Based)`,
+    },
+  ];
 }

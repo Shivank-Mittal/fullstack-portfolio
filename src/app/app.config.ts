@@ -6,9 +6,5 @@ import { provideClientHydration } from '@angular/platform-browser';
 import { superbaseProvider } from '../superbase/superbase.provider';
 
 export const appConfig: ApplicationConfig = {
-  providers: [
-    provideRouter(routes), 
-    provideClientHydration(),
-    superbaseProvider
-  ]
+  providers: [provideRouter(routes), provideClientHydration(), superbaseProvider],
 };

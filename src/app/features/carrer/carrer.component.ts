@@ -7,6 +7,4 @@ import { TimelineComponent } from '../../components/timeline/timeline.component'
   templateUrl: './carrer.component.html',
   styleUrl: './carrer.component.css',
 })
-export class CarrerComponent {
-
-}
+export class CarrerComponent {}

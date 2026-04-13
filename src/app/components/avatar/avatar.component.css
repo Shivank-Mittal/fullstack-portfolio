@@ -47,7 +47,7 @@
 }
 
 .avatar span {
-  font-family: "Space Grotesk", sans-serif;
+  font-family: 'Space Grotesk', sans-serif;
   font-size: var(--text-caption);
   font-weight: 700;
   letter-spacing: 0.04em;

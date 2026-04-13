@@ -8,9 +8,8 @@ describe('TechDepthComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [TechDepthComponent]
-    })
-    .compileComponents();
+      imports: [TechDepthComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(TechDepthComponent);
     component = fixture.componentInstance;

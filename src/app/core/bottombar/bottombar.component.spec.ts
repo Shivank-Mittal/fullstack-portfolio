@@ -8,9 +8,8 @@ describe('BottombarComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [BottombarComponent]
-    })
-    .compileComponents();
+      imports: [BottombarComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(BottombarComponent);
     component = fixture.componentInstance;

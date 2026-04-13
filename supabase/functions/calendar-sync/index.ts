@@ -1,35 +1,39 @@
-import { serve } from "https://deno.land/std@0.168.0/http/server.ts"
-import { createClient } from "https://esm.sh/@supabase/supabase-js@2"
-import ical from "https://esm.sh/node-ical@0.16.1"
+import { serve } from 'https://deno.land/std@0.168.0/http/server.ts';
+import { createClient } from 'https://esm.sh/@supabase/supabase-js@2';
+import ical from 'https://esm.sh/node-ical@0.16.1';
 
 export const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
   'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
   'Access-Control-Allow-Methods': 'POST, GET, OPTIONS',
-}
+};
 
 // Ensure this matches the ID in your user_integrations table
-const PORTFOLIO_OWNER_ID = "498ccf7e-4e97-45e5-8a54-08fb312b204f"
+const PORTFOLIO_OWNER_ID = '498ccf7e-4e97-45e5-8a54-08fb312b204f';
 
 serve(async (req) => {
   // 1. Handle Preflight CORS
-  if (req.method === 'OPTIONS') return new Response('ok', { headers: corsHeaders })
+  if (req.method === 'OPTIONS') return new Response('ok', { headers: corsHeaders });
 
   try {
     const supabaseAdmin = createClient(
       Deno.env.get('SUPABASE_URL')!,
-      Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!
-    )
+      Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!,
+    );
 
     // 2. Identify the user calling the function (Auth Check)
-    const authHeader = req.headers.get('Authorization')?.replace('Bearer ', '')
-    if (!authHeader) throw new Error("Missing Authorization header")
+    const authHeader = req.headers.get('Authorization')?.replace('Bearer ', '');
+    if (!authHeader) throw new Error('Missing Authorization header');
 
-    const { data: { user }, error: authError } = await supabaseAdmin.auth.getUser(authHeader)
+    const {
+      data: { user },
+      error: authError,
+    } = await supabaseAdmin.auth.getUser(authHeader);
     if (authError || !user) {
-      return new Response(JSON.stringify({ error: "Unauthorized access" }), { 
-        status: 401, headers: { ...corsHeaders, 'Content-Type': 'application/json' } 
-      })
+      return new Response(JSON.stringify({ error: 'Unauthorized access' }), {
+        status: 401,
+        headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+      });
     }
 
     // 3. Extract Dates from Body or Set Defaults
@@ -54,9 +58,9 @@ serve(async (req) => {
       .from('user_integrations')
       .select('*')
       .eq('user_id', PORTFOLIO_OWNER_ID)
-      .single()
+      .single();
 
-    if (dbError || !integration) throw new Error("Portfolio owner integration data not found")
+    if (dbError || !integration) throw new Error('Portfolio owner integration data not found');
 
     // 5. Refresh Google Token (Using Secrets you added to Supabase)
     const gResp = await fetch('https://oauth2.googleapis.com/token', {
@@ -67,12 +71,12 @@ serve(async (req) => {
         refresh_token: integration.google_refresh_token,
         grant_type: 'refresh_token',
       }),
-    })
-    
-    const gTokens = await gResp.json()
+    });
+
+    const gTokens = await gResp.json();
     if (!gTokens.access_token) {
-      console.error("Google Auth Fail:", gTokens)
-      throw new Error(`Google Refresh Failed: ${gTokens.error_description || gTokens.error}`)
+      console.error('Google Auth Fail:', gTokens);
+      throw new Error(`Google Refresh Failed: ${gTokens.error_description || gTokens.error}`);
     }
 
     // 6. Fetch Google & Apple simultaneously
@@ -85,19 +89,19 @@ serve(async (req) => {
 
     const [googleResponse, appleResponse] = await Promise.all([
       fetch(`https://www.googleapis.com/calendar/v3/calendars/primary/events?${googleParams}`, {
-        headers: { Authorization: `Bearer ${gTokens.access_token}` }
+        headers: { Authorization: `Bearer ${gTokens.access_token}` },
       }),
-      fetch(integration.apple_ical_url.replace('webcal://', 'https://'))
-    ])
+      fetch(integration.apple_ical_url.replace('webcal://', 'https://')),
+    ]);
 
     const googleData = await googleResponse.json();
     const appleRawText = await appleResponse.text();
 
     // DEBUG: Check if Google is complaining about permissions
     if (googleData.error) {
-      console.error("Google API Error:", googleData.error);
+      console.error('Google API Error:', googleData.error);
     }
-    console.log("Full Google Response:", JSON.stringify(googleData));
+    console.log('Full Google Response:', JSON.stringify(googleData));
 
     // 7. Parse & Filter Apple iCal Data
     const appleParsed = ical.sync.parseICS(appleRawText);
@@ -105,40 +109,43 @@ serve(async (req) => {
     const rangeEnd = new Date(timeMax);
 
     const appleEvents = Object.values(appleParsed)
-      .filter(e => 
-        e.type === 'VEVENT' && 
-        e.start && 
-        new Date(e.start) >= rangeStart && 
-        new Date(e.start) <= rangeEnd
+      .filter(
+        (e) =>
+          e.type === 'VEVENT' &&
+          e.start &&
+          new Date(e.start) >= rangeStart &&
+          new Date(e.start) <= rangeEnd,
       )
-      .map(e => ({
+      .map((e) => ({
         summary: e.summary,
         description: e.description || '',
         location: e.location || '',
         start: e.start,
         end: e.end,
-        source: 'apple'
-      }))
+        source: 'apple',
+      }));
 
     // 8. Return Unified Data
-    return new Response(JSON.stringify({
-      google: googleData.items || [],
-      apple: appleEvents,
-      metadata: {
-        rangeUsed: { timeMin, timeMax },
-        googleCount: (googleData.items || []).length,
-        appleCount: appleEvents.length
-      }
-    }), {
-      headers: { ...corsHeaders, 'Content-Type': 'application/json' },
-      status: 200,
-    })
-
+    return new Response(
+      JSON.stringify({
+        google: googleData.items || [],
+        apple: appleEvents,
+        metadata: {
+          rangeUsed: { timeMin, timeMax },
+          googleCount: (googleData.items || []).length,
+          appleCount: appleEvents.length,
+        },
+      }),
+      {
+        headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+        status: 200,
+      },
+    );
   } catch (error) {
-    console.error("Function Error:", error.message)
+    console.error('Function Error:', error.message);
     return new Response(JSON.stringify({ error: error.message }), {
       headers: { ...corsHeaders, 'Content-Type': 'application/json' },
       status: 400,
-    })
+    });
   }
-})
+});

@@ -1,62 +1,72 @@
 <app-network-background></app-network-background>
 
 <div id="available-icon">
-    <div id="icon"></div>
-    <span id="available-content" i18n="@@hero.availableStatus"> Available for the coloration</span>
+  <div id="icon"></div>
+  <span id="available-content" i18n="@@hero.availableStatus"> Available for the coloration</span>
 </div>
 
 <section id="hero">
-    <div id="hero-headline">
-        <h3>{{ line1() }}</h3>
-        <h3 id="hero-headline_section">{{ line2() }}</h3>
-        <h3>{{ line3() }}</h3>
-        <h3>{{ line4() }}</h3>
-    </div>
+  <div id="hero-headline">
+    <h3>{{ line1() }}</h3>
+    <h3 id="hero-headline_section">{{ line2() }}</h3>
+    <h3>{{ line3() }}</h3>
+    <h3>{{ line4() }}</h3>
+  </div>
 
-    <!-- Floating tech icons -->
-    <div class="floating-container" [class.visible]="typingComplete()">
-        <div class="floating-item item-1"><fa-icon [icon]="icons.code"></fa-icon></div>
-        <div class="floating-item item-2"><fa-icon [icon]="icons.brain"></fa-icon></div>
-        <div class="floating-item item-3"><fa-icon [icon]="icons.terminal"></fa-icon></div>
-        <div class="floating-item item-4"><fa-icon [icon]="icons.microchip"></fa-icon></div>
-    </div>
+  <!-- Floating tech icons -->
+  <div class="floating-container" [class.visible]="typingComplete()">
+    <div class="floating-item item-1"><fa-icon [icon]="icons.code"></fa-icon></div>
+    <div class="floating-item item-2"><fa-icon [icon]="icons.brain"></fa-icon></div>
+    <div class="floating-item item-3"><fa-icon [icon]="icons.terminal"></fa-icon></div>
+    <div class="floating-item item-4"><fa-icon [icon]="icons.microchip"></fa-icon></div>
+  </div>
 
-    <section id="hero-info" [class.visible]="typingComplete()">
-        <p i18n="@@hero.description">Crafting end-to-end systems that transform complex data into real-time, intelligent user experiences — powered by Angular, AI, and scalable backend architectures</p>
-    </section>
+  <section id="hero-info" [class.visible]="typingComplete()">
+    <p i18n="@@hero.description">
+      Crafting end-to-end systems that transform complex data into real-time, intelligent user
+      experiences — powered by Angular, AI, and scalable backend architectures
+    </p>
+  </section>
 
-    <section id="hero-actions" [class.visible]="typingComplete()">
-        <app-button size="md" (click) = "onResumeDownload()" i18n="@@hero.downloadResume"> Download Resume </app-button>
-        <app-button [type]="getInTouchButton" size="md" (click)="getIntTouchHandler()" i18n="@@hero.getInTouch"> Get In Touch</app-button>
-    </section>
-
+  <section id="hero-actions" [class.visible]="typingComplete()">
+    <app-button size="md" (click)="onResumeDownload()" i18n="@@hero.downloadResume">
+      Download Resume
+    </app-button>
+    <app-button
+      [type]="getInTouchButton"
+      size="md"
+      (click)="getIntTouchHandler()"
+      i18n="@@hero.getInTouch"
+    >
+      Get In Touch</app-button
+    >
+  </section>
 </section>
 
 <div id="divider" [class.visible]="typingComplete()"></div>
 
 <section id="info" [class.visible]="typingComplete()">
-    <div class="info-item">
-        <fa-icon [icon]="icons.briefcase" class="info-icon"></fa-icon>
-        <div class="info-text">
-            <h1 class="info-header">5+</h1>
-            <p class="info-content" i18n="@@hero.yearsOfExperience">Years of Experience</p>
-        </div>
+  <div class="info-item">
+    <fa-icon [icon]="icons.briefcase" class="info-icon"></fa-icon>
+    <div class="info-text">
+      <h1 class="info-header">5+</h1>
+      <p class="info-content" i18n="@@hero.yearsOfExperience">Years of Experience</p>
     </div>
+  </div>
 
-    <div class="info-item">
-        <fa-icon [icon]="icons.projectDiagram" class="info-icon"></fa-icon>
-        <div class="info-text">
-            <h1 class="info-header">AI</h1>
-            <p class="info-content" i18n="@@hero.aiTopics">RAG, Context, Prompts</p>
-        </div>
+  <div class="info-item">
+    <fa-icon [icon]="icons.projectDiagram" class="info-icon"></fa-icon>
+    <div class="info-text">
+      <h1 class="info-header">AI</h1>
+      <p class="info-content" i18n="@@hero.aiTopics">RAG, Context, Prompts</p>
     </div>
+  </div>
 
-    <div class="info-item">
-        <fa-icon [icon]="icons.user" class="info-icon"></fa-icon>
-        <div class="info-text">
-            <h1 class="info-header">Performance</h1>
-            <p class="info-content" i18n="@@hero.performanceTopics">SSR, lazy loading</p>
-        </div>
+  <div class="info-item">
+    <fa-icon [icon]="icons.user" class="info-icon"></fa-icon>
+    <div class="info-text">
+      <h1 class="info-header">Performance</h1>
+      <p class="info-content" i18n="@@hero.performanceTopics">SSR, lazy loading</p>
     </div>
-
+  </div>
 </section>

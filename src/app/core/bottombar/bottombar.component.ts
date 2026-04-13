@@ -6,6 +6,4 @@ import { Component } from '@angular/core';
   templateUrl: './bottombar.component.html',
   styleUrl: './bottombar.component.css',
 })
-export class BottombarComponent {
-
-}
+export class BottombarComponent {}

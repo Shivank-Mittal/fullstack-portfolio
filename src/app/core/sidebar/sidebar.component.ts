@@ -10,14 +10,12 @@ import { FaIconComponent } from '@fortawesome/angular-fontawesome';
   styleUrl: './sidebar.component.css',
 })
 export class SidebarComponent {
-  router = inject(Router)
+  router = inject(Router);
 
   navbarInfo = input.required<TUserNavInfo>();
 
-
-  //Handlers 
+  //Handlers
   handleItemSelection(route: string) {
-    this.router.navigateByUrl(route)
+    this.router.navigateByUrl(route);
   }
-
 }

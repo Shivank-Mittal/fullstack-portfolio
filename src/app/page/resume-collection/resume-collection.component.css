@@ -18,9 +18,10 @@
   border-radius: var(--radius-lg);
   overflow: hidden;
   background: var(--color-surface);
-  transition: border-color var(--transition-fast),
-              box-shadow var(--transition-fast),
-              transform var(--transition-fast);
+  transition:
+    border-color var(--transition-fast),
+    box-shadow var(--transition-fast),
+    transform var(--transition-fast);
   display: flex;
   flex-direction: column;
 
@@ -33,7 +34,7 @@
 .card-info {
   display: flex;
   flex-direction: column;
-  gap: var(--space-xs);          /* was --space-sm */
+  gap: var(--space-xs); /* was --space-sm */
   padding: var(--space-sm) var(--space-md) var(--space-md);
   border-top: 1px solid var(--color-border);
   margin-top: auto;
@@ -51,7 +52,7 @@
 }
 
 .card-title {
-  font-size: var(--text-label);   /* was --text-heading-sm, much smaller */
+  font-size: var(--text-label); /* was --text-heading-sm, much smaller */
   font-weight: 700;
   color: var(--color-text-primary);
   white-space: nowrap;
@@ -92,13 +93,14 @@
   background: var(--color-text-primary);
   color: var(--color-bg);
   border: none;
-  border-radius: var(--radius-sm);   /* was --radius-md */
-  padding: 5px var(--space-sm);      /* was --space-sm --space-md */
-  font-size: var(--text-caption);    /* was --text-button */
+  border-radius: var(--radius-sm); /* was --radius-md */
+  padding: 5px var(--space-sm); /* was --space-sm --space-md */
+  font-size: var(--text-caption); /* was --text-button */
   font-weight: 600;
   cursor: pointer;
-  transition: opacity var(--transition-fast),
-              transform var(--transition-fast);
+  transition:
+    opacity var(--transition-fast),
+    transform var(--transition-fast);
   white-space: nowrap;
 
   &:hover {
@@ -111,7 +113,7 @@
   }
 }
 
-.signout-button{
+.signout-button {
   margin-top: var(--space-lg);
 }
 
@@ -139,8 +141,13 @@
 }
 
 @keyframes pulse-new {
-  0%, 100% { box-shadow: 0 2px 8px rgba(99,102,241,0.45); }
-  50%       { box-shadow: 0 2px 16px rgba(99,102,241,0.75); }
+  0%,
+  100% {
+    box-shadow: 0 2px 8px rgba(99, 102, 241, 0.45);
+  }
+  50% {
+    box-shadow: 0 2px 16px rgba(99, 102, 241, 0.75);
+  }
 }
 
 /* ── Dot next to title ──────────────────── */

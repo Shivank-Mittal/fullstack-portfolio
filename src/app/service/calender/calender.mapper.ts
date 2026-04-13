@@ -1,8 +1,4 @@
-import {
-  TAppleCalendarEvent,
-  TCalendarEvent,
-  TGoogleCalendarEvent,
-} from '../../types/TCalendar';
+import { TAppleCalendarEvent, TCalendarEvent, TGoogleCalendarEvent } from '../../types/TCalendar';
 
 export function mapGoogleEvent(event: TGoogleCalendarEvent): TCalendarEvent {
   const cancelled = event.status === 'cancelled';

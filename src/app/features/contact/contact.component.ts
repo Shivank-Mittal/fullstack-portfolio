@@ -10,10 +10,13 @@ import { faGithub, faLinkedinIn } from '@fortawesome/free-brands-svg-icons';
   styleUrl: './contact.component.css',
 })
 export class ContactComponent {
-
-  icons= [
-    { iconName: faMessage, value: 'mittal.shivank@gmail.com', type: 'string'},
-    { iconName: faLinkedinIn, value: 'https://www.linkedin.com/in/shivank-mittal-09055ba3/', type: 'link'},
-    { iconName: faGithub, value: 'https://github.com/Shivank-Mittal', type: 'link'}
-  ]
+  icons = [
+    { iconName: faMessage, value: 'mittal.shivank@gmail.com', type: 'string' },
+    {
+      iconName: faLinkedinIn,
+      value: 'https://www.linkedin.com/in/shivank-mittal-09055ba3/',
+      type: 'link',
+    },
+    { iconName: faGithub, value: 'https://github.com/Shivank-Mittal', type: 'link' },
+  ];
 }

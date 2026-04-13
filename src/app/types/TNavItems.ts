@@ -1,16 +1,15 @@
 import { TAvatarInfo } from './TAvatar';
 
 export type TNavItem = {
-    name: string,
-    id: string,
-    component: any
-    route?: string ,
-}
-
+  name: string;
+  id: string;
+  component: any;
+  route?: string;
+};
 
 export type TNavbarInfo = {
-    name: string,
-    items: TNavItem[],
-    downloadInfo?: string,
-    avatar?: TAvatarInfo,
-}
+  name: string;
+  items: TNavItem[];
+  downloadInfo?: string;
+  avatar?: TAvatarInfo;
+};

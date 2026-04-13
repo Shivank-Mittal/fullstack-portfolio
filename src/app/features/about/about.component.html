@@ -1,60 +1,61 @@
 <section id="about-info">
-    <h3 id="header-content" #animatedPara i18n="@@about.heading">Engineering systems that
-        <span id="header-content_highlight"> scale beyond </span>
-        the interface.
-    </h3>
+  <h3 id="header-content" #animatedPara i18n="@@about.heading">
+    Engineering systems that
+    <span id="header-content_highlight"> scale beyond </span>
+    the interface.
+  </h3>
 
-    <div id="content-section">
-        <p id="content" #animatedPara i18n="@@about.para1">
-            With 6+ years building production systems, I specialize in frontend architecture, distributed system design, and integrating AI pipelines into user-facing products.
-        </p>
-        <p id="content" #animatedPara i18n="@@about.para2">
-            I've led micro-frontend migrations serving 2M+ users, optimized Core Web Vitals across enterprise applications, and designed real-time data pipelines for ML-powered features.
-        </p>
-        <p id="content" #animatedPara i18n="@@about.para3">
-             My approach is systems-first: every component, every abstraction, every API boundary is designed for resilience, observability, and team velocity
-        </p>
-    </div>
+  <div id="content-section">
+    <p id="content" #animatedPara i18n="@@about.para1">
+      With 6+ years building production systems, I specialize in frontend architecture, distributed
+      system design, and integrating AI pipelines into user-facing products.
+    </p>
+    <p id="content" #animatedPara i18n="@@about.para2">
+      I've led micro-frontend migrations serving 2M+ users, optimized Core Web Vitals across
+      enterprise applications, and designed real-time data pipelines for ML-powered features.
+    </p>
+    <p id="content" #animatedPara i18n="@@about.para3">
+      My approach is systems-first: every component, every abstraction, every API boundary is
+      designed for resilience, observability, and team velocity
+    </p>
+  </div>
 
+  <section id="cards">
+    <app-card icon="test" heading="Testing" #animatedPara>
+      <fa-icon [icon]="icons.code"></fa-icon>
+      <ng-container ngProjectAs="card-header">{{ cards[0].header }}</ng-container>
+      <ng-container ngProjectAs="card-content">{{ cards[0].content }}</ng-container>
+    </app-card>
 
-    <section id="cards">
-        <app-card icon="test" heading="Testing" #animatedPara>
-            <fa-icon [icon]="icons.code" ></fa-icon>
-            <ng-container ngProjectAs="card-header">{{cards[0].header}}</ng-container>
-            <ng-container ngProjectAs="card-content">{{cards[0].content}}</ng-container>
-        </app-card>
+    <app-card icon="test" heading="Testing" #animatedPara>
+      <fa-icon [icon]="icons.boxStack"></fa-icon>
+      <ng-container ngProjectAs="card-header">{{ cards[1].header }}</ng-container>
+      <ng-container ngProjectAs="card-content">{{ cards[1].content }}</ng-container>
+    </app-card>
 
-        <app-card icon="test" heading="Testing" #animatedPara>
-            <fa-icon [icon]="icons.boxStack"></fa-icon>
-            <ng-container ngProjectAs="card-header">{{cards[1].header}}</ng-container>
-            <ng-container ngProjectAs="card-content">{{cards[1].content}}</ng-container>
-        </app-card>
+    <app-card icon="test" heading="Testing" #animatedPara>
+      <fa-icon [icon]="icons.lightning"></fa-icon>
+      <ng-container ngProjectAs="card-header">{{ cards[2].header }}</ng-container>
+      <ng-container ngProjectAs="card-content">{{ cards[2].content }}</ng-container>
+    </app-card>
 
-        <app-card icon="test" heading="Testing" #animatedPara>
-            <fa-icon [icon]="icons.lightning"></fa-icon>
-            <ng-container ngProjectAs="card-header">{{cards[2].header}}</ng-container>
-            <ng-container ngProjectAs="card-content">{{cards[2].content}}</ng-container>
-        </app-card>
-
-        <app-card icon="test" heading="Testing" #animatedPara>
-            <fa-icon [icon]="icons.cubeStack"></fa-icon>
-            <ng-container ngProjectAs="card-header">{{cards[3].header}}</ng-container>
-            <ng-container ngProjectAs="card-content">{{cards[3].content}}</ng-container>
-        </app-card>
-    </section>
-
+    <app-card icon="test" heading="Testing" #animatedPara>
+      <fa-icon [icon]="icons.cubeStack"></fa-icon>
+      <ng-container ngProjectAs="card-header">{{ cards[3].header }}</ng-container>
+      <ng-container ngProjectAs="card-content">{{ cards[3].content }}</ng-container>
+    </app-card>
+  </section>
 </section>
 
 <section id="about-code">
-
-    <app-code-view
-        title="Testing"
-        [showHeader]="true"
-        code='const approach = {
+  <app-code-view
+    title="Testing"
+    [showHeader]="true"
+    code='const approach = {
                 architecture: "systems-first",
                 testing: "contract + integration",
                 shipping: "fast, measured, iterative",
                 goal: "resilient by default",
             }'
-    ></app-code-view>
+  ></app-code-view>
 </section>

@@ -17,56 +17,63 @@ import { faDownload } from '@fortawesome/free-solid-svg-icons';
   styleUrl: './resume-collection.component.css',
 })
 export class ResumeCollectionComponent implements OnInit {
-
-
   private authServicer = inject(AuthService);
   private readonly dbClient = inject(SuperBaseService);
-  private readonly toasterService = inject(ToastService)
+  private readonly toasterService = inject(ToastService);
 
-  resumes = signal<TResume[]>([])
+  resumes = signal<TResume[]>([]);
 
-  buttonType = BUTTON.OUTLINE
+  buttonType = BUTTON.OUTLINE;
   downloadIcon = faDownload;
-  tableName = "resume_collection";
+  tableName = 'resume_collection';
 
   ngOnInit(): void {
-      this.fetchResumes()
+    this.fetchResumes();
   }
 
   //handlers
   signOutHandler() {
-    this.authServicer.signOut()
+    this.authServicer.signOut();
   }
 
   async download(resume: TResume) {
-    const fileName = resume.title + '.'+resume.fileType;
-    debugger
-    this.dbClient.getResume(fileName).then((response) => {
-      const url = URL.createObjectURL(response.data.data);
-      const link = document.createElement('a');
-      link.href = url; // Use the URL directly
-      link.setAttribute('download', fileName); // Set the file name
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-      }).catch((error) => {
+    const fileName = resume.title + '.' + resume.fileType;
+    debugger;
+    this.dbClient
+      .getResume(fileName)
+      .then((response) => {
+        const url = URL.createObjectURL(response.data.data);
+        const link = document.createElement('a');
+        link.href = url; // Use the URL directly
+        link.setAttribute('download', fileName); // Set the file name
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+      })
+      .catch((error) => {
         console.error('Error downloading resume:', error);
-    })
+      });
   }
 
   getLanguageLabel(language: string): string {
     switch (language) {
-      case 'en': return $localize`:@@resumeCollection.lang.en:🇬🇧 ENGLISH`;
-      case 'fr': return $localize`:@@resumeCollection.lang.fr:🇫🇷 FRENCH`;
-      default:   return $localize`:@@resumeCollection.lang.hi:🇮🇳 HINDI`;
+      case 'en':
+        return $localize`:@@resumeCollection.lang.en:🇬🇧 ENGLISH`;
+      case 'fr':
+        return $localize`:@@resumeCollection.lang.fr:🇫🇷 FRENCH`;
+      default:
+        return $localize`:@@resumeCollection.lang.hi:🇮🇳 HINDI`;
     }
   }
 
   getTypeLabel(type: string): string {
     switch (type) {
-      case 'stage': return $localize`:@@resumeCollection.type.internship:Internship`;
-      case 'CDI':   return $localize`:@@resumeCollection.type.fullTime:Full-time`;
-      default:      return $localize`:@@resumeCollection.type.fixedTerm:Fixed-term`;
+      case 'stage':
+        return $localize`:@@resumeCollection.type.internship:Internship`;
+      case 'CDI':
+        return $localize`:@@resumeCollection.type.fullTime:Full-time`;
+      default:
+        return $localize`:@@resumeCollection.type.fixedTerm:Fixed-term`;
     }
   }
 
@@ -76,38 +83,37 @@ export class ResumeCollectionComponent implements OnInit {
       : $localize`:@@resumeCollection.download.en:Download`;
   }
 
-  private async fetchResumes(){
-    const resumesInformation = await this.dbClient.getTableData(this.tableName)
-    if(resumesInformation.error) {
-      this.toasterService.error($localize`:@@resumeCollection.toast.fetchError:Error fetching the resumes`);
+  private async fetchResumes() {
+    const resumesInformation = await this.dbClient.getTableData(this.tableName);
+    if (resumesInformation.error) {
+      this.toasterService.error(
+        $localize`:@@resumeCollection.toast.fetchError:Error fetching the resumes`,
+      );
       return;
     }
 
-    const resumes = resumesInformation.data.map(file => this.mapInformationToResume(file))
+    const resumes = resumesInformation.data.map((file) => this.mapInformationToResume(file));
     const t: TResume[] = await Promise.all(
-            resumes.map(async resume => {
-              const fileName = resume.title + '.' + resume.fileType
-              const url = await this.dbClient.getSignedURL('resumes', fileName);
-              return { ...resume, pdfUrl: url.data?.signedUrl };
-            })
-          );
+      resumes.map(async (resume) => {
+        const fileName = resume.title + '.' + resume.fileType;
+        const url = await this.dbClient.getSignedURL('resumes', fileName);
+        return { ...resume, pdfUrl: url.data?.signedUrl };
+      }),
+    );
 
-    this.resumes.set(t)
+    this.resumes.set(t);
   }
 
-
-  private mapInformationToResume(file: any):TResume {
+  private mapInformationToResume(file: any): TResume {
     return {
-      id: file.id, 
+      id: file.id,
       language: file.language,
       updated_at: file.created_at,
-      title: file.file_name, 
+      title: file.file_name,
       type: file.type,
       jobTitle: file.job_title,
       fileType: file.file_type,
-      isNew: file.is_new
-    }
+      isNew: file.is_new,
+    };
   }
-
-
 }

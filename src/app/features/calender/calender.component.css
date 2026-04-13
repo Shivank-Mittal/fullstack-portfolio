@@ -182,7 +182,9 @@
   padding: 2px 6px;
   border-radius: var(--radius-sm);
   background: transparent;
-  transition: background var(--transition-fast), transform var(--transition-fast);
+  transition:
+    background var(--transition-fast),
+    transform var(--transition-fast);
 }
 
 :host ::ng-deep .fc-daygrid-dot-event:hover {
@@ -219,7 +221,9 @@
   padding: 2px 6px;
   border: none !important;
   margin-bottom: 2px;
-  transition: opacity var(--transition-fast), transform var(--transition-fast);
+  transition:
+    opacity var(--transition-fast),
+    transform var(--transition-fast);
 }
 
 :host ::ng-deep .fc-daygrid-block-event:hover {

@@ -8,22 +8,26 @@ import { mapAppleEvent, mapGoogleEvent } from './calender.mapper';
   providedIn: 'root',
 })
 export class CalenderService {
+  supabaseService = inject(SuperBaseService);
 
-  supabaseService = inject(SuperBaseService)
-
-  async getCalendarData(minDate: string, maxDate: string): Promise<{ google: TCalendarEvent[]; apple: TCalendarEvent[], metadata: any }> {
+  async getCalendarData(
+    minDate: string,
+    maxDate: string,
+  ): Promise<{ google: TCalendarEvent[]; apple: TCalendarEvent[]; metadata: any }> {
     const body = {
       timeMin: minDate,
-      timeMax: maxDate
+      timeMax: maxDate,
     };
 
-    const resp = await this.supabaseService.callFunctionWithHTTP(EFunction.CALENDAR, body) as TCalendarResponse;
+    const resp = (await this.supabaseService.callFunctionWithHTTP(
+      EFunction.CALENDAR,
+      body,
+    )) as TCalendarResponse;
 
     return {
       google: (resp.google || []).map(mapGoogleEvent),
       apple: (resp.apple || []).map(mapAppleEvent),
-      metadata: resp.metadata || {}
+      metadata: resp.metadata || {},
     };
   }
-
 }

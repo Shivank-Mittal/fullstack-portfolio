@@ -1,12 +1,12 @@
 :host {
-    display: block;
-    padding: var(--global-padding);
+  display: block;
+  padding: var(--global-padding);
 }
 
 .information {
-    display: flex;
-    flex-direction: column;
-    margin-top: var(--space-lg);
-    margin-bottom: var(--space-lg);
-    gap: calc( 3 * var(--space-2xl));
+  display: flex;
+  flex-direction: column;
+  margin-top: var(--space-lg);
+  margin-bottom: var(--space-lg);
+  gap: calc(3 * var(--space-2xl));
 }

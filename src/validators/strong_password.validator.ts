@@ -1,8 +1,6 @@
 import { AbstractControl, ValidationErrors } from '@angular/forms';
 
-export function strongPasswordValidator(
-  control: AbstractControl
-): ValidationErrors | null {
+export function strongPasswordValidator(control: AbstractControl): ValidationErrors | null {
   const value = control.value;
 
   if (!value) return null;

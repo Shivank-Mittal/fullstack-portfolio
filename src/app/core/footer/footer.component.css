@@ -7,7 +7,7 @@
 
 /* 🔥 gradient glow (top center like hero continuation) */
 .footer::before {
-  content: "";
+  content: '';
   position: absolute;
   top: -150px;
   left: 50%;
@@ -101,12 +101,7 @@
   margin: var(--space-xl) auto;
   height: 1px;
   width: 100%;
-  background: linear-gradient(
-    to right,
-    transparent,
-    var(--color-border),
-    transparent
-  );
+  background: linear-gradient(to right, transparent, var(--color-border), transparent);
 }
 
 /* bottom */

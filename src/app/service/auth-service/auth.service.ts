@@ -11,18 +11,17 @@ export class AuthService {
 
   async signInWithGoogle() {
     this.superbaseClient?.auth.signInWithOAuth({
-      provider: 'google', 
+      provider: 'google',
       options: {
-       scopes: 'https://www.googleapis.com/auth/calendar https://www.googleapis.com/auth/gmail.readonly',
-       queryParams: {
+        scopes:
+          'https://www.googleapis.com/auth/calendar https://www.googleapis.com/auth/gmail.readonly',
+        queryParams: {
           access_type: 'offline',
           prompt: 'consent', // Required to get the refresh_token every time
         },
-        redirectTo: environment.authRedirectUrl
-      }
+        redirectTo: environment.authRedirectUrl,
+      },
     });
-
-
   }
 
   async fetchUser() {
@@ -38,16 +37,14 @@ export class AuthService {
   }
 
   async upsert() {
-    const { data: { session } } = await this.fetchSession();
+    const {
+      data: { session },
+    } = await this.fetchSession();
     if (session?.provider_refresh_token) {
-      await this.superbaseClient
-        .from('user_integrations')
-        .upsert({ 
-          user_id: session.user.id,
-          provider_refresh_token: session.provider_refresh_token,
-        });
+      await this.superbaseClient.from('user_integrations').upsert({
+        user_id: session.user.id,
+        provider_refresh_token: session.provider_refresh_token,
+      });
     }
   }
-
 }
-

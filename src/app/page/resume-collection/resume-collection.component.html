@@ -2,20 +2,15 @@
 
 <div class="resume-grid">
   @for (resume of resumes(); track resume.id) {
-   <div class="resume-card">
-
+    <div class="resume-card">
       <div class="card-thumbnail-wrapper">
-        <app-resume-thumbnail
-          [pdfUrl]="resume.pdfUrl"
-          [alt]="resume.title"
-        />
+        <app-resume-thumbnail [pdfUrl]="resume.pdfUrl" [alt]="resume.title" />
         @if (resume.isNew) {
           <span class="tag-new" i18n="@@resumeCollection.newTag">NEW</span>
         }
       </div>
 
       <div class="card-info">
-
         <div class="card-lang">
           <span class="lang-dot"></span>
           {{ getLanguageLabel(resume.language) }}
@@ -33,19 +28,23 @@
         <div class="card-subtitle">{{ resume.jobTitle }}</div>
 
         <div class="card-footer">
-          <span class="card-date">{{ resume.updated_at | date:'MMM y' }}</span>
+          <span class="card-date">{{ resume.updated_at | date: 'MMM y' }}</span>
           <button class="btn-download" (click)="download(resume)">
             <fa-icon [icon]="downloadIcon"></fa-icon>
             {{ getDownloadLabel(resume.language) }}
           </button>
         </div>
-
       </div>
-
     </div>
   }
 </div>
 
-<app-button class="signout-button" (click)="signOutHandler()" size="md" [type]="buttonType" i18n="@@resumeCollection.signout">
+<app-button
+  class="signout-button"
+  (click)="signOutHandler()"
+  size="md"
+  [type]="buttonType"
+  i18n="@@resumeCollection.signout"
+>
   Signout
 </app-button>

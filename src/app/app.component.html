@@ -1,13 +1,10 @@
 @let localTitle = title() | titlecase;
-<title>{{localTitle}}</title>
+<title>{{ localTitle }}</title>
 
-<app-navbar 
-    [navbarInfo]="navbarInfo()" 
-    (onItemSelection)="navigationHandler($event)">
-</app-navbar> 
+<app-navbar [navbarInfo]="navbarInfo()" (onItemSelection)="navigationHandler($event)"> </app-navbar>
 
-<section #information class="information"> 
-    <router-outlet />
+<section #information class="information">
+  <router-outlet />
 </section>
 
 <app-footer></app-footer>

@@ -18,7 +18,6 @@ export class ContactFormComponent {
 
   readonly isSubmitted = signal(false);
 
-
   readonly contactForm = this.formBuilder.nonNullable.group({
     name: ['', [Validators.required]],
     companyName: ['', [Validators.required]],
@@ -38,7 +37,7 @@ export class ContactFormComponent {
 
     const payload: TContactForm = this.contactForm.getRawValue();
     console.log('Contact form submitted:', payload);
-    const resp = await this.contactService.addNewContactInfo(payload)
+    const resp = await this.contactService.addNewContactInfo(payload);
     if (resp) {
       this.contactForm.reset({
         name: '',

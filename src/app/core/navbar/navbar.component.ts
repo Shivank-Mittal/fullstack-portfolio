@@ -1,4 +1,15 @@
-import { Component, ElementRef, inject, input, LOCALE_ID, OnInit, output, signal, viewChildren, PLATFORM_ID } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  inject,
+  input,
+  LOCALE_ID,
+  OnInit,
+  output,
+  signal,
+  viewChildren,
+  PLATFORM_ID,
+} from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { DOCUMENT } from '@angular/common';
 import { TNavbarInfo, TNavItem } from '../../types/TNavItems';
@@ -17,22 +28,21 @@ import { CalenderService } from '../../service/calender/calender.service';
   styleUrl: './navbar.component.css',
 })
 export class NavbarComponent implements OnInit {
-  items = viewChildren<ElementRef>("navItem");
-  navbarInfo = input.required<TNavbarInfo>()
+  items = viewChildren<ElementRef>('navItem');
+  navbarInfo = input.required<TNavbarInfo>();
 
   onItemSelection = output<TNavItem>();
-  
-  private readonly responseService = inject(ResponsiveService)
-  private readonly authStore = inject(AuthStore);
-  private readonly router = inject(Router)
-  private readonly platformId = inject(PLATFORM_ID)
-  private readonly document = inject(DOCUMENT)
-  private readonly localeId = inject(LOCALE_ID)
 
-  protected readonly deviceType$ = this.responseService.deviceType$
+  private readonly responseService = inject(ResponsiveService);
+  private readonly authStore = inject(AuthStore);
+  private readonly router = inject(Router);
+  private readonly platformId = inject(PLATFORM_ID);
+  private readonly document = inject(DOCUMENT);
+  private readonly localeId = inject(LOCALE_ID);
+
+  protected readonly deviceType$ = this.responseService.deviceType$;
   protected readonly avatarInfo = this.authStore.avatarInfo;
   protected readonly isLoggedIn = this.authStore.isLoggedIn;
-
 
   currentLang: 'en' | 'fr' = 'en';
 
@@ -61,30 +71,29 @@ export class NavbarComponent implements OnInit {
   }
 
   // Handlers
-  handleElementSection(name: TNavItem){
-    this.onItemSelection.emit(name)
+  handleElementSection(name: TNavItem) {
+    this.onItemSelection.emit(name);
   }
 
   profileHandler() {
-    this.router.navigateByUrl('/resume')
+    this.router.navigateByUrl('/resume');
   }
 
   handleLogoClick() {
-    this.router.navigateByUrl('')
-  } 
+    this.router.navigateByUrl('');
+  }
 
   keyInteractionHandler(event: KeyboardEvent) {
     const elementId = (event?.currentTarget as HTMLElement)?.id;
     const keyDirection = this.keyDirection(event);
 
-    if(!keyDirection) return;
-    const currentIndex = this.navbarInfo().items.findIndex(item => item.id === elementId);
+    if (!keyDirection) return;
+    const currentIndex = this.navbarInfo().items.findIndex((item) => item.id === elementId);
     const nextFocusableIndex = this.nextFocusableIndex(keyDirection, currentIndex);
 
-    if(nextFocusableIndex === undefined) return;
-    (this.items()[nextFocusableIndex].nativeElement as HTMLElement).focus()
+    if (nextFocusableIndex === undefined) return;
+    (this.items()[nextFocusableIndex].nativeElement as HTMLElement).focus();
   }
-
 
   // utilities
 
@@ -95,21 +104,19 @@ export class NavbarComponent implements OnInit {
    * @returns RIGHT, LEFT, Undefined
    */
   private keyDirection(event: KeyboardEvent) {
-    return event.key === 'ArrowRight'
-      ? 'right'
-      : event.key === 'ArrowLeft' 
-        ? 'left' 
-        : undefined;
+    return event.key === 'ArrowRight' ? 'right' : event.key === 'ArrowLeft' ? 'left' : undefined;
   }
 
-  private nextFocusableIndex(direction: 'right' | 'left', currentIndex: number ):number | undefined{
-    if(direction === 'right') {
-      return currentIndex === this.navbarInfo().items.length - 1? 0 : currentIndex + 1 ;
+  private nextFocusableIndex(
+    direction: 'right' | 'left',
+    currentIndex: number,
+  ): number | undefined {
+    if (direction === 'right') {
+      return currentIndex === this.navbarInfo().items.length - 1 ? 0 : currentIndex + 1;
     }
-    if(direction === 'left') {
-      return currentIndex === 0? this.navbarInfo().items.length - 1: currentIndex - 1;
+    if (direction === 'left') {
+      return currentIndex === 0 ? this.navbarInfo().items.length - 1 : currentIndex - 1;
     }
-    return undefined
+    return undefined;
   }
-
 }
