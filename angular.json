@@ -48,7 +48,12 @@
               "entry": "src/server.ts"
             },
             "security": {
-              "allowedHosts": []
+              "allowedHosts": [
+                "fullstack-portfolio-shivank-mittals-projects.vercel.app",
+                "*.vercel.app",
+                "shivankmittal.com",
+                "www.shivankmittal.com"
+              ]
             },
             "outputMode": "server"
           },

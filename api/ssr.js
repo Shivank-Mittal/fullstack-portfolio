@@ -6,44 +6,31 @@ globalThis.require ??= createRequire(import.meta.url);
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
+// The root server.mjs handles ALL locales via AngularNodeAppEngine.
+// It reads angular-app-engine-manifest.mjs and routes to en-US or fr-FR
+// based on the request URL automatically.
 let reqHandler = null;
+
+async function getReqHandler() {
+  if (reqHandler) return reqHandler;
+  const serverPath = join(__dirname, '..', 'dist/porfolio/server/server.mjs');
+  const mod = await import(serverPath);
+  if (!mod.reqHandler) throw new Error('reqHandler not found in server.mjs');
+  reqHandler = mod.reqHandler;
+  return reqHandler;
+}
 
 export default async function handler(req, res) {
   try {
-    if (!reqHandler) {
-      const mod = await import(join(__dirname, '..', 'dist/porfolio/server/server.mjs'));
-      reqHandler = mod.reqHandler; // Angular 21 confirmed export
-    }
+    const handler = await getReqHandler();
 
-    const protocol = req.headers['x-forwarded-proto'] || 'https';
-    const host = req.headers['x-forwarded-host'] || req.headers.host || 'localhost';
-    const url = `${protocol}://${host}${req.url}`;
-
-    // Collect body for POST/PUT requests
-    const bodyBuffer = await new Promise((resolve) => {
-      const chunks = [];
-      req.on('data', chunk => chunks.push(chunk));
-      req.on('end', () => resolve(Buffer.concat(chunks)));
+    // reqHandler is createNodeRequestHandler(expressApp) — it expects (req, res, next)
+    await new Promise((resolve, reject) => {
+      handler(req, res, (err) => {
+        if (err) reject(err);
+        else resolve();
+      });
     });
-
-    const webRequest = new Request(url, {
-      method: req.method,
-      headers: new Headers(
-        Object.fromEntries(
-          Object.entries(req.headers)
-            .filter(([k]) => !['connection', 'keep-alive', 'transfer-encoding'].includes(k))
-        )
-      ),
-      body: ['GET', 'HEAD'].includes(req.method) ? undefined : bodyBuffer,
-    });
-
-    const webResponse = await reqHandler(webRequest);
-
-    res.statusCode = webResponse.status;
-    webResponse.headers.forEach((value, key) => res.setHeader(key, value));
-
-    const body = await webResponse.arrayBuffer();
-    res.end(Buffer.from(body));
 
   } catch (err) {
     console.error('SSR ERROR:', err.message);
