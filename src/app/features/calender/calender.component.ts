@@ -6,10 +6,11 @@ import interactionPlugin, { DateClickArg } from '@fullcalendar/interaction';
 import { CalenderService } from '../../service/calender/calender.service';
 import { TCalendarEvent } from '../../types/TCalendar';
 import { CalenderEventCardComponent } from './calender-event-card/calender-event-card.component';
+import { LoadingComponent } from '../../components/loading/loading.component';
 
 @Component({
   selector: 'app-calender',
-  imports: [FullCalendarModule, CalenderEventCardComponent],
+  imports: [FullCalendarModule, CalenderEventCardComponent, LoadingComponent],
   templateUrl: './calender.component.html',
   styleUrl: './calender.component.css',
 })
@@ -20,6 +21,7 @@ export class CalenderComponent {
 
   protected readonly calenderEvents = signal<{google: TCalendarEvent[]; apple: TCalendarEvent[], metadata: any}> ({ google: [], apple: [], metadata: undefined });
   protected readonly selectedDate = signal<string>(new Date().toISOString().split('T')[0]);
+  protected readonly loading = signal(false);
 
   protected readonly selectedDayEvents = computed(() => {
     const date = this.selectedDate();
@@ -87,8 +89,13 @@ export class CalenderComponent {
   }
 
   async getCalendarData(dates: any) {
-    const { google, apple, metadata } = await this.calenderService.getCalendarData(dates.startStr, dates.endStr);
-    this.calenderEvents.set({ google, apple, metadata });
+    this.loading.set(true);
+    try {
+      const { google, apple, metadata } = await this.calenderService.getCalendarData(dates.startStr, dates.endStr);
+      this.calenderEvents.set({ google, apple, metadata });
+    } finally {
+      this.loading.set(false);
+    }
   }
 
   private toFullCalendarEvents(events: TCalendarEvent[]) {

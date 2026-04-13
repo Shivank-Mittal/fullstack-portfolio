@@ -8,11 +8,11 @@ export const routes: Routes = [
     {
         path: '',
         loadComponent: () => import('./page/information/information.component').then((m) => m.InformationComponent),
-        
         canActivate: [authGuard],
         children: [
             { path: 'resume', loadComponent: ()=> import('./page/resume-collection/resume-collection.component').then((m) => m.ResumeCollectionComponent)},
             { path: 'calendar', loadComponent: ()=> import('./features/calender/calender.component').then((m) => m.CalenderComponent)},
+            // { path: 'application', loadComponent: ()=> import('./features/applications/applications.component').then((m) => m.ApplicationsComponent)},
         ]
     },
 ];

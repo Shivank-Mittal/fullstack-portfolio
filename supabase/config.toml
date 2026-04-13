@@ -305,6 +305,12 @@ max_frequency = "5s"
 [functions.calendar-sync]
 verify_jwt = false
 
+[functions.gmail-sync]
+verify_jwt = false
+
+[functions.gmail-fetch]
+verify_jwt = false
+
 # Use an external OAuth provider. The full list of providers are: `apple`, `azure`, `bitbucket`,
 # `discord`, `facebook`, `github`, `gitlab`, `google`, `keycloak`, `linkedin_oidc`, `notion`, `twitch`,
 # `twitter`, `x`, `slack`, `spotify`, `workos`, `zoom`.

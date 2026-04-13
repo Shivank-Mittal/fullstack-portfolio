@@ -1,0 +1,6 @@
+{
+  "watch": ["dist/porfolio/server"],
+  "ext": "mjs,js,json",
+  "ignore": ["node_modules", ".git"],
+  "exec": "node dist/porfolio/server/server.mjs"
+}

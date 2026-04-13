@@ -5,7 +5,7 @@ import { ResponsiveService } from '../../service/responsive-service/responsive.s
 import { CommonModule } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
 import { TUserNavInfo } from '../../types/TUserNavItems';
-import { faBars, faGripVertical, faCalendar, faHourglassHalf, faGear } from '@fortawesome/free-solid-svg-icons';
+import { ACTIVITY_SECTIONS, DOCUMENT_SECTIONS, JOB_SECTIONS, SCHEDULE_SECTIONS } from './information.sections';
 
 @Component({
   selector: 'app-information',
@@ -18,35 +18,11 @@ export class InformationComponent {
   private readonly responsiveService = inject(ResponsiveService);
   deviceType$ = this.responsiveService.deviceType$;
 
-
   userNavbarInfo: TUserNavInfo = [
-    {
-      name: 'Documents',
-      id: 'documents',
-      enabled: true,
-      items: [
-        {name: 'Resumes', id: 'resume', enabled: true, router: '/resume', icon: faBars},
-        {name: 'Cover letters', id: 'cover-letter', enabled: false, router: '/cover-letter', icon: faGripVertical},
-    ]},
-    {
-      name: 'Schedule',
-      id: 'schedule',
-      enabled: true,
-      items: [
-        {name: 'Calendar', id: 'calendar', enabled: true, router: '/calendar', icon: faCalendar},
-        {name: 'Availability', id: 'availability', enabled: false, router: '/availability', icon: faHourglassHalf},
-      ]
-    },
-    {
-      name: 'Activity',
-      id: 'activity',
-      enabled: true,
-      items: [
-        {name: 'Settings', id: 'settings', enabled: false, router: '/settings',icon: faGear,},
-      ]
-    },
-  ]
-
-
+    DOCUMENT_SECTIONS, 
+    SCHEDULE_SECTIONS,
+    // JOB_SECTIONS,
+    ACTIVITY_SECTIONS,
+  ];
 
 }
