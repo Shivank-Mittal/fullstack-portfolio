@@ -43,7 +43,7 @@ export class AuthService {
     if (session?.provider_refresh_token) {
       await this.superbaseClient.from('user_integrations').upsert({
         user_id: session.user.id,
-        provider_refresh_token: session.provider_refresh_token,
+        google_refresh_token: session.provider_refresh_token,
       });
     }
   }

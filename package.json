@@ -11,7 +11,10 @@
     "format:check": "prettier --check . --ignore-unknown",
     "serve:ssr:porfolio": "node dist/porfolio/server/server.mjs",
     "serve:ssr:dev": "nodemon",
-    "build:ssr:porfolio": "ng build porfolio"
+    "build:ssr:porfolio": "ng build porfolio",
+    "e2e": "playwright test",
+    "e2e:ui": "playwright test --ui",
+    "prepare": "husky"
   },
   "type": "module",
   "private": true,
@@ -50,21 +53,35 @@
     "@angular/cli": "^21.2.2",
     "@angular/compiler-cli": "^21.2.4",
     "@angular/localize": "^21.2.4",
+    "@commitlint/cli": "^20.5.3",
+    "@commitlint/config-conventional": "^20.5.3",
+    "@playwright/test": "^1.59.1",
     "@tailwindcss/postcss": "^4.2.1",
     "@types/express": "^5.0.1",
-    "@types/jasmine": "~5.1.0",
     "@types/node": "^18.18.0",
-    "jasmine-core": "~5.1.0",
-    "karma": "~6.4.0",
-    "karma-chrome-launcher": "~3.2.0",
-    "karma-coverage": "~2.2.0",
-    "karma-jasmine": "~5.1.0",
-    "karma-jasmine-html-reporter": "~2.1.0",
+    "@vitest/coverage-v8": "^4.1.5",
+    "husky": "^9.1.7",
+    "jsdom": "^29.1.1",
+    "lint-staged": "^16.4.0",
     "nodemon": "^3.1.14",
     "postcss": "^8.5.8",
     "prettier": "^3.8.2",
     "supabase": "^2.89.0",
     "tailwindcss": "^4.2.1",
-    "typescript": "~5.9.3"
+    "typescript": "~5.9.3",
+    "vitest": "^4.1.5"
+  },
+  "lint-staged": {
+    "*.{ts,html}": [
+      "prettier --write"
+    ],
+    "*.{json,css,scss,md}": [
+      "prettier --write"
+    ]
+  },
+  "commitlint": {
+    "extends": [
+      "@commitlint/config-conventional"
+    ]
   }
 }

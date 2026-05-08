@@ -1,0 +1,13 @@
+import '@angular/localize/init';
+
+// IntersectionObserver is not available in jsdom
+class IntersectionObserverMock {
+  observe = () => {};
+  unobserve = () => {};
+  disconnect = () => {};
+}
+Object.defineProperty(window, 'IntersectionObserver', {
+  writable: true,
+  configurable: true,
+  value: IntersectionObserverMock,
+});

@@ -65,6 +65,7 @@ serve(async (req) => {
     // 5. Refresh Google Token (Using Secrets you added to Supabase)
     const gResp = await fetch('https://oauth2.googleapis.com/token', {
       method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         client_id: Deno.env.get('G_CLIENT_ID'),
         client_secret: Deno.env.get('G_CLIENT_SECRET'),

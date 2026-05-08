@@ -1,10 +1,19 @@
+import { supabaseMock } from '../testing/supabase-mock';
 import { TestBed } from '@angular/core/testing';
 import { AppComponent } from './app.component';
+import { SUPERBASE_CLIENT } from '../superbase/superbase.provider';
+import { provideHttpClient } from '@angular/common/http';
+import { provideRouter } from '@angular/router';
 
 describe('AppComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [AppComponent],
+      providers: [
+        provideRouter([]),
+        provideHttpClient(),
+        { provide: SUPERBASE_CLIENT, useValue: supabaseMock },
+      ],
     }).compileComponents();
   });
 
@@ -12,18 +21,5 @@ describe('AppComponent', () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
     expect(app).toBeTruthy();
-  });
-
-  it(`should have the 'porfolio' title`, () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.componentInstance;
-    expect(app.title).toEqual('porfolio');
-  });
-
-  it('should render title', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    fixture.detectChanges();
-    const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('h1')?.textContent).toContain('Hello, porfolio');
   });
 });
