@@ -25,21 +25,21 @@ export class AuthService {
   }
 
   async fetchUser() {
-    return this.superbaseClient.auth.getUser();
+    return this.superbaseClient?.auth.getUser();
   }
 
   async fetchSession() {
-    return this.superbaseClient.auth.getSession();
+    return this.superbaseClient?.auth.getSession();
   }
 
   async signOut() {
-    await this.superbaseClient.auth.signOut();
+    await this.superbaseClient?.auth.signOut();
   }
 
   async upsert() {
-    const {
-      data: { session },
-    } = await this.fetchSession();
+    if (!this.superbaseClient) return;
+    const result = await this.fetchSession();
+    const session = result?.data?.session;
     if (session?.provider_refresh_token) {
       await this.superbaseClient.from('user_integrations').upsert({
         user_id: session.user.id,

@@ -71,21 +71,20 @@ export const AuthStore = signalStore(
       },
 
       async verifyLogin() {
+        if (!supabaseClient) return;
         const { data, error } = await supabaseClient.auth.getSession();
-        await authService.upsert();
         const user = data?.session?.user ?? undefined;
 
         if (error || !user) {
           clearUser();
-          console.error('Sign-in failed:', error);
-          toastService.error('Google sign-in failed. Please try again.');
           return;
         }
+        await authService.upsert();
         setUser(user);
-        toastService.success('Successfully logged in');
       },
 
       async signOut() {
+        if (!supabaseClient) return;
         const wasLoggedIn = store.loggedIn();
         await supabaseClient.auth.signOut();
         clearUser();

@@ -58,9 +58,8 @@ export class AppComponent {
 
   // handlers
   navigationHandler(navItem: TNavItem) {
-    const homeChildren = document.getElementById('home')?.children[0]?.children as HTMLCollection;
-    if (!homeChildren || !homeChildren.length) return;
-    const itemToScroll = homeChildren.namedItem(navItem.id);
-    itemToScroll?.scrollIntoView({ behavior: 'smooth', block: 'start', inline: 'nearest' });
+    document
+      .getElementById(navItem.id)
+      ?.scrollIntoView({ behavior: 'smooth', block: 'start', inline: 'nearest' });
   }
 }
