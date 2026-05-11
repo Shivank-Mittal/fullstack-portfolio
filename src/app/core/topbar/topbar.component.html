@@ -1,0 +1,32 @@
+<div class="topbar">
+  <button class="trigger" (click)="toggle()">
+    @if (activeItem?.icon) {
+      <fa-icon [icon]="activeItem!.icon!" class="trigger-icon"></fa-icon>
+    }
+    <span class="trigger-label">{{ activeItem?.name ?? 'Menu' }}</span>
+    <fa-icon [icon]="chevronIcon" class="chevron" [class.rotated]="open()"></fa-icon>
+  </button>
+</div>
+
+@if (open()) {
+  <div class="dropdown">
+    @for (section of navbarInfo(); track section.id) {
+      <div class="section">
+        <div class="section-name">{{ section.name }}</div>
+        @for (item of section.items; track item.id) {
+          <button
+            class="item"
+            [class.active]="isActive(item.router)"
+            [class.disabled]="!item.enabled"
+            (click)="navigate(item.router, item.enabled)"
+          >
+            @if (item.icon) {
+              <fa-icon [icon]="item.icon" class="item-icon"></fa-icon>
+            }
+            {{ item.name }}
+          </button>
+        }
+      </div>
+    }
+  </div>
+}

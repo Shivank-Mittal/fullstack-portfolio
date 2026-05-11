@@ -1,5 +1,4 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { BottombarComponent } from './bottombar.component';
 
 describe('BottombarComponent', () => {
@@ -12,6 +11,7 @@ describe('BottombarComponent', () => {
     }).compileComponents();
 
     fixture = TestBed.createComponent(BottombarComponent);
+    fixture.componentRef.setInput('navbarInfo', []);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -1,15 +1,27 @@
-:host {
+.layout-desktop {
   display: flex;
   height: 100%;
   padding: var(--space-sm);
 }
 
-.navbar {
+.layout-desktop .sidebar {
   width: 15%;
   flex-shrink: 0;
 }
 
-.content {
+.layout-desktop .content {
   width: 85%;
   flex-grow: 1;
+}
+
+.layout-mobile {
+  display: flex;
+  flex-direction: column;
+  height: 100dvh;
+}
+
+.layout-mobile .content {
+  flex: 1;
+  overflow-y: auto;
+  padding: var(--space-sm);
 }

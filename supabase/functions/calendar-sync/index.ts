@@ -117,14 +117,29 @@ serve(async (req) => {
           new Date(e.start) >= rangeStart &&
           new Date(e.start) <= rangeEnd,
       )
-      .map((e) => ({
-        summary: e.summary,
-        description: e.description || '',
-        location: e.location || '',
-        start: e.start,
-        end: e.end,
-        source: 'apple',
-      }));
+      .map((e) => {
+        const isAllDay = e.datetype === 'date';
+        const startStr = isAllDay
+          ? e.start.toISOString().split('T')[0]
+          : e.start instanceof Date
+            ? e.start.toISOString()
+            : String(e.start);
+        const endStr = e.end
+          ? isAllDay
+            ? e.end.toISOString().split('T')[0]
+            : e.end instanceof Date
+              ? e.end.toISOString()
+              : String(e.end)
+          : startStr;
+        return {
+          summary: e.summary,
+          description: e.description || '',
+          location: e.location || '',
+          start: startStr,
+          end: endStr,
+          source: 'apple',
+        };
+      });
 
     // 8. Return Unified Data
     return new Response(

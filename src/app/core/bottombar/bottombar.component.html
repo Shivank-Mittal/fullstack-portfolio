@@ -1,1 +1,7 @@
-<p>bottombar works!</p>
+@for (item of enabledItems; track item.id) {
+  <button class="tab-item" [class.active]="isActive(item.router)" (click)="navigate(item.router)">
+    @if (item.icon) {
+      <fa-icon [icon]="item.icon"></fa-icon>
+    }
+  </button>
+}
