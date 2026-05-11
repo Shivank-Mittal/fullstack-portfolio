@@ -58,37 +58,33 @@ export class ResumeCollectionComponent implements OnInit {
   getLanguageLabel(language: string): string {
     switch (language) {
       case 'en':
-        return $localize`:@@resumeCollection.lang.en:🇬🇧 ENGLISH`;
+        return `🇬🇧 ENGLISH`;
       case 'fr':
-        return $localize`:@@resumeCollection.lang.fr:🇫🇷 FRENCH`;
+        return `🇫🇷 FRENCH`;
       default:
-        return $localize`:@@resumeCollection.lang.hi:🇮🇳 HINDI`;
+        return `🇮🇳 HINDI`;
     }
   }
 
   getTypeLabel(type: string): string {
     switch (type) {
       case 'stage':
-        return $localize`:@@resumeCollection.type.internship:Internship`;
+        return `Internship`;
       case 'CDI':
-        return $localize`:@@resumeCollection.type.fullTime:Full-time`;
+        return `Full-time`;
       default:
-        return $localize`:@@resumeCollection.type.fixedTerm:Fixed-term`;
+        return `Fixed-term`;
     }
   }
 
   getDownloadLabel(language: string): string {
-    return language === 'fr'
-      ? $localize`:@@resumeCollection.download.fr:Télécharger`
-      : $localize`:@@resumeCollection.download.en:Download`;
+    return language === 'fr' ? `Télécharger` : `Download`;
   }
 
   private async fetchResumes() {
     const resumesInformation = await this.dbClient.getTableData(this.tableName);
     if (resumesInformation.error) {
-      this.toasterService.error(
-        $localize`:@@resumeCollection.toast.fetchError:Error fetching the resumes`,
-      );
+      this.toasterService.error(`Error fetching the resumes`);
       return;
     }
 

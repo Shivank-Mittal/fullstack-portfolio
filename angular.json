@@ -4,18 +4,6 @@
   "newProjectRoot": "projects",
   "projects": {
     "porfolio": {
-      "i18n": {
-        "sourceLocale": {
-          "code": "en-US",
-          "baseHref": "/"
-        },
-        "locales": {
-          "fr-FR": {
-            "translation": "src/locale/messages.fr.xlf",
-            "baseHref": "/fr/"
-          }
-        }
-      },
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -28,7 +16,7 @@
             "outputPath": "dist/porfolio",
             "index": "src/index.html",
             "browser": "src/main.ts",
-            "polyfills": ["src/polyfils/promiseTry.ts", "zone.js", "@angular/localize/init"],
+            "polyfills": ["src/polyfils/promiseTry.ts", "zone.js"],
             "tsConfig": "tsconfig.app.json",
             "assets": ["src/favicon.ico", "src/assets"],
             "styles": ["src/styles.css"],
@@ -50,7 +38,6 @@
           },
           "configurations": {
             "production": {
-              "localize": true,
               "fileReplacements": [
                 {
                   "replace": "src/environments/environment.ts",
@@ -75,12 +62,6 @@
               "optimization": false,
               "extractLicenses": false,
               "sourceMap": true
-            },
-            "fr-FR": {
-              "localize": ["fr-FR"],
-              "optimization": false,
-              "extractLicenses": false,
-              "sourceMap": true
             }
           },
           "defaultConfiguration": "production"
@@ -93,9 +74,6 @@
             },
             "development": {
               "buildTarget": "porfolio:build:development"
-            },
-            "fr-FR": {
-              "buildTarget": "porfolio:build:development,fr-FR"
             }
           },
           "defaultConfiguration": "development"

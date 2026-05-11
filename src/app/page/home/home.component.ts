@@ -20,21 +20,21 @@ export class HomeComponent {
   informationSection = viewChild<ElementRef>('information');
 
   items = [
-    { name: $localize`:@@nav.about:about`, id: 'about', route: 'about', component: AboutComponent },
+    { name: `about`, id: 'about', route: 'about', component: AboutComponent },
     {
-      name: $localize`:@@nav.tech:tech`,
+      name: `tech`,
       id: 'tech',
       route: 'tech-depth',
       component: TechDepthComponent,
     },
     {
-      name: $localize`:@@nav.careerTimeline:carrier timeline`,
+      name: `carrier timeline`,
       id: 'carrier-timeline',
       route: 'carrer',
       component: CarrerComponent,
     },
     {
-      name: $localize`:@@nav.contact:contact`,
+      name: `contact`,
       id: 'contact',
       route: 'contact',
       component: ContactComponent,

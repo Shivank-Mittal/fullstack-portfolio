@@ -1,11 +1,5 @@
 @if (toastService.toasts().length > 0) {
-  <div
-    class="toaster"
-    role="region"
-    aria-label="Notifications"
-    i18n-aria-label="@@toast.notifications"
-    aria-live="polite"
-  >
+  <div class="toaster" role="region" aria-label="Notifications" aria-live="polite">
     @for (toast of toastService.toasts(); track toast.id) {
       <div
         class="toast"
@@ -18,13 +12,13 @@
           <span class="toast__kind">
             @switch (toast.variant) {
               @case ('success') {
-                <span i18n="@@toast.success">Success</span>
+                <span>Success</span>
               }
               @case ('error') {
-                <span i18n="@@toast.error">Error</span>
+                <span>Error</span>
               }
               @default {
-                <span i18n="@@toast.notice">Notice</span>
+                <span>Notice</span>
               }
             }
           </span>
@@ -34,7 +28,6 @@
           type="button"
           class="toast__close"
           aria-label="Dismiss"
-          i18n-aria-label="@@toast.dismiss"
           (click)="toastService.dismiss(toast.id)"
         >
           ×

@@ -1,5 +1,3 @@
-import '@angular/localize/init';
-
 // IntersectionObserver is not available in jsdom
 class IntersectionObserverMock {
   observe = () => {};

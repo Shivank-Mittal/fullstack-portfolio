@@ -6,7 +6,7 @@
       <div class="card-thumbnail-wrapper">
         <app-resume-thumbnail [pdfUrl]="resume.pdfUrl" [alt]="resume.title" />
         @if (resume.isNew) {
-          <span class="tag-new" i18n="@@resumeCollection.newTag">NEW</span>
+          <span class="tag-new">NEW</span>
         }
       </div>
 
@@ -39,12 +39,6 @@
   }
 </div>
 
-<app-button
-  class="signout-button"
-  (click)="signOutHandler()"
-  size="md"
-  [type]="buttonType"
-  i18n="@@resumeCollection.signout"
->
+<app-button class="signout-button" (click)="signOutHandler()" size="md" [type]="buttonType">
   Signout
 </app-button>

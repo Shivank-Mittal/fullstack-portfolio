@@ -78,20 +78,18 @@ export const AuthStore = signalStore(
         if (error || !user) {
           clearUser();
           console.error('Sign-in failed:', error);
-          toastService.error(
-            $localize`:@@auth.toast.googleSignInFailed:Google sign-in failed. Please try again.`,
-          );
+          toastService.error('Google sign-in failed. Please try again.');
           return;
         }
         setUser(user);
-        toastService.success($localize`:@@auth.toast.loggedIn:Successfully logged in`);
+        toastService.success('Successfully logged in');
       },
 
       async signOut() {
         const wasLoggedIn = store.loggedIn();
         await supabaseClient.auth.signOut();
         clearUser();
-        toastService.success($localize`:@@auth.toast.loggedOut:Successfully logged out`);
+        toastService.success('Successfully logged out');
         if (wasLoggedIn) {
           router.navigateByUrl('/');
         }

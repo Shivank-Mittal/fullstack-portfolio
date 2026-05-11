@@ -6,9 +6,6 @@ globalThis.require ??= createRequire(import.meta.url);
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
-// The root server.mjs handles ALL locales via AngularNodeAppEngine.
-// It reads angular-app-engine-manifest.mjs and routes to en-US or fr-FR
-// based on the request URL automatically.
 let reqHandler = null;
 
 async function getReqHandler() {
