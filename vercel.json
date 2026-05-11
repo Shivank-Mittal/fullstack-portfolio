@@ -2,25 +2,13 @@
   "version": 2,
   "routes": [
     {
-      "src": "^/assets/(.*)$",
-      "dest": "/dist/porfolio/browser/assets/$1"
-    },
-    {
-      "src": "^/favicon\\.ico$",
-      "dest": "/dist/porfolio/browser/favicon.ico"
-    },
-    {
-      "src": "^/(.*\\.(js|mjs|css|png|jpg|jpeg|svg|woff|woff2|ttf|eot|webp|pdf))$",
-      "dest": "/dist/porfolio/browser/$1"
-    },
-    {
       "src": "/(.*)",
       "dest": "/api/ssr"
     }
   ],
   "functions": {
     "api/ssr.js": {
-      "includeFiles": "dist/porfolio/server/**",
+      "includeFiles": "dist/porfolio/**",
       "memory": 1024,
       "maxDuration": 30
     }
