@@ -17,7 +17,6 @@ export class AuthService {
           'https://www.googleapis.com/auth/calendar https://www.googleapis.com/auth/gmail.readonly',
         queryParams: {
           access_type: 'offline',
-          prompt: 'consent', // Required to get the refresh_token every time
         },
         redirectTo: environment.authRedirectUrl,
       },
@@ -40,11 +39,19 @@ export class AuthService {
     if (!this.superbaseClient) return;
     const result = await this.fetchSession();
     const session = result?.data?.session;
-    if (session?.provider_refresh_token) {
+    if (!session) return;
+
+    if (session.provider_refresh_token) {
+      // First-time auth or re-authorization: store the new refresh token
       await this.superbaseClient.from('user_integrations').upsert({
         user_id: session.user.id,
         google_refresh_token: session.provider_refresh_token,
       });
+    } else {
+      // Subsequent logins: ensure the row exists without overwriting the stored token
+      await this.superbaseClient
+        .from('user_integrations')
+        .upsert({ user_id: session.user.id }, { onConflict: 'user_id', ignoreDuplicates: true });
     }
   }
 }

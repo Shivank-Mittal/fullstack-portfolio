@@ -1,6 +1,5 @@
 import { Component, inject } from '@angular/core';
 import { SidebarComponent } from '../../core/sidebar/sidebar.component';
-import { BottombarComponent } from '../../core/bottombar/bottombar.component';
 import { TopbarComponent } from '../../core/topbar/topbar.component';
 import { ResponsiveService } from '../../service/responsive-service/responsive.service';
 import { CommonModule } from '@angular/common';
