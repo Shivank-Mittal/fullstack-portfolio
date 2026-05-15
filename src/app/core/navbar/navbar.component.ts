@@ -10,7 +10,7 @@ import { CalenderService } from '../../service/calender/calender.service';
 
 @Component({
   selector: 'app-navbar',
-  imports: [TitleCasePipe, CommonModule, ButtonComponent, AvatarComponent],
+  imports: [TitleCasePipe, CommonModule, AvatarComponent],
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.css',
 })
@@ -41,7 +41,7 @@ export class NavbarComponent {
   }
 
   keyInteractionHandler(event: KeyboardEvent) {
-    const elementId = (event?.currentTarget as HTMLElement)?.id;
+    const elementId = (event?.currentTarget as HTMLElement)?.id?.replace(/^nav-/, '');
     const keyDirection = this.keyDirection(event);
 
     if (!keyDirection) return;

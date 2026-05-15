@@ -20,7 +20,6 @@ import { AuthService } from './service/auth-service/auth.service';
     TitleCasePipe,
     NavbarComponent,
     CommonModule,
-    HomeComponent,
     FooterComponent,
     ToasterComponent,
   ],
