@@ -115,6 +115,7 @@ export async function completeJson(req: JsonRequest, onProgress?: Progress): Pro
   if (models.length === 0 || !apiKey) throw new Error('AI_MODEL and AI_API_KEY must be set');
 
   let lastError: unknown;
+  const failures: string[] = [];
   for (const [i, model] of models.entries()) {
     await onProgress?.(
       i === 0
@@ -133,8 +134,10 @@ export async function completeJson(req: JsonRequest, onProgress?: Progress): Pro
         (err.status === 404 || err.status === 429 || err.status >= 500);
       if (!fallThrough) throw err;
       console.warn(`AI model ${model} failed, trying next:`, err.message);
+      failures.push(`${model}: ${err.message.slice(0, 160)}`);
       lastError = err;
     }
   }
-  throw lastError;
+  // Name every model tried, so a busy model and a retired one can be told apart.
+  throw new Error(`Every AI model failed:\n${failures.map((f) => `• ${f}`).join('\n')}`);
 }
