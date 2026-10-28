@@ -54,6 +54,9 @@
         <div class="progress-fill" [style.width.%]="progress()"></div>
       </div>
       <span class="summary-eaten">Eaten {{ eaten() }} of {{ day.calories }} kcal</span>
+      @if (!canEdit()) {
+        <span class="quiet">View only</span>
+      }
     </section>
 
     <section class="meals">
@@ -64,6 +67,7 @@
               type="checkbox"
               class="meal-check"
               [checked]="!!meal.eaten_at"
+              [disabled]="!canEdit()"
               (change)="toggle(meal, $any($event.target))"
               [attr.aria-label]="'Mark ' + meal.label + ' as eaten'"
             />

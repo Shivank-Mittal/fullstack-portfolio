@@ -34,6 +34,7 @@ describe('NutritionComponent', () => {
   async function create(
     params: Record<string, string> = {},
     days = [day(today, 53), day(yesterday, 52)],
+    canView = true,
   ) {
     service = {
       listDaysBefore: vi.fn().mockResolvedValue(days),
@@ -43,6 +44,8 @@ describe('NutritionComponent', () => {
         .mockImplementation(async (date: string) => days.find((d) => d.plan_date === date) ?? null),
       getNeighbours: vi.fn().mockResolvedValue({ prev: null, next: null }),
       setEaten: vi.fn(),
+      canView: vi.fn().mockResolvedValue(canView),
+      canEdit: vi.fn().mockReturnValue(true),
     };
     await TestBed.configureTestingModule({
       imports: [NutritionComponent],
@@ -90,6 +93,13 @@ describe('NutritionComponent', () => {
     await create({ view: 'month' }, [day(today, 53)]);
     const marked = Array.from(el().querySelectorAll('a.month-cell.has-plan'));
     expect(marked.map((c) => c.getAttribute('href'))).toEqual([`/nutrition?day=${today}`]);
+  });
+
+  it('tells a login that is not on the viewers list it has no access', async () => {
+    await create({}, [day(today, 53)], false);
+    expect(el().textContent).toContain("You don't have access to these plans.");
+    expect(query('app-nutrition-days-list')).toBeNull();
+    expect(query('.tabs')).toBeNull();
   });
 
   it('switches to the statistics tab from the query param', async () => {

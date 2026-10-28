@@ -35,5 +35,9 @@ export function createQueryMock(result: TQueryResult, calls: unknown[][] = []) {
       calls.push(['from', table]);
       return builder;
     },
+    rpc: (fn: string, args?: unknown) => {
+      calls.push(['rpc', fn, ...(args === undefined ? [] : [args])]);
+      return Promise.resolve(result);
+    },
   };
 }

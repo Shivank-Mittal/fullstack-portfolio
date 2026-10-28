@@ -6,4 +6,6 @@ export const environment = {
     'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZzYnBhcWpkcm56anRiZGZ6cmp1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQyOTIwMTAsImV4cCI6MjA4OTg2ODAxMH0.HBH6BM0PfAs0QX34GpS9NTQS9wmMZCaezG3YgMaP_Fo',
   supabaseFunctionUrl: 'https://fsbpaqjdrnzjtbdfzrju.supabase.co/functions/v1',
   authRedirectUrl: 'https://shivankmittal.com',
+  // The site owner's Supabase user id: full access; everyone else is at most a nutrition viewer.
+  ownerId: '498ccf7e-4e97-45e5-8a54-08fb312b204f',
 };

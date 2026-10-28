@@ -16,10 +16,20 @@ export const authGuard: CanActivateFn = (route, state) => {
 export const nutritionGuard: CanActivateFn = (route, state) =>
   environment.production ? authGuard(route, state) : true;
 
+// Pages only the site owner may open; a logged-in viewer is sent to the nutrition plans instead.
+export const ownerGuard: CanActivateFn = (route, state) => {
+  const authStore = inject(AuthStore);
+  const router = inject(Router);
+
+  if (!authStore.loggedIn()) return new RedirectCommand(router.parseUrl('/auth'));
+  if (authStore.isOwner()) return true;
+  return new RedirectCommand(router.parseUrl('/nutrition'));
+};
+
 export const authLoginGuard: CanActivateFn = (route, state) => {
   const authStore = inject(AuthStore);
   const router = inject(Router);
 
   if (!authStore.loggedIn()) return true;
-  return new RedirectCommand(router.parseUrl('/resume'));
+  return new RedirectCommand(router.parseUrl(authStore.isOwner() ? '/resume' : '/nutrition'));
 };

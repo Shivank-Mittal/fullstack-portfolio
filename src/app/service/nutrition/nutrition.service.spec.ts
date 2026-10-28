@@ -7,11 +7,11 @@ import { AuthStore } from '../../store/auth/auth.store';
 import { NutritionService } from './nutrition.service';
 import { NUTRITION_MOCK_DAY_COUNT } from '../../mock/nutrition.mock';
 
-function setup(client: unknown, loggedIn = true) {
+function setup(client: unknown, loggedIn = true, isOwner = true) {
   TestBed.configureTestingModule({
     providers: [
       { provide: SUPERBASE_CLIENT, useValue: client },
-      { provide: AuthStore, useValue: { loggedIn: signal(loggedIn) } },
+      { provide: AuthStore, useValue: { loggedIn: signal(loggedIn), isOwner: signal(isOwner) } },
     ],
   });
   return TestBed.inject(NutritionService);
@@ -98,6 +98,38 @@ describe('NutritionService', () => {
       expect(await service.listDays()).toEqual([]);
       expect(await service.getDay('2026-10-30')).toBeNull();
       expect(await service.getNeighbours('2026-10-30')).toEqual({ prev: null, next: null });
+    });
+  });
+
+  describe('who may view and tick', () => {
+    it('asks the database whether this login may see the plans', async () => {
+      const calls: unknown[][] = [];
+      const service = setup(createQueryMock({ data: true, error: null }, calls), true, false);
+      expect(await service.canView()).toBe(true);
+      expect(calls).toContainEqual(['rpc', 'can_view_nutrition']);
+    });
+
+    it('treats a login not on the list as no access', async () => {
+      const service = setup(createQueryMock({ data: false, error: null }), true, false);
+      expect(await service.canView()).toBe(false);
+    });
+
+    it('has no access on the server', async () => {
+      expect(await setup(null).canView()).toBe(false);
+    });
+
+    it('lets the owner tick meals', () => {
+      expect(setup(null, true, true).canEdit()).toBe(true);
+    });
+
+    it('keeps a viewer read-only', () => {
+      expect(setup(null, true, false).canEdit()).toBe(false);
+    });
+
+    it('lets anyone view and tick the sample data in dev', async () => {
+      const service = setup(null, false, false);
+      expect(await service.canView()).toBe(true);
+      expect(service.canEdit()).toBe(true);
     });
   });
 

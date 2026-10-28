@@ -1,4 +1,5 @@
-import { Component, inject } from '@angular/core';
+import { Component, computed, inject } from '@angular/core';
+import { AuthStore } from '../../store/auth/auth.store';
 import { SidebarComponent } from '../../core/sidebar/sidebar.component';
 import { TopbarComponent } from '../../core/topbar/topbar.component';
 import { ResponsiveService } from '../../service/responsive-service/responsive.service';
@@ -23,11 +24,18 @@ export class InformationComponent {
   private readonly responsiveService = inject(ResponsiveService);
   deviceType$ = this.responsiveService.deviceType$;
 
-  userNavbarInfo: TUserNavInfo = [
-    DOCUMENT_SECTIONS,
-    SCHEDULE_SECTIONS,
-    HEALTH_SECTIONS,
-    // JOB_SECTIONS,
-    ACTIVITY_SECTIONS,
-  ];
+  private readonly authStore = inject(AuthStore);
+
+  // The owner sees every section; a nutrition viewer only sees the nutrition plans.
+  protected readonly userNavbarInfo = computed<TUserNavInfo>(() =>
+    this.authStore.isOwner()
+      ? [
+          DOCUMENT_SECTIONS,
+          SCHEDULE_SECTIONS,
+          HEALTH_SECTIONS,
+          // JOB_SECTIONS,
+          ACTIVITY_SECTIONS,
+        ]
+      : [HEALTH_SECTIONS],
+  );
 }

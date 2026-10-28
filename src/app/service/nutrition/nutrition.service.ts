@@ -19,6 +19,20 @@ export class NutritionService {
   private readonly authStore = inject(AuthStore);
   private mockDays: TNutritionDay[] | null = null;
 
+  /** Whether this login may see the plans: the owner, or an email on the viewers list. */
+  async canView(): Promise<boolean> {
+    if (this.useMock()) return true;
+    if (!this.db) return false;
+    const { data, error } = await this.db.rpc('can_view_nutrition');
+    if (error) throw error;
+    return data === true;
+  }
+
+  /** Only the owner ticks meals; viewers see the plans read-only. */
+  canEdit(): boolean {
+    return this.useMock() || this.authStore.isOwner();
+  }
+
   async listDays(from?: string, to?: string): Promise<TNutritionDay[]> {
     if (this.useMock()) {
       return this.mock()
