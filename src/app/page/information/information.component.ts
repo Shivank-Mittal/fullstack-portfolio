@@ -8,6 +8,7 @@ import { TUserNavInfo } from '../../types/TUserNavItems';
 import {
   ACTIVITY_SECTIONS,
   DOCUMENT_SECTIONS,
+  HEALTH_SECTIONS,
   JOB_SECTIONS,
   SCHEDULE_SECTIONS,
 } from './information.sections';
@@ -25,6 +26,7 @@ export class InformationComponent {
   userNavbarInfo: TUserNavInfo = [
     DOCUMENT_SECTIONS,
     SCHEDULE_SECTIONS,
+    HEALTH_SECTIONS,
     // JOB_SECTIONS,
     ACTIVITY_SECTIONS,
   ];

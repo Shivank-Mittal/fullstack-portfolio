@@ -1,0 +1,33 @@
+<section class="nutrition-page">
+  <h1 class="page-title">Nutrition</h1>
+
+  <nav class="tabs" aria-label="Nutrition views">
+    @for (tab of tabs; track tab.view) {
+      <a
+        class="tab"
+        [class.active]="view() === tab.view"
+        [routerLink]="[]"
+        [queryParams]="{ view: tab.view }"
+        >{{ tab.label }}</a
+      >
+    }
+  </nav>
+
+  @if (loading()) {
+    <p class="empty">Loading plans…</p>
+  } @else if (failed()) {
+    <p class="empty">Couldn't load your plans. Try again later.</p>
+  } @else if (days().length === 0) {
+    <p class="empty">No plans yet. Send one to the Telegram bot.</p>
+  } @else {
+    @switch (view()) {
+      @case ('month') {
+        <app-nutrition-month [days]="days()" />
+      }
+      @default {
+        <app-nutrition-days-list [days]="days()" />
+      }
+    }
+    <p class="hint">Tap a day to open its full page.</p>
+  }
+</section>

@@ -1,0 +1,26 @@
+<div class="period-nav">
+  <button type="button" class="nav-arrow" (click)="step(-1)" aria-label="Previous month">‹</button>
+  <span class="period-label">{{ monthLabel() }}</span>
+  <button type="button" class="nav-arrow" (click)="step(1)" aria-label="Next month">›</button>
+</div>
+
+<div class="month-grid">
+  @for (weekday of weekdays; track weekday) {
+    <span class="month-weekday">{{ weekday }}</span>
+  }
+  @for (cell of cells(); track $index) {
+    @if (!cell) {
+      <span class="month-cell empty-cell"></span>
+    } @else if (planDates().has(cell)) {
+      <a
+        class="month-cell has-plan"
+        [class.today]="cell === today"
+        [routerLink]="['/nutrition', cell]"
+        [attr.aria-label]="'Plan for ' + cell"
+        >{{ +cell.slice(8) }}</a
+      >
+    } @else {
+      <span class="month-cell" [class.today]="cell === today">{{ +cell.slice(8) }}</span>
+    }
+  }
+</div>

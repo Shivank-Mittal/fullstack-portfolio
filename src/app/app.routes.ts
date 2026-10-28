@@ -36,6 +36,12 @@ export const routes: Routes = [
           import('./features/calender/calender.component').then((m) => m.CalenderComponent),
       },
       {
+        path: 'nutrition',
+        canActivate: [nutritionGuard],
+        loadComponent: () =>
+          import('./features/nutrition/nutrition.component').then((m) => m.NutritionComponent),
+      },
+      {
         path: 'nutrition/:date',
         canActivate: [nutritionGuard],
         loadComponent: () =>

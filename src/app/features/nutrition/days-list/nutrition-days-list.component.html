@@ -1,0 +1,19 @@
+<div class="day-rows">
+  @for (day of days(); track day.id) {
+    <a class="day-row" [routerLink]="['/nutrition', day.plan_date]">
+      <span class="day-row-text">
+        <span class="day-row-name">
+          @if (day.day_number) {
+            Day {{ day.day_number }} ·
+          }
+          {{ formatShortDate(day.plan_date) }}</span
+        >
+        <span class="day-row-detail"
+          >{{ day.calories }} kcal · P {{ day.protein_g }} g · {{ eatenCount(day.meals) }} of
+          {{ day.meals.length }} eaten</span
+        >
+      </span>
+      <span class="chevron" aria-hidden="true">›</span>
+    </a>
+  }
+</div>
