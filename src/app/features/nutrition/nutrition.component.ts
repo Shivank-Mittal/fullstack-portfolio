@@ -6,13 +6,19 @@ import { NutritionService } from '../../service/nutrition/nutrition.service';
 import { TNutritionDay } from '../../types/TNutrition';
 import { NutritionDaysListComponent } from './days-list/nutrition-days-list.component';
 import { NutritionMonthComponent } from './month/nutrition-month.component';
+import { NutritionWeekComponent } from './week/nutrition-week.component';
 
 type TNutritionView = 'days' | 'month' | 'week';
 const VIEWS: TNutritionView[] = ['days', 'month', 'week'];
 
 @Component({
   selector: 'app-nutrition',
-  imports: [RouterLink, NutritionDaysListComponent, NutritionMonthComponent],
+  imports: [
+    RouterLink,
+    NutritionDaysListComponent,
+    NutritionMonthComponent,
+    NutritionWeekComponent,
+  ],
   templateUrl: './nutrition.component.html',
   styleUrl: './nutrition-views.css',
 })

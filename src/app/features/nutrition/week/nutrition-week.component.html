@@ -1,0 +1,35 @@
+<div class="period-nav">
+  <button type="button" class="nav-arrow" (click)="step(-1)" aria-label="Previous week">‹</button>
+  <span class="period-label">{{ rangeLabel() }}</span>
+  <button type="button" class="nav-arrow" (click)="step(1)" aria-label="Next week">›</button>
+</div>
+
+<p class="week-averages">
+  Avg {{ series().avgCalories ?? '–' }} kcal · {{ series().avgProtein ?? '–' }} g protein
+</p>
+
+<!-- ECharts needs a browser canvas, so the server render (and the first paint) shows the numbers. -->
+@defer (on idle) {
+  <app-nutrition-week-chart [options]="chartOptions()" />
+} @placeholder {
+  <table class="week-table">
+    <thead>
+      <tr>
+        <th>Day</th>
+        <th>Planned kcal</th>
+        <th>Eaten kcal</th>
+        <th>Protein g</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (label of series().labels; track label; let i = $index) {
+        <tr>
+          <td>{{ label }}</td>
+          <td>{{ series().planned[i] ?? '–' }}</td>
+          <td>{{ series().eaten[i] ?? '–' }}</td>
+          <td>{{ series().protein[i] ?? '–' }}</td>
+        </tr>
+      }
+    </tbody>
+  </table>
+}

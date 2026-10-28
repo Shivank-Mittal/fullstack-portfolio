@@ -24,6 +24,9 @@
       @case ('month') {
         <app-nutrition-month [days]="days()" />
       }
+      @case ('week') {
+        <app-nutrition-week [days]="days()" />
+      }
       @default {
         <app-nutrition-days-list [days]="days()" />
       }
