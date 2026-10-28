@@ -42,6 +42,7 @@ export const AuthStore = signalStore(
       return { loggedIn: false as const, src: '', alt: '', name: '', size: 'md' };
     }),
     isLoggedIn: computed(() => store.loggedIn()),
+    isOwner: computed(() => store.user()?.id === environment.ownerId),
   })),
   withMethods((store) => {
     const supabaseClient = inject(SUPERBASE_CLIENT);

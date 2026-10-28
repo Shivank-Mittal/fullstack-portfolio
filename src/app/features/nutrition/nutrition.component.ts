@@ -15,6 +15,7 @@ import { toSignal } from '@angular/core/rxjs-interop';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { map } from 'rxjs';
 import { TNutritionDay } from '../../types/TNutrition';
+import { NutritionService } from '../../service/nutrition/nutrition.service';
 import { todayIso } from './nutrition.utils';
 import { NutritionDaysListComponent } from './days-list/nutrition-days-list.component';
 import { NutritionDayComponent } from './day/nutrition-day.component';
@@ -45,6 +46,7 @@ export class NutritionComponent {
   private readonly queryParams = inject(ActivatedRoute).queryParamMap;
   private readonly platformId = inject(PLATFORM_ID);
   private readonly destroyRef = inject(DestroyRef);
+  private readonly nutritionService = inject(NutritionService);
 
   protected readonly tabs: { view: TNutritionView; label: string }[] = [
     { view: 'plans', label: 'Plans' },
@@ -67,10 +69,19 @@ export class NutritionComponent {
   private readonly defaultDay = signal<string | null>(null);
   protected readonly selectedDay = computed(() => this.dayParam() ?? this.defaultDay());
 
+  /** Whether this login may see the plans; the database's read rules are the real gate. */
+  protected readonly access = signal<'checking' | 'yes' | 'no'>('checking');
+
   private readonly daysList = viewChild(NutritionDaysListComponent);
   private readonly split = viewChild<ElementRef<HTMLElement>>('split');
 
   constructor() {
+    this.nutritionService
+      .canView()
+      .then((ok) => this.access.set(ok ? 'yes' : 'no'))
+      // If the check itself fails, show the page: rows the login may not read come back empty.
+      .catch(() => this.access.set('yes'));
+
     // The split fills the window below it on desktop; CSS needs to know where it starts.
     const measure = () => {
       const el = this.split()?.nativeElement;

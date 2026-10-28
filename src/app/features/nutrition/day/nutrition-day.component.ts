@@ -35,6 +35,8 @@ export class NutritionDayComponent {
     next: null,
   });
   protected readonly loading = signal(true);
+  /** Viewers see the plan read-only; only the owner ticks meals. */
+  protected readonly canEdit = () => this.nutritionService.canEdit();
 
   protected readonly headline = computed(() => {
     const day = this.day();

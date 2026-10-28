@@ -1,38 +1,46 @@
 <section class="nutrition-page">
   <header class="page-header">
     <h1 class="page-title">Nutrition</h1>
-    <nav class="tabs" aria-label="Nutrition views">
-      @for (tab of tabs; track tab.view) {
-        <a
-          class="tab"
-          [class.active]="view() === tab.view"
-          [routerLink]="[]"
-          [queryParams]="tab.view === 'plans' ? {} : { view: tab.view }"
-          >{{ tab.label }}</a
-        >
-      }
-    </nav>
+    @if (access() === 'yes') {
+      <nav class="tabs" aria-label="Nutrition views">
+        @for (tab of tabs; track tab.view) {
+          <a
+            class="tab"
+            [class.active]="view() === tab.view"
+            [routerLink]="[]"
+            [queryParams]="tab.view === 'plans' ? {} : { view: tab.view }"
+            >{{ tab.label }}</a
+          >
+        }
+      </nav>
+    }
   </header>
 
-  @switch (view()) {
-    @case ('month') {
-      <app-nutrition-month />
-    }
-    @case ('statistics') {
-      <app-nutrition-statistics />
-    }
-    @default {
-      <div class="split" #split [class.has-day]="dayParam()">
-        <aside class="split-list">
-          <app-nutrition-days-list [selected]="selectedDay()" (firstPage)="onFirstPage($event)" />
-        </aside>
-        <div class="split-detail">
-          <a class="back-link" [routerLink]="[]" [queryParams]="{}">← All days</a>
-          @if (selectedDay(); as day) {
-            <app-nutrition-day [date]="day" (dayChange)="onDayChange($event)" />
-          }
+  @if (access() === 'no') {
+    <p class="empty">
+      You don't have access to these plans. Ask Shivank to add your email to the viewers list.
+    </p>
+  } @else if (access() === 'yes') {
+    @switch (view()) {
+      @case ('month') {
+        <app-nutrition-month />
+      }
+      @case ('statistics') {
+        <app-nutrition-statistics />
+      }
+      @default {
+        <div class="split" #split [class.has-day]="dayParam()">
+          <aside class="split-list">
+            <app-nutrition-days-list [selected]="selectedDay()" (firstPage)="onFirstPage($event)" />
+          </aside>
+          <div class="split-detail">
+            <a class="back-link" [routerLink]="[]" [queryParams]="{}">← All days</a>
+            @if (selectedDay(); as day) {
+              <app-nutrition-day [date]="day" (dayChange)="onDayChange($event)" />
+            }
+          </div>
         </div>
-      </div>
+      }
     }
   }
 </section>

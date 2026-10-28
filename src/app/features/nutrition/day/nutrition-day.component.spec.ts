@@ -58,6 +58,7 @@ describe('NutritionDayComponent', () => {
     getDay: ReturnType<typeof vi.fn>;
     getNeighbours: ReturnType<typeof vi.fn>;
     setEaten: ReturnType<typeof vi.fn>;
+    canEdit: ReturnType<typeof vi.fn>;
   };
   let toast: { error: ReturnType<typeof vi.fn> };
 
@@ -91,6 +92,7 @@ describe('NutritionDayComponent', () => {
       getDay: vi.fn().mockResolvedValue(structuredClone(DAY)),
       getNeighbours: vi.fn().mockResolvedValue({ prev: '2026-10-29', next: null }),
       setEaten: vi.fn().mockResolvedValue('2026-10-30T13:00:00Z'),
+      canEdit: vi.fn().mockReturnValue(true),
     };
     toast = { error: vi.fn() };
   });
@@ -134,6 +136,14 @@ describe('NutritionDayComponent', () => {
     fixture.componentRef.setInput('date', '2026-10-29');
     await settle();
     expect(service.getDay).toHaveBeenLastCalledWith('2026-10-29');
+  });
+
+  it('is read-only for a viewer', async () => {
+    service.canEdit.mockReturnValue(false);
+    await create();
+    expect(checkbox(0).disabled).toBe(true);
+    expect(checkbox(2).disabled).toBe(true);
+    expect(text()).toContain('View only');
   });
 
   it('rolls back and toasts when saving fails', async () => {

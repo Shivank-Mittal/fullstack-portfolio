@@ -2,7 +2,7 @@
 @if (deviceType === 'desktop' || deviceType === 'tablet') {
   <div class="layout-desktop">
     <aside class="sidebar">
-      <app-sidebar [navbarInfo]="userNavbarInfo"></app-sidebar>
+      <app-sidebar [navbarInfo]="userNavbarInfo()"></app-sidebar>
     </aside>
     <main class="content">
       <router-outlet></router-outlet>
@@ -10,7 +10,7 @@
   </div>
 } @else {
   <div class="layout-mobile">
-    <app-topbar [navbarInfo]="userNavbarInfo"></app-topbar>
+    <app-topbar [navbarInfo]="userNavbarInfo()"></app-topbar>
     <main class="content">
       <router-outlet></router-outlet>
     </main>
