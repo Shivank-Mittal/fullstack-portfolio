@@ -1,6 +1,5 @@
 import { Component, inject } from '@angular/core';
 import { SidebarComponent } from '../../core/sidebar/sidebar.component';
-import { BottombarComponent } from '../../core/bottombar/bottombar.component';
 import { TopbarComponent } from '../../core/topbar/topbar.component';
 import { ResponsiveService } from '../../service/responsive-service/responsive.service';
 import { CommonModule } from '@angular/common';
@@ -9,6 +8,7 @@ import { TUserNavInfo } from '../../types/TUserNavItems';
 import {
   ACTIVITY_SECTIONS,
   DOCUMENT_SECTIONS,
+  HEALTH_SECTIONS,
   JOB_SECTIONS,
   SCHEDULE_SECTIONS,
 } from './information.sections';
@@ -26,6 +26,7 @@ export class InformationComponent {
   userNavbarInfo: TUserNavInfo = [
     DOCUMENT_SECTIONS,
     SCHEDULE_SECTIONS,
+    HEALTH_SECTIONS,
     // JOB_SECTIONS,
     ACTIVITY_SECTIONS,
   ];

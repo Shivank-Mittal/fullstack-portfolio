@@ -1,0 +1,14 @@
+<div class="card">
+  <span class="card-title">{{ headline() }}</span>
+  <span class="card-macros"
+    >{{ day().calories }} kcal · P {{ day().protein_g }} g · C {{ day().carbs_g }} g · F
+    {{ day().fat_g }} g</span
+  >
+  <span class="card-quiet">{{ day().meals.length }} meals · {{ eaten() }} eaten</span>
+  @if (nextMeal(); as next) {
+    <span class="card-quiet">Next: {{ next.label }} · {{ next.calories }} kcal</span>
+  }
+  <a class="card-link" [routerLink]="['/nutrition']" [queryParams]="{ day: day().plan_date }"
+    >Open full day ›</a
+  >
+</div>

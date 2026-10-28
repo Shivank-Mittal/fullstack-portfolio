@@ -1,0 +1,35 @@
+:host {
+  display: block;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+  padding: var(--space-md);
+  background: rgba(99, 102, 241, 0.12);
+  border: 1px solid var(--color-primary);
+  border-radius: var(--radius-md);
+  color: var(--color-text-primary);
+  font-size: var(--text-body-sm);
+}
+
+.card-title {
+  font-weight: 600;
+  font-size: var(--text-body);
+}
+
+.card-quiet {
+  color: var(--color-text-secondary);
+}
+
+.card-link {
+  margin-top: var(--space-sm);
+  font-weight: 600;
+  color: var(--color-text-primary);
+  text-decoration: none;
+}
+
+.card-link:hover {
+  color: var(--color-primary);
+}

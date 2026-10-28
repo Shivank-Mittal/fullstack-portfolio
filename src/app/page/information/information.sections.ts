@@ -6,6 +6,7 @@ import {
   faHourglassHalf,
   faGear,
   faListCheck,
+  faUtensils,
 } from '@fortawesome/free-solid-svg-icons';
 
 export const DOCUMENT_SECTIONS: TUserNavSection = {
@@ -37,6 +38,15 @@ export const SCHEDULE_SECTIONS: TUserNavSection = {
       router: '/availability',
       icon: faHourglassHalf,
     },
+  ],
+};
+
+export const HEALTH_SECTIONS: TUserNavSection = {
+  name: 'Health',
+  id: 'health',
+  enabled: true,
+  items: [
+    { name: 'Nutrition', id: 'nutrition', enabled: true, router: '/nutrition', icon: faUtensils },
   ],
 };
 
