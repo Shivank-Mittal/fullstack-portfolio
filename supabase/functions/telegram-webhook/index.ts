@@ -1,6 +1,7 @@
 import { serve } from 'https://deno.land/std@0.168.0/http/server.ts';
 import { createClient } from 'https://esm.sh/@supabase/supabase-js@2';
 import { parsePlan, type ParsedDay, type ParsedItem } from './plan.ts';
+import { carryEaten } from './eaten.ts';
 
 declare const EdgeRuntime: { waitUntil(promise: Promise<unknown>): void };
 
@@ -59,6 +60,16 @@ async function saveDay(day: ParsedDay, rawText: string, messageId: number) {
   }));
   const totals = sum(meals);
 
+  // Read the old plan's ticks first so a re-sent plan doesn't wipe what was already eaten.
+  const { data: oldDay, error: oldError } = await db
+    .from('nutrition_days')
+    .select('nutrition_meals(meal_type, eaten_at, position)')
+    .eq('plan_date', day.plan_date)
+    .maybeSingle();
+  if (oldError) throw oldError;
+  const oldMeals = [...(oldDay?.nutrition_meals ?? [])].sort((a, b) => a.position - b.position);
+  const eatenAt = carryEaten(oldMeals, meals);
+
   // Re-sending a plan for the same date replaces it; meals go with it via ON DELETE CASCADE.
   const { error: deleteError } = await db
     .from('nutrition_days')
@@ -84,7 +95,7 @@ async function saveDay(day: ParsedDay, rawText: string, messageId: number) {
 
   const { error: mealsError } = await db
     .from('nutrition_meals')
-    .insert(meals.map((meal) => ({ ...meal, day_id: data.id })));
+    .insert(meals.map((meal, i) => ({ ...meal, day_id: data.id, eaten_at: eatenAt[i] })));
   if (mealsError) throw mealsError;
 
   return { meals, totals };
