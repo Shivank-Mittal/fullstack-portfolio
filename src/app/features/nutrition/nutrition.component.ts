@@ -1,4 +1,16 @@
-import { Component, computed, inject, signal, viewChild } from '@angular/core';
+import {
+  afterNextRender,
+  Component,
+  computed,
+  DestroyRef,
+  effect,
+  ElementRef,
+  inject,
+  PLATFORM_ID,
+  signal,
+  viewChild,
+} from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { map } from 'rxjs';
@@ -31,6 +43,8 @@ const VIEWS: TNutritionView[] = ['plans', 'month', 'statistics'];
 })
 export class NutritionComponent {
   private readonly queryParams = inject(ActivatedRoute).queryParamMap;
+  private readonly platformId = inject(PLATFORM_ID);
+  private readonly destroyRef = inject(DestroyRef);
 
   protected readonly tabs: { view: TNutritionView; label: string }[] = [
     { view: 'plans', label: 'Plans' },
@@ -54,6 +68,23 @@ export class NutritionComponent {
   protected readonly selectedDay = computed(() => this.dayParam() ?? this.defaultDay());
 
   private readonly daysList = viewChild(NutritionDaysListComponent);
+  private readonly split = viewChild<ElementRef<HTMLElement>>('split');
+
+  constructor() {
+    // The split fills the window below it on desktop; CSS needs to know where it starts.
+    const measure = () => {
+      const el = this.split()?.nativeElement;
+      if (el)
+        el.style.setProperty('--split-top', `${el.getBoundingClientRect().top + window.scrollY}px`);
+    };
+    effect(() => {
+      if (this.split() && isPlatformBrowser(this.platformId)) measure();
+    });
+    afterNextRender(() => {
+      window.addEventListener('resize', measure);
+      this.destroyRef.onDestroy(() => window.removeEventListener('resize', measure));
+    });
+  }
 
   /** Opens on today's plan, or the newest one when today has none. */
   protected onFirstPage(days: TNutritionDay[]) {

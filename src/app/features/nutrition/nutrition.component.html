@@ -22,7 +22,7 @@
       <app-nutrition-statistics />
     }
     @default {
-      <div class="split" [class.has-day]="dayParam()">
+      <div class="split" #split [class.has-day]="dayParam()">
         <aside class="split-list">
           <app-nutrition-days-list [selected]="selectedDay()" (firstPage)="onFirstPage($event)" />
         </aside>

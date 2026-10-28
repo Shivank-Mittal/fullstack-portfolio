@@ -39,22 +39,20 @@ export class NutritionDaysListComponent {
   protected readonly formatShortDate = formatShortDate;
   protected readonly eatenCount = eatenCount;
 
-  private readonly box = viewChild<ElementRef<HTMLElement>>('box');
   private readonly sentinel = viewChild<ElementRef<HTMLElement>>('sentinel');
 
   constructor() {
     this.loadMore();
 
-    // Load the next page when the bottom of the box scrolls into view (browser only).
+    // Load the next page when the bottom of the list scrolls into view (browser only). Watching
+    // against the viewport covers both layouts: on desktop the box scrolls (and clips the
+    // sentinel), on a phone the page itself scrolls.
     const destroyRef = inject(DestroyRef);
     afterNextRender(() => {
       if (typeof IntersectionObserver === 'undefined') return;
-      const observer = new IntersectionObserver(
-        (entries) => {
-          if (entries.some((e) => e.isIntersecting)) this.loadMore();
-        },
-        { root: this.box()?.nativeElement, rootMargin: '0px 0px 200px 0px' },
-      );
+      const observer = new IntersectionObserver((entries) => {
+        if (entries.some((e) => e.isIntersecting)) this.loadMore();
+      });
       const target = this.sentinel()?.nativeElement;
       if (target) observer.observe(target);
       destroyRef.onDestroy(() => observer.disconnect());

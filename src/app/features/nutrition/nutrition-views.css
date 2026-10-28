@@ -65,12 +65,36 @@
   }
 }
 
+/* Desktop: the split fills the rest of the window (--split-top is measured by the page), and the
+   days box and the plan each scroll on their own, so the page itself does not scroll. */
+@media (min-width: 768px) {
+  .split {
+    height: calc(100vh - var(--split-top, 200px) - var(--space-md));
+    align-items: stretch;
+  }
+
+  .split-list,
+  .split-detail {
+    min-height: 0;
+  }
+
+  .split-list,
+  .split-list > app-nutrition-days-list {
+    height: 100%;
+  }
+
+  .split-detail,
+  .days-box {
+    height: 100%;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+  }
+}
+
 .days-box {
   display: flex;
   flex-direction: column;
   gap: var(--space-sm);
-  max-height: calc(100vh - 220px);
-  overflow-y: auto;
   padding: var(--space-sm);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-lg);
@@ -78,7 +102,6 @@
 
 @media (max-width: 767px) {
   .days-box {
-    max-height: none;
     border: none;
     padding: 0;
   }

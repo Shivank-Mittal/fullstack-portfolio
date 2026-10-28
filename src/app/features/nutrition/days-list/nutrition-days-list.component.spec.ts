@@ -111,6 +111,58 @@ describe('NutritionDaysListComponent', () => {
     expect(rows()[0].textContent).toContain('2 of 2 eaten');
   });
 
+  describe('loading on scroll', () => {
+    let observed: { options?: IntersectionObserverInit; fire: (hit: boolean) => void }[];
+
+    beforeEach(() => {
+      observed = [];
+      class FakeObserver {
+        constructor(
+          private readonly callback: IntersectionObserverCallback,
+          readonly options?: IntersectionObserverInit,
+        ) {
+          observed.push({
+            options,
+            fire: (hit) =>
+              this.callback(
+                [{ isIntersecting: hit } as IntersectionObserverEntry],
+                this as unknown as IntersectionObserver,
+              ),
+          });
+        }
+        observe() {}
+        disconnect() {}
+      }
+      vi.stubGlobal('IntersectionObserver', FakeObserver);
+    });
+
+    afterEach(() => vi.unstubAllGlobals());
+
+    it('watches against the viewport, so it works whether the box or the page scrolls', async () => {
+      service.listDaysBefore.mockResolvedValue(page(0, DAYS_PAGE_SIZE));
+      await create();
+      expect(observed.length).toBe(1);
+      expect(observed[0].options?.root ?? null).toBeNull();
+    });
+
+    it('loads the next page only when the bottom comes into view', async () => {
+      service.listDaysBefore
+        .mockResolvedValueOnce(page(0, DAYS_PAGE_SIZE))
+        .mockResolvedValueOnce(page(DAYS_PAGE_SIZE, 2));
+      await create();
+      expect(service.listDaysBefore).toHaveBeenCalledTimes(1);
+
+      observed[0].fire(false);
+      await settle();
+      expect(service.listDaysBefore).toHaveBeenCalledTimes(1);
+
+      observed[0].fire(true);
+      await settle();
+      expect(service.listDaysBefore).toHaveBeenCalledTimes(2);
+      expect(rows().length).toBe(DAYS_PAGE_SIZE + 2);
+    });
+  });
+
   it('shows an empty state when no plans are saved', async () => {
     service.listDaysBefore.mockResolvedValueOnce([]);
     await create();
