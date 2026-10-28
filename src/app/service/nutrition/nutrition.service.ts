@@ -35,6 +35,23 @@ export class NutritionService {
     return ((data ?? []) as TNutritionDay[]).map(withSortedMeals);
   }
 
+  /** One page of days older than `before` (or the newest days when null), newest first. */
+  async listDaysBefore(before: string | null, limit: number): Promise<TNutritionDay[]> {
+    if (this.useMock()) {
+      return this.mock()
+        .filter((d) => !before || d.plan_date < before)
+        .slice(0, limit)
+        .map((d) => structuredClone(d));
+    }
+    if (!this.db) return [];
+
+    let query = this.db.from('nutrition_days').select(DAY_SELECT);
+    if (before) query = query.lt('plan_date', before);
+    const { data, error } = await query.order('plan_date', { ascending: false }).limit(limit);
+    if (error) throw error;
+    return ((data ?? []) as TNutritionDay[]).map(withSortedMeals);
+  }
+
   async getDay(date: string): Promise<TNutritionDay | null> {
     if (this.useMock()) {
       const day = this.mock().find((d) => d.plan_date === date);

@@ -5,6 +5,7 @@ import { createQueryMock } from '../../../testing/supabase-query-mock';
 import { environment } from '../../../environments/environment';
 import { AuthStore } from '../../store/auth/auth.store';
 import { NutritionService } from './nutrition.service';
+import { NUTRITION_MOCK_DAY_COUNT } from '../../mock/nutrition.mock';
 
 function setup(client: unknown, loggedIn = true) {
   TestBed.configureTestingModule({
@@ -32,6 +33,27 @@ describe('NutritionService', () => {
       expect(calls).toContainEqual(['lte', 'plan_date', '2026-11-01']);
       expect(calls).toContainEqual(['order', 'plan_date', { ascending: false }]);
       expect(days[0].meals.map((m) => m.position)).toEqual([0, 1, 2]);
+    });
+
+    it('listDaysBefore pages older days newest first', async () => {
+      const calls: unknown[][] = [];
+      const service = setup(createQueryMock({ data: [], error: null }, calls));
+
+      await service.listDaysBefore('2026-10-20', 14);
+
+      expect(calls).toContainEqual(['lt', 'plan_date', '2026-10-20']);
+      expect(calls).toContainEqual(['order', 'plan_date', { ascending: false }]);
+      expect(calls).toContainEqual(['limit', 14]);
+    });
+
+    it('listDaysBefore starts from the newest day when no cursor is given', async () => {
+      const calls: unknown[][] = [];
+      const service = setup(createQueryMock({ data: [], error: null }, calls));
+
+      await service.listDaysBefore(null, 14);
+
+      expect(calls.some((c) => c[0] === 'lt')).toBe(false);
+      expect(calls).toContainEqual(['limit', 14]);
     });
 
     it('getDay returns null when no plan is saved', async () => {
@@ -84,8 +106,18 @@ describe('NutritionService', () => {
       const calls: unknown[][] = [];
       const service = setup(createQueryMock({ data: [], error: null }, calls), false);
 
-      expect((await service.listDays()).length).toBe(7);
+      expect((await service.listDays()).length).toBe(NUTRITION_MOCK_DAY_COUNT);
       expect(calls).toEqual([]);
+    });
+
+    it('pages through sample days', async () => {
+      const service = setup(null, false);
+      const first = await service.listDaysBefore(null, 20);
+      const rest = await service.listDaysBefore(first.at(-1)!.plan_date, 20);
+
+      expect(first.length).toBe(20);
+      expect(rest.length).toBe(NUTRITION_MOCK_DAY_COUNT - 20);
+      expect(rest[0].plan_date < first.at(-1)!.plan_date).toBe(true);
     });
 
     it('keeps sample ticks in memory', async () => {

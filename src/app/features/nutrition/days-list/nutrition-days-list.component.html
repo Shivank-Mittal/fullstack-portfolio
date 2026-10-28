@@ -1,19 +1,39 @@
-<div class="day-rows">
-  @for (day of days(); track day.id) {
-    <a class="day-row" [routerLink]="['/nutrition', day.plan_date]">
+<div class="days-box" #box>
+  @for (day of days(); track day.plan_date) {
+    <a
+      class="day-row"
+      [class.active]="day.plan_date === selected()"
+      [routerLink]="['/nutrition']"
+      [queryParams]="{ day: day.plan_date }"
+      [attr.aria-current]="day.plan_date === selected() ? 'true' : null"
+    >
       <span class="day-row-text">
         <span class="day-row-name">
+          {{ day.plan_date === today ? 'Today' : formatShortDate(day.plan_date) }}
           @if (day.day_number) {
-            Day {{ day.day_number }} ·
+            · Day {{ day.day_number }}
           }
-          {{ formatShortDate(day.plan_date) }}</span
-        >
+        </span>
         <span class="day-row-detail"
-          >{{ day.calories }} kcal · P {{ day.protein_g }} g · {{ eatenCount(day.meals) }} of
+          >{{ day.calories }} kcal · {{ eatenCount(day.meals) }} of
           {{ day.meals.length }} eaten</span
         >
       </span>
       <span class="chevron" aria-hidden="true">›</span>
     </a>
   }
+
+  <div #sentinel class="days-footer">
+    @if (failed()) {
+      <span>Couldn't load plans.</span>
+    } @else if (loading()) {
+      <span>Loading…</span>
+    } @else if (!done()) {
+      <button type="button" class="load-more" (click)="loadMore()">Load older days</button>
+    } @else if (days().length === 0) {
+      <span>No plans yet. Send one to the Telegram bot.</span>
+    } @else {
+      <span>No older plans</span>
+    }
+  </div>
 </div>

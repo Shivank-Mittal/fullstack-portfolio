@@ -1,6 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { ActivatedRoute, convertToParamMap, provideRouter } from '@angular/router';
-import { of } from 'rxjs';
+import { provideRouter } from '@angular/router';
 import { NutritionDayComponent } from './nutrition-day.component';
 import { NutritionService } from '../../../service/nutrition/nutrition.service';
 import { ToastService } from '../../../service/toast-service/toast.service';
@@ -77,15 +76,12 @@ describe('NutritionDayComponent', () => {
       imports: [NutritionDayComponent],
       providers: [
         provideRouter([]),
-        {
-          provide: ActivatedRoute,
-          useValue: { paramMap: of(convertToParamMap({ date: '2026-10-30' })) },
-        },
         { provide: NutritionService, useValue: service },
         { provide: ToastService, useValue: toast },
       ],
     }).compileComponents();
     fixture = TestBed.createComponent(NutritionDayComponent);
+    fixture.componentRef.setInput('date', '2026-10-30');
     fixture.detectChanges();
     await settle();
   }
@@ -117,6 +113,29 @@ describe('NutritionDayComponent', () => {
     expect(text()).toContain('Eaten 1005 of 1460 kcal');
   });
 
+  it('shows every item with its quantity without opening anything', async () => {
+    await create();
+    expect(el().querySelector('details')).toBeNull();
+    expect(text()).toContain('Lunch food · 1 bowl');
+    expect(text()).toContain('Dinner food · 1 bowl');
+  });
+
+  it('reports the updated day after a tick is saved', async () => {
+    await create();
+    const seen: TNutritionDay[] = [];
+    fixture.componentInstance.dayChange.subscribe((d) => seen.push(d));
+    checkbox(2).click();
+    await settle();
+    expect(seen.at(-1)?.meals[2].eaten_at).toBe('2026-10-30T13:00:00Z');
+  });
+
+  it('loads the new day when the date changes', async () => {
+    await create();
+    fixture.componentRef.setInput('date', '2026-10-29');
+    await settle();
+    expect(service.getDay).toHaveBeenLastCalledWith('2026-10-29');
+  });
+
   it('rolls back and toasts when saving fails', async () => {
     service.setEaten.mockRejectedValue(new Error('offline'));
     await create();
@@ -132,7 +151,7 @@ describe('NutritionDayComponent', () => {
     service.getNeighbours.mockResolvedValue({ prev: '2026-10-29', next: null });
     await create();
     expect(text()).toContain('No plan saved for this day');
-    expect(link('prev')?.getAttribute('href')).toBe('/nutrition/2026-10-29');
+    expect(link('prev')?.getAttribute('href')).toBe('/nutrition?day=2026-10-29');
     expect(link('next')).toBeNull();
   });
 });

@@ -42,12 +42,9 @@ export const routes: Routes = [
           import('./features/nutrition/nutrition.component').then((m) => m.NutritionComponent),
       },
       {
+        // Older links (e.g. the calendar card) open the Plans tab with that day selected.
         path: 'nutrition/:date',
-        canActivate: [nutritionGuard],
-        loadComponent: () =>
-          import('./features/nutrition/day/nutrition-day.component').then(
-            (m) => m.NutritionDayComponent,
-          ),
+        redirectTo: ({ params }) => `/nutrition?day=${params['date']}`,
       },
       // { path: 'application', loadComponent: ()=> import('./features/applications/applications.component').then((m) => m.ApplicationsComponent)},
     ],

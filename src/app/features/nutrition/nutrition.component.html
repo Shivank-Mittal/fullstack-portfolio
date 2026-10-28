@@ -1,36 +1,38 @@
 <section class="nutrition-page">
-  <h1 class="page-title">Nutrition</h1>
+  <header class="page-header">
+    <h1 class="page-title">Nutrition</h1>
+    <nav class="tabs" aria-label="Nutrition views">
+      @for (tab of tabs; track tab.view) {
+        <a
+          class="tab"
+          [class.active]="view() === tab.view"
+          [routerLink]="[]"
+          [queryParams]="tab.view === 'plans' ? {} : { view: tab.view }"
+          >{{ tab.label }}</a
+        >
+      }
+    </nav>
+  </header>
 
-  <nav class="tabs" aria-label="Nutrition views">
-    @for (tab of tabs; track tab.view) {
-      <a
-        class="tab"
-        [class.active]="view() === tab.view"
-        [routerLink]="[]"
-        [queryParams]="{ view: tab.view }"
-        >{{ tab.label }}</a
-      >
+  @switch (view()) {
+    @case ('month') {
+      <app-nutrition-month />
     }
-  </nav>
-
-  @if (loading()) {
-    <p class="empty">Loading plans…</p>
-  } @else if (failed()) {
-    <p class="empty">Couldn't load your plans. Try again later.</p>
-  } @else if (days().length === 0) {
-    <p class="empty">No plans yet. Send one to the Telegram bot.</p>
-  } @else {
-    @switch (view()) {
-      @case ('month') {
-        <app-nutrition-month [days]="days()" />
-      }
-      @case ('week') {
-        <app-nutrition-week [days]="days()" />
-      }
-      @default {
-        <app-nutrition-days-list [days]="days()" />
-      }
+    @case ('statistics') {
+      <app-nutrition-statistics />
     }
-    <p class="hint">Tap a day to open its full page.</p>
+    @default {
+      <div class="split" [class.has-day]="dayParam()">
+        <aside class="split-list">
+          <app-nutrition-days-list [selected]="selectedDay()" (firstPage)="onFirstPage($event)" />
+        </aside>
+        <div class="split-detail">
+          <a class="back-link" [routerLink]="[]" [queryParams]="{}">← All days</a>
+          @if (selectedDay(); as day) {
+            <app-nutrition-day [date]="day" (dayChange)="onDayChange($event)" />
+          }
+        </div>
+      </div>
+    }
   }
 </section>

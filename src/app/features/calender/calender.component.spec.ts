@@ -86,7 +86,7 @@ describe('CalenderComponent', () => {
     expect(text()).toContain('Day 53 · Friday plan');
     expect(text()).toContain('5 meals · 2 eaten');
     expect(text()).toContain('Next: Lunch · 480 kcal');
-    expect(el().querySelector('a[href="/nutrition/2026-10-30"]')).toBeTruthy();
+    expect(el().querySelector('a[href="/nutrition?day=2026-10-30"]')).toBeTruthy();
   });
 
   it('shows no card for a date without a plan', async () => {

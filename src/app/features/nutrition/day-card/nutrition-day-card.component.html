@@ -8,5 +8,7 @@
   @if (nextMeal(); as next) {
     <span class="card-quiet">Next: {{ next.label }} · {{ next.calories }} kcal</span>
   }
-  <a class="card-link" [routerLink]="['/nutrition', day().plan_date]">Open full day ›</a>
+  <a class="card-link" [routerLink]="['/nutrition']" [queryParams]="{ day: day().plan_date }"
+    >Open full day ›</a
+  >
 </div>

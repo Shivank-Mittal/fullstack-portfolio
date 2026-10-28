@@ -1,59 +1,69 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, computed, inject, signal, viewChild } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { map } from 'rxjs';
-import { NutritionService } from '../../service/nutrition/nutrition.service';
 import { TNutritionDay } from '../../types/TNutrition';
+import { todayIso } from './nutrition.utils';
 import { NutritionDaysListComponent } from './days-list/nutrition-days-list.component';
+import { NutritionDayComponent } from './day/nutrition-day.component';
 import { NutritionMonthComponent } from './month/nutrition-month.component';
-import { NutritionWeekComponent } from './week/nutrition-week.component';
+import { NutritionStatisticsComponent } from './statistics/nutrition-statistics.component';
 
-type TNutritionView = 'days' | 'month' | 'week';
-const VIEWS: TNutritionView[] = ['days', 'month', 'week'];
+type TNutritionView = 'plans' | 'month' | 'statistics';
+const VIEWS: TNutritionView[] = ['plans', 'month', 'statistics'];
 
+/**
+ * /nutrition — Plans (days box beside the selected day's plan), Month and Statistics tabs.
+ * The tab and the selected day live in query params (?view=…&day=…) so switching days keeps
+ * the days box and its scroll position.
+ */
 @Component({
   selector: 'app-nutrition',
   imports: [
     RouterLink,
     NutritionDaysListComponent,
+    NutritionDayComponent,
     NutritionMonthComponent,
-    NutritionWeekComponent,
+    NutritionStatisticsComponent,
   ],
   templateUrl: './nutrition.component.html',
   styleUrl: './nutrition-views.css',
 })
 export class NutritionComponent {
-  private readonly nutritionService = inject(NutritionService);
+  private readonly queryParams = inject(ActivatedRoute).queryParamMap;
 
   protected readonly tabs: { view: TNutritionView; label: string }[] = [
-    { view: 'days', label: 'Days' },
+    { view: 'plans', label: 'Plans' },
     { view: 'month', label: 'Month' },
-    { view: 'week', label: 'Week' },
+    { view: 'statistics', label: 'Statistics' },
   ];
   protected readonly view = toSignal(
-    inject(ActivatedRoute).queryParamMap.pipe(
+    this.queryParams.pipe(
       map((params) => {
         const view = params.get('view') as TNutritionView;
-        return VIEWS.includes(view) ? view : 'days';
+        return VIEWS.includes(view) ? view : 'plans';
       }),
     ),
-    { initialValue: 'days' as TNutritionView },
+    { initialValue: 'plans' as TNutritionView },
   );
-  protected readonly days = signal<TNutritionDay[]>([]);
-  protected readonly loading = signal(true);
-  protected readonly failed = signal(false);
+  /** The day picked in the URL; on a phone this is what switches from the list to the plan. */
+  protected readonly dayParam = toSignal(this.queryParams.pipe(map((p) => p.get('day'))), {
+    initialValue: null,
+  });
+  private readonly defaultDay = signal<string | null>(null);
+  protected readonly selectedDay = computed(() => this.dayParam() ?? this.defaultDay());
 
-  constructor() {
-    this.load();
+  private readonly daysList = viewChild(NutritionDaysListComponent);
+
+  /** Opens on today's plan, or the newest one when today has none. */
+  protected onFirstPage(days: TNutritionDay[]) {
+    const today = todayIso();
+    this.defaultDay.set(
+      days.find((d) => d.plan_date === today)?.plan_date ?? days[0]?.plan_date ?? null,
+    );
   }
 
-  private async load() {
-    try {
-      this.days.set(await this.nutritionService.listDays());
-    } catch {
-      this.failed.set(true);
-    } finally {
-      this.loading.set(false);
-    }
+  protected onDayChange(day: TNutritionDay) {
+    this.daysList()?.replaceDay(day);
   }
 }

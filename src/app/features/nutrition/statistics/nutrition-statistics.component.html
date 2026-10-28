@@ -4,9 +4,20 @@
   <button type="button" class="nav-arrow" (click)="step(1)" aria-label="Next week">›</button>
 </div>
 
-<p class="week-averages">
-  Avg {{ series().avgCalories ?? '–' }} kcal · {{ series().avgProtein ?? '–' }} g protein
-</p>
+@if (failed()) {
+  <p class="empty">Couldn't load this week. Try again later.</p>
+}
+
+<div class="stat-tiles">
+  <div class="stat-tile">
+    <span class="stat-label">Avg planned</span>
+    <span class="stat-value">{{ series().avgCalories ?? '–' }} kcal</span>
+  </div>
+  <div class="stat-tile">
+    <span class="stat-label">Avg protein</span>
+    <span class="stat-value">{{ series().avgProtein ?? '–' }} g</span>
+  </div>
+</div>
 
 <!-- ECharts needs a browser canvas, so the server render (and the first paint) shows the numbers. -->
 @defer (on idle) {

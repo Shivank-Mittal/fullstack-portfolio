@@ -1,7 +1,7 @@
 import { shiftDate, todayIso } from '../features/nutrition/nutrition.utils';
 import { TMealType, TNutritionDay, TNutritionItem, TNutritionMeal } from '../types/TNutrition';
 
-// Sample plans for dev builds when nobody is logged in: Days 47-53, the last one today,
+// Sample plans for dev builds when nobody is logged in: Days 24-53, the last one today,
 // shaped like the nutritionist's Day 53 plan. Numbers are illustrative.
 
 const item = (
@@ -101,7 +101,11 @@ function buildDay(dayNumber: number, plan_date: string, eatenMeals: number): TNu
 
 const today = todayIso();
 
+/** Enough sample days that the days box has to load more than one page. */
+export const NUTRITION_MOCK_DAY_COUNT = 30;
+
 /** Newest first, like `NutritionService.listDays`. Past days are fully eaten; today has two meals ticked. */
-export const NUTRITION_MOCK_DAYS: TNutritionDay[] = [0, 1, 2, 3, 4, 5, 6].map((back) =>
-  buildDay(53 - back, shiftDate(today, -back), back === 0 ? 2 : 5),
+export const NUTRITION_MOCK_DAYS: TNutritionDay[] = Array.from(
+  { length: NUTRITION_MOCK_DAY_COUNT },
+  (_, back) => buildDay(53 - back, shiftDate(today, -back), back === 0 ? 2 : 5),
 );

@@ -1,11 +1,20 @@
-import { Component, computed, inject, signal } from '@angular/core';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { ActivatedRoute, RouterLink } from '@angular/router';
+import {
+  Component,
+  computed,
+  effect,
+  inject,
+  input,
+  output,
+  signal,
+  untracked,
+} from '@angular/core';
+import { RouterLink } from '@angular/router';
 import { NutritionService } from '../../../service/nutrition/nutrition.service';
 import { ToastService } from '../../../service/toast-service/toast.service';
 import { TNutritionDay, TNutritionMeal } from '../../../types/TNutrition';
 import { dayHeadline, eatenCalories, formatShortDate } from '../nutrition.utils';
 
+/** One day's whole plan: every meal with its items, quantities and an eaten checkbox. */
 @Component({
   selector: 'app-nutrition-day',
   imports: [RouterLink],
@@ -16,7 +25,10 @@ export class NutritionDayComponent {
   private readonly nutritionService = inject(NutritionService);
   private readonly toastService = inject(ToastService);
 
-  protected readonly date = signal('');
+  readonly date = input.required<string>();
+  /** Emits the day after a meal's eaten state is saved, so lists can stay in step. */
+  readonly dayChange = output<TNutritionDay>();
+
   protected readonly day = signal<TNutritionDay | null>(null);
   protected readonly neighbours = signal<{ prev: string | null; next: string | null }>({
     prev: null,
@@ -26,9 +38,9 @@ export class NutritionDayComponent {
 
   protected readonly headline = computed(() => {
     const day = this.day();
-    return day ? dayHeadline(day) : '';
+    return day ? dayHeadline(day) : 'Nutrition plan';
   });
-  protected readonly dateLabel = computed(() => (this.date() ? formatShortDate(this.date()) : ''));
+  protected readonly dateLabel = computed(() => formatShortDate(this.date()));
   protected readonly eaten = computed(() => eatenCalories(this.day()?.meals ?? []));
   protected readonly progress = computed(() => {
     const total = this.day()?.calories ?? 0;
@@ -36,13 +48,10 @@ export class NutritionDayComponent {
   });
 
   constructor() {
-    inject(ActivatedRoute)
-      .paramMap.pipe(takeUntilDestroyed())
-      .subscribe((params) => this.load(params.get('date') ?? ''));
-  }
-
-  protected itemNames(meal: TNutritionMeal): string {
-    return meal.items.map((i) => i.name).join(', ');
+    effect(() => {
+      const date = this.date();
+      untracked(() => this.load(date));
+    });
   }
 
   protected async toggle(meal: TNutritionMeal, checkbox: HTMLInputElement) {
@@ -51,6 +60,8 @@ export class NutritionDayComponent {
     this.setMealEaten(meal.id, eaten ? new Date().toISOString() : null);
     try {
       this.setMealEaten(meal.id, await this.nutritionService.setEaten(meal.id, eaten));
+      const day = this.day();
+      if (day) this.dayChange.emit(day);
     } catch {
       this.setMealEaten(meal.id, previous);
       // A fast failure can land before change detection runs, so the [checked] binding never
@@ -72,7 +83,6 @@ export class NutritionDayComponent {
   }
 
   private async load(date: string) {
-    this.date.set(date);
     this.loading.set(true);
     try {
       const [day, neighbours] = await Promise.all([

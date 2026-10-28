@@ -15,7 +15,8 @@
       <a
         class="month-cell has-plan"
         [class.today]="cell === today"
-        [routerLink]="['/nutrition', cell]"
+        [routerLink]="['/nutrition']"
+        [queryParams]="{ day: cell }"
         [attr.aria-label]="'Plan for ' + cell"
         >{{ +cell.slice(8) }}</a
       >
