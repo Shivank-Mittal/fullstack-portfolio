@@ -298,3 +298,13 @@
   border: 1px solid var(--color-border);
   border-radius: var(--radius-lg);
 }
+
+/* ─── Days with a saved meal plan ─────────────────────────── */
+:host ::ng-deep .fc-day-has-plan .fc-daygrid-day-top::after {
+  content: '';
+  width: 6px;
+  height: 6px;
+  margin: 6px 6px 0 0;
+  border-radius: 50%;
+  background: var(--color-accent);
+}

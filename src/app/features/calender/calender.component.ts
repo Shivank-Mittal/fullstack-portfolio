@@ -1,4 +1,4 @@
-import { Component, computed, effect, inject, signal, ViewChild } from '@angular/core';
+import { Component, computed, effect, ElementRef, inject, signal, ViewChild } from '@angular/core';
 import { FullCalendarModule, FullCalendarComponent } from '@fullcalendar/angular';
 import { CalendarOptions } from '@fullcalendar/core';
 import dayGridPlugin from '@fullcalendar/daygrid';
@@ -7,10 +7,18 @@ import { CalenderService } from '../../service/calender/calender.service';
 import { TCalendarEvent } from '../../types/TCalendar';
 import { CalenderEventCardComponent } from './calender-event-card/calender-event-card.component';
 import { LoadingComponent } from '../../components/loading/loading.component';
+import { NutritionService } from '../../service/nutrition/nutrition.service';
+import { TNutritionDay } from '../../types/TNutrition';
+import { NutritionDayCardComponent } from '../nutrition/day-card/nutrition-day-card.component';
 
 @Component({
   selector: 'app-calender',
-  imports: [FullCalendarModule, CalenderEventCardComponent, LoadingComponent],
+  imports: [
+    FullCalendarModule,
+    CalenderEventCardComponent,
+    LoadingComponent,
+    NutritionDayCardComponent,
+  ],
   templateUrl: './calender.component.html',
   styleUrl: './calender.component.css',
 })
@@ -18,6 +26,13 @@ export class CalenderComponent {
   @ViewChild('calendar') calendarComponent!: FullCalendarComponent;
 
   private readonly calenderService = inject(CalenderService);
+  private readonly nutritionService = inject(NutritionService);
+  private readonly host = inject<ElementRef<HTMLElement>>(ElementRef);
+
+  protected readonly nutritionDays = signal<TNutritionDay[]>([]);
+  protected readonly selectedNutritionDay = computed(
+    () => this.nutritionDays().find((d) => d.plan_date === this.selectedDate()) ?? null,
+  );
 
   protected readonly calenderEvents = signal<{
     google: TCalendarEvent[];
@@ -54,6 +69,16 @@ export class CalenderComponent {
   };
 
   constructor() {
+    // Mark days that have a saved meal plan; FullCalendar renders the cells with data-date.
+    effect(() => {
+      const planDates = new Set(this.nutritionDays().map((d) => d.plan_date));
+      this.host.nativeElement
+        .querySelectorAll<HTMLElement>('.fc-daygrid-day[data-date]')
+        .forEach((cell) =>
+          cell.classList.toggle('fc-day-has-plan', planDates.has(cell.dataset['date'] ?? '')),
+        );
+    });
+
     effect(() => {
       const events = this.calenderEvents();
       const calendarApi = this.calendarComponent?.getApi();
@@ -95,6 +120,7 @@ export class CalenderComponent {
   }
 
   async getCalendarData(dates: any) {
+    this.loadNutritionDays(dates.startStr.slice(0, 10), dates.endStr.slice(0, 10));
     this.loading.set(true);
     try {
       const { google, apple, metadata } = await this.calenderService.getCalendarData(
@@ -104,6 +130,15 @@ export class CalenderComponent {
       this.calenderEvents.set({ google, apple, metadata });
     } finally {
       this.loading.set(false);
+    }
+  }
+
+  // Plans are extra: if they fail to load, the calendar's events still show.
+  private async loadNutritionDays(from: string, to: string) {
+    try {
+      this.nutritionDays.set(await this.nutritionService.listDays(from, to));
+    } catch {
+      this.nutritionDays.set([]);
     }
   }
 

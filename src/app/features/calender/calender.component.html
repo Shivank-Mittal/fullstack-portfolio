@@ -11,6 +11,10 @@
     >
   </div>
 
+  @if (selectedNutritionDay(); as nutritionDay) {
+    <app-nutrition-day-card [day]="nutritionDay" />
+  }
+
   @if (selectedDayEvents().length === 0) {
     <div class="events-empty">No events for this day.</div>
   }
