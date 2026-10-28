@@ -1,0 +1,109 @@
+<article class="day-page">
+  <header class="day-header">
+    @if (neighbours().prev; as prev) {
+      <a
+        class="nav-arrow"
+        data-test="prev"
+        [routerLink]="['/nutrition', prev]"
+        aria-label="Previous day"
+        >‹</a
+      >
+    } @else {
+      <span class="nav-arrow" aria-hidden="true"></span>
+    }
+    <div class="day-title">
+      <h1>{{ day() ? headline() : 'Nutrition plan' }}</h1>
+      <span class="day-date">{{ dateLabel() }}</span>
+    </div>
+    @if (neighbours().next; as next) {
+      <a
+        class="nav-arrow"
+        data-test="next"
+        [routerLink]="['/nutrition', next]"
+        aria-label="Next day"
+        >›</a
+      >
+    } @else {
+      <span class="nav-arrow" aria-hidden="true"></span>
+    }
+  </header>
+
+  @if (day(); as day) {
+    <section class="summary">
+      <div class="summary-kcal">{{ day.calories }} kcal</div>
+      @if (day.stated_calories || day.stated_protein_g) {
+        <div class="summary-stated">
+          Plan says {{ day.stated_calories ?? '?' }} kcal · {{ day.stated_protein_g ?? '?' }} g
+          protein
+        </div>
+      }
+      <div
+        class="progress"
+        role="progressbar"
+        aria-label="Calories eaten"
+        [attr.aria-valuenow]="progress()"
+        aria-valuemin="0"
+        aria-valuemax="100"
+      >
+        <div class="progress-fill" [style.width.%]="progress()"></div>
+      </div>
+      <div class="summary-eaten">Eaten {{ eaten() }} of {{ day.calories }} kcal</div>
+    </section>
+
+    <section class="macros">
+      <span>P {{ day.protein_g }} g</span>
+      <span>C {{ day.carbs_g }} g</span>
+      <span>F {{ day.fat_g }} g</span>
+      <span>Fiber {{ day.fiber_g }} g</span>
+    </section>
+
+    <section class="meals">
+      @for (meal of day.meals; track meal.id) {
+        <div class="meal" [class.meal-eaten]="meal.eaten_at">
+          <input
+            type="checkbox"
+            class="meal-check"
+            [checked]="!!meal.eaten_at"
+            (change)="toggle(meal, $any($event.target))"
+            [attr.aria-label]="'Mark ' + meal.label + ' as eaten'"
+          />
+          <details class="meal-body">
+            <summary>
+              <span class="meal-name"
+                >{{ meal.label }}
+                @if (meal.time_window) {
+                  · {{ meal.time_window }}
+                }
+              </span>
+              <span class="meal-kcal">{{ meal.calories }} kcal</span>
+              <span class="meal-items">{{ itemNames(meal) }}</span>
+            </summary>
+            <ul class="meal-detail">
+              @for (item of meal.items; track $index) {
+                <li>
+                  <span
+                    >{{ item.name }} <span class="quiet">· {{ item.quantity }}</span></span
+                  >
+                  <span class="quiet">{{ item.calories }} kcal · P {{ item.protein_g }} g</span>
+                </li>
+              }
+            </ul>
+          </details>
+        </div>
+      }
+    </section>
+
+    @if (day.guidelines.length) {
+      <section class="guidelines">
+        <h2>Guidelines</h2>
+        <ul>
+          @for (line of day.guidelines; track $index) {
+            <li>{{ line }}</li>
+          }
+        </ul>
+      </section>
+    }
+  } @else if (!loading()) {
+    <p class="empty">No plan saved for this day.</p>
+  }
+</article>

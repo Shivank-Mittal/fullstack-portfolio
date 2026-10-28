@@ -1,5 +1,5 @@
 import { Routes } from '@angular/router';
-import { authGuard, authLoginGuard } from './guard/auth.guard';
+import { authGuard, authLoginGuard, nutritionGuard } from './guard/auth.guard';
 
 export const routes: Routes = [
   {
@@ -19,10 +19,11 @@ export const routes: Routes = [
     path: '',
     loadComponent: () =>
       import('./page/information/information.component').then((m) => m.InformationComponent),
-    canActivate: [authGuard],
+    // Guards sit on each child: the nutrition pages are open in dev builds, the rest need login.
     children: [
       {
         path: 'resume',
+        canActivate: [authGuard],
         loadComponent: () =>
           import('./page/resume-collection/resume-collection.component').then(
             (m) => m.ResumeCollectionComponent,
@@ -30,8 +31,17 @@ export const routes: Routes = [
       },
       {
         path: 'calendar',
+        canActivate: [authGuard],
         loadComponent: () =>
           import('./features/calender/calender.component').then((m) => m.CalenderComponent),
+      },
+      {
+        path: 'nutrition/:date',
+        canActivate: [nutritionGuard],
+        loadComponent: () =>
+          import('./features/nutrition/day/nutrition-day.component').then(
+            (m) => m.NutritionDayComponent,
+          ),
       },
       // { path: 'application', loadComponent: ()=> import('./features/applications/applications.component').then((m) => m.ApplicationsComponent)},
     ],
