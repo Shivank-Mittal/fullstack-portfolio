@@ -28,6 +28,9 @@
       @case ('statistics') {
         <app-nutrition-statistics />
       }
+      @case ('dishes') {
+        <app-nutrition-dishes [dish]="dishParam()" />
+      }
       @default {
         <div class="split" #split [class.has-day]="dayParam()">
           <aside class="split-list">

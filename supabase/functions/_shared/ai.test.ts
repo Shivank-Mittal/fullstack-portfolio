@@ -1,5 +1,6 @@
-import { assertEquals, assertRejects, assertStringIncludes } from 'jsr:@std/assert@1';
+import { assertEquals, assertRejects } from 'jsr:@std/assert@1';
 import { completeJson } from './ai.ts';
+import { AllModelsFailedError } from './errors.ts';
 
 const request = { system: 's', user: 'u', schemaName: 'n', schema: {} };
 
@@ -38,15 +39,31 @@ Deno.test(
 );
 
 Deno.test(
-  'when every model fails, the error names each model and why',
+  'when every model fails, the error lists each model with its status and message',
   withModels(
     'gemini-3.5-flash,gemini-2.5-flash',
-    [new Response('busy', { status: 503 }), new Response('retired', { status: 404 })],
+    [
+      new Response(JSON.stringify({ error: { message: 'high demand' } }), { status: 503 }),
+      new Response('retired', { status: 404 }),
+    ],
     async () => {
-      const err = await assertRejects(() => completeJson(request));
-      const message = (err as Error).message;
-      assertStringIncludes(message, 'gemini-3.5-flash: Gemini 503: busy');
-      assertStringIncludes(message, 'gemini-2.5-flash: Gemini 404: retired');
+      const err = await assertRejects(() => completeJson(request), AllModelsFailedError);
+      assertEquals(err.failures, [
+        { model: 'gemini-3.5-flash', status: 503, detail: 'high demand' },
+        { model: 'gemini-2.5-flash', status: 404, detail: 'retired' },
+      ]);
     },
   ),
+);
+
+Deno.test(
+  'reports progress in plain words as it moves between models',
+  withModels('a,b', [new Response('busy', { status: 503 }), gemini('{"ok":1}')], async () => {
+    const progress: string[] = [];
+    await completeJson(request, (text) => {
+      progress.push(text);
+      return Promise.resolve();
+    });
+    assertEquals(progress, ['Reading your plan with a…', 'a is busy, trying b…']);
+  }),
 );

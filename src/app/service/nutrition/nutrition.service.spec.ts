@@ -101,6 +101,66 @@ describe('NutritionService', () => {
     });
   });
 
+  describe('dish catalog', () => {
+    it('lists dishes most planned first, filtered by name', async () => {
+      const calls: unknown[][] = [];
+      const service = setup(
+        createQueryMock(
+          {
+            data: [
+              { name: 'Apple', category: 'fruit', days_planned: 9, last_planned: '2026-11-02' },
+            ],
+            error: null,
+          },
+          calls,
+        ),
+      );
+
+      const dishes = await service.listDishes('app');
+
+      expect(calls).toContainEqual(['from', 'nutrition_dish_stats']);
+      expect(calls).toContainEqual(['ilike', 'name', '%app%']);
+      expect(calls).toContainEqual(['order', 'days_planned', { ascending: false }]);
+      expect(dishes[0].name).toBe('Apple');
+    });
+
+    it('treats % and _ in the search as plain characters', async () => {
+      const calls: unknown[][] = [];
+      const service = setup(createQueryMock({ data: [], error: null }, calls));
+      await service.listDishes('50%_x');
+      expect(calls).toContainEqual(['ilike', 'name', '%50\\%\\_x%']);
+    });
+
+    it('does not filter when the search is empty', async () => {
+      const calls: unknown[][] = [];
+      const service = setup(createQueryMock({ data: [], error: null }, calls));
+      await service.listDishes('  ');
+      expect(calls.some((c) => c[0] === 'ilike')).toBe(false);
+    });
+
+    it('lists the days a dish was planned, newest first', async () => {
+      const calls: unknown[][] = [];
+      const service = setup(createQueryMock({ data: [], error: null }, calls));
+      await service.getDishAppearances('Avocado toast');
+      expect(calls).toContainEqual(['from', 'nutrition_dish_appearances']);
+      expect(calls).toContainEqual(['eq', 'dish', 'Avocado toast']);
+      expect(calls).toContainEqual(['order', 'plan_date', { ascending: false }]);
+    });
+
+    it('builds the catalog from the sample days in dev', async () => {
+      const service = setup(null, false);
+      const dishes = await service.listDishes('');
+      const apple = dishes.find((d) => d.name === 'Apple')!;
+      expect(apple.category).toBe('fruit');
+      expect(apple.days_planned).toBe(NUTRITION_MOCK_DAY_COUNT);
+      expect((await service.listDishes('lemon')).map((d) => d.name)).toEqual(['Lemon water']);
+      const days = await service.getDishAppearances('Apple');
+      expect(days.length).toBe(NUTRITION_MOCK_DAY_COUNT);
+      expect(days[0].plan_date > days[1].plan_date).toBe(true);
+      expect(days[0].meal_label).toBe('Breakfast');
+    });
+  });
+
   describe('who may view and tick', () => {
     it('asks the database whether this login may see the plans', async () => {
       const calls: unknown[][] = [];

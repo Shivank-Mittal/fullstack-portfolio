@@ -1,0 +1,52 @@
+import { serve } from 'https://deno.land/std@0.168.0/http/server.ts';
+import { createClient } from 'https://esm.sh/@supabase/supabase-js@2';
+import { parsePlan } from '../_shared/plan.ts';
+import { processJob } from '../_shared/process-job.ts';
+import { verifyQStashSignature } from '../_shared/qstash-signature.ts';
+import type { PlanJob } from '../_shared/queue.ts';
+import { saveDay, summary } from '../_shared/save-day.ts';
+import { editMessage, sendMessage } from '../_shared/telegram.ts';
+
+// Called only by QStash, up to 3 plans at once (flow control). Answering 500 makes QStash retry
+// the plan a minute later.
+
+const db = createClient(Deno.env.get('SUPABASE_URL')!, Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!);
+const signingKeys = [
+  Deno.env.get('QSTASH_CURRENT_SIGNING_KEY') ?? '',
+  Deno.env.get('QSTASH_NEXT_SIGNING_KEY') ?? '',
+];
+
+// Existing dish names go into the prompt so the AI reuses them instead of inventing new spellings.
+async function knownDishes(): Promise<string[]> {
+  const { data, error } = await db.from('nutrition_dishes').select('name').order('name');
+  if (error) console.warn('could not load dish names:', error.message);
+  return (data ?? []).map((d) => d.name as string);
+}
+
+const json = (status: number, body: unknown) =>
+  new Response(JSON.stringify(body), { status, headers: { 'Content-Type': 'application/json' } });
+
+serve(async (req) => {
+  if (req.method !== 'POST') return new Response('Method not allowed', { status: 405 });
+
+  // Only QStash may call this: it signs every request with our signing keys.
+  const body = await req.text();
+  const signature = req.headers.get('Upstash-Signature') ?? '';
+  const valid = await verifyQStashSignature(signature, body, signingKeys);
+  if (!valid) return json(401, { outcome: 'rejected', reason: 'invalid QStash signature' });
+
+  const job = JSON.parse(body) as PlanJob;
+  const retried = Number(req.headers.get('Upstash-Retried') ?? '0');
+  console.log('job', job.messageId, 'attempt', retried + 1);
+
+  const result = await processJob(job, retried, {
+    parse: async (text, today, onProgress) =>
+      parsePlan(text, today, onProgress, await knownDishes()),
+    save: (day, rawText, messageId) => saveDay(db, day, rawText, messageId),
+    summary: summary as never,
+    send: (chatId, text) => sendMessage(chatId, text, job.messageId),
+    edit: editMessage,
+  });
+  // The body is what QStash shows in its logs for this delivery.
+  return json(result.status, result.body);
+});

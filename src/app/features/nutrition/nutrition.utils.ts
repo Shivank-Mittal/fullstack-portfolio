@@ -1,4 +1,4 @@
-import { TNutritionDay, TNutritionMeal, TWeekSeries } from '../../types/TNutrition';
+import { TFoodCategory, TNutritionDay, TNutritionMeal, TWeekSeries } from '../../types/TNutrition';
 
 // Plan dates are calendar days ('YYYY-MM-DD'). Everything here works in UTC so a date never
 // shifts by one when the browser sits in another time zone.
@@ -74,3 +74,17 @@ export function todayIso(): string {
   const now = new Date();
   return toIso(new Date(Date.UTC(now.getFullYear(), now.getMonth(), now.getDate())));
 }
+
+export const CATEGORY_LABELS: Record<TFoodCategory, string> = {
+  fruit: 'Fruit',
+  vegetables: 'Vegetables & salads',
+  dal_legumes: 'Dal & legumes',
+  grains_breads: 'Grains & breads',
+  dairy_paneer: 'Dairy & paneer',
+  eggs: 'Eggs',
+  soy_tofu: 'Soy & tofu',
+  nuts_seeds: 'Nuts & seeds',
+  mixed_dishes: 'Mixed dishes',
+  drinks_teas: 'Drinks & teas',
+  open_choice: 'Open choice',
+};
