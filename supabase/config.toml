@@ -314,6 +314,10 @@ verify_jwt = false
 [functions.telegram-webhook]
 verify_jwt = false
 
+# Called only by QStash, which signs its requests; the function checks that signature itself.
+[functions.telegram-worker]
+verify_jwt = false
+
 # Use an external OAuth provider. The full list of providers are: `apple`, `azure`, `bitbucket`,
 # `discord`, `facebook`, `github`, `gitlab`, `google`, `keycloak`, `linkedin_oidc`, `notion`, `twitch`,
 # `twitter`, `x`, `slack`, `spotify`, `workos`, `zoom`.
