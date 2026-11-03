@@ -7,6 +7,7 @@ const QUERY_METHODS = [
   'lte',
   'lt',
   'gt',
+  'ilike',
   'order',
   'limit',
   'update',

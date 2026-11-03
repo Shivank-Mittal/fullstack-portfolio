@@ -21,9 +21,10 @@ import { NutritionDaysListComponent } from './days-list/nutrition-days-list.comp
 import { NutritionDayComponent } from './day/nutrition-day.component';
 import { NutritionMonthComponent } from './month/nutrition-month.component';
 import { NutritionStatisticsComponent } from './statistics/nutrition-statistics.component';
+import { NutritionDishesComponent } from './dishes/nutrition-dishes.component';
 
-type TNutritionView = 'plans' | 'month' | 'statistics';
-const VIEWS: TNutritionView[] = ['plans', 'month', 'statistics'];
+type TNutritionView = 'plans' | 'month' | 'statistics' | 'dishes';
+const VIEWS: TNutritionView[] = ['plans', 'month', 'statistics', 'dishes'];
 
 /**
  * /nutrition — Plans (days box beside the selected day's plan), Month and Statistics tabs.
@@ -38,6 +39,7 @@ const VIEWS: TNutritionView[] = ['plans', 'month', 'statistics'];
     NutritionDayComponent,
     NutritionMonthComponent,
     NutritionStatisticsComponent,
+    NutritionDishesComponent,
   ],
   templateUrl: './nutrition.component.html',
   styleUrl: './nutrition-views.css',
@@ -52,6 +54,7 @@ export class NutritionComponent {
     { view: 'plans', label: 'Plans' },
     { view: 'month', label: 'Month' },
     { view: 'statistics', label: 'Statistics' },
+    { view: 'dishes', label: 'Dishes' },
   ];
   protected readonly view = toSignal(
     this.queryParams.pipe(
@@ -64,6 +67,10 @@ export class NutritionComponent {
   );
   /** The day picked in the URL; on a phone this is what switches from the list to the plan. */
   protected readonly dayParam = toSignal(this.queryParams.pipe(map((p) => p.get('day'))), {
+    initialValue: null,
+  });
+  /** The dish opened in the Dishes tab (?view=dishes&dish=…). */
+  protected readonly dishParam = toSignal(this.queryParams.pipe(map((p) => p.get('dish'))), {
     initialValue: null,
   });
   private readonly defaultDay = signal<string | null>(null);

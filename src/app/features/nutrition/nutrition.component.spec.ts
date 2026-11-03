@@ -46,6 +46,8 @@ describe('NutritionComponent', () => {
       setEaten: vi.fn(),
       canView: vi.fn().mockResolvedValue(canView),
       canEdit: vi.fn().mockReturnValue(true),
+      listDishes: vi.fn().mockResolvedValue([]),
+      getDishAppearances: vi.fn().mockResolvedValue([]),
     };
     await TestBed.configureTestingModule({
       imports: [NutritionComponent],
@@ -100,6 +102,18 @@ describe('NutritionComponent', () => {
     expect(el().textContent).toContain("You don't have access to these plans.");
     expect(query('app-nutrition-days-list')).toBeNull();
     expect(query('.tabs')).toBeNull();
+  });
+
+  it('opens the dishes tab, and a dish from the URL', async () => {
+    await create({ view: 'dishes', dish: 'Apple' });
+    const dishes = query('app-nutrition-dishes');
+    expect(dishes).toBeTruthy();
+    expect(Array.from(el().querySelectorAll('.tab')).map((t) => t.textContent?.trim())).toEqual([
+      'Plans',
+      'Month',
+      'Statistics',
+      'Dishes',
+    ]);
   });
 
   it('switches to the statistics tab from the query param', async () => {

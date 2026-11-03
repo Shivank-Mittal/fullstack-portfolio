@@ -1,5 +1,6 @@
 import { z } from 'npm:zod@4.1.12';
 import { completeJson, type Progress } from './ai.ts';
+import { dishRules, FOOD_CATEGORY_IDS } from './dishes.ts';
 
 export const MEAL_TYPES = [
   'early_morning',
@@ -14,6 +15,8 @@ export const MEAL_TYPES = [
 const Item = z.strictObject({
   name: z.string(),
   quantity: z.string(),
+  dish: z.string().min(1),
+  category: z.enum(FOOD_CATEGORY_IDS as unknown as [string, ...string[]]),
   calories: z.number(),
   protein_g: z.number(),
   carbs_g: z.number(),
@@ -37,7 +40,7 @@ const Day = z.strictObject({
   meals: z.array(Meal),
 });
 
-const ParsedPlan = z.strictObject({ days: z.array(Day) });
+export const ParsedPlan = z.strictObject({ days: z.array(Day) });
 
 export type ParsedItem = z.infer<typeof Item>;
 export type ParsedDay = z.infer<typeof Day>;
@@ -54,17 +57,28 @@ List one item per food or drink. Skip anything the plan marks as off for the day
 
 If the plan states its own totals, copy them into stated_calories and stated_protein_g; a total written as "1450 g" for calories means 1450 kcal. Otherwise use null. Put the plan's advice (water goal, walking, lifestyle targets, coffee rules) into guidelines as short standalone sentences.
 
+{{DISH_RULES}}
+
 Respond with JSON only, matching this schema:
 ${JSON.stringify(schema)}`;
+
+/** The system prompt for a plan sent on `today`, reusing the dish names already in the catalog. */
+export function buildSystemPrompt(today: string, knownDishes: string[]): string {
+  return SYSTEM_PROMPT.replace('{{TODAY}}', today).replace(
+    '{{DISH_RULES}}',
+    dishRules(knownDishes),
+  );
+}
 
 export async function parsePlan(
   text: string,
   today: string,
   onProgress?: Progress,
+  knownDishes: string[] = [],
 ): Promise<ParsedDay[]> {
   const raw = await completeJson(
     {
-      system: SYSTEM_PROMPT.replace('{{TODAY}}', today),
+      system: buildSystemPrompt(today, knownDishes),
       user: text,
       schemaName: 'nutrition_plan',
       schema,

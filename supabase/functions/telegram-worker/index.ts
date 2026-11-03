@@ -16,6 +16,13 @@ const signingKeys = [
   Deno.env.get('QSTASH_NEXT_SIGNING_KEY') ?? '',
 ];
 
+// Existing dish names go into the prompt so the AI reuses them instead of inventing new spellings.
+async function knownDishes(): Promise<string[]> {
+  const { data, error } = await db.from('nutrition_dishes').select('name').order('name');
+  if (error) console.warn('could not load dish names:', error.message);
+  return (data ?? []).map((d) => d.name as string);
+}
+
 const json = (status: number, body: unknown) =>
   new Response(JSON.stringify(body), { status, headers: { 'Content-Type': 'application/json' } });
 
@@ -33,7 +40,8 @@ serve(async (req) => {
   console.log('job', job.messageId, 'attempt', retried + 1);
 
   const result = await processJob(job, retried, {
-    parse: parsePlan,
+    parse: async (text, today, onProgress) =>
+      parsePlan(text, today, onProgress, await knownDishes()),
     save: (day, rawText, messageId) => saveDay(db, day, rawText, messageId),
     summary: summary as never,
     send: (chatId, text) => sendMessage(chatId, text, job.messageId),

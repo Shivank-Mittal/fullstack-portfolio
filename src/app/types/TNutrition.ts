@@ -15,7 +15,49 @@ export type TMacros = {
   fiber_g: number;
 };
 
-export type TNutritionItem = TMacros & { name: string; quantity: string };
+export type TFoodCategory =
+  | 'fruit'
+  | 'vegetables'
+  | 'dal_legumes'
+  | 'grains_breads'
+  | 'dairy_paneer'
+  | 'eggs'
+  | 'soy_tofu'
+  | 'nuts_seeds'
+  | 'mixed_dishes'
+  | 'drinks_teas'
+  | 'open_choice';
+
+/** `dish` and `category` are set for plans saved after the dish catalog was added. */
+export type TNutritionItem = TMacros & {
+  name: string;
+  quantity: string;
+  dish?: string;
+  category?: TFoodCategory;
+};
+
+/** One dish in the catalog, with how often and how recently it was planned. */
+export type TDishStat = {
+  name: string;
+  category: TFoodCategory;
+  days_planned: number;
+  last_planned: string;
+};
+
+/** One time a dish appeared in a plan. */
+export type TDishAppearance = {
+  dish: string;
+  category: TFoodCategory;
+  plan_date: string;
+  day_number: number | null;
+  meal_type: TMealType;
+  meal_label: string;
+  eaten_at: string | null;
+  item_name: string;
+  quantity: string;
+  calories: number;
+  protein_g: number;
+};
 
 export type TNutritionMeal = TMacros & {
   id: string;

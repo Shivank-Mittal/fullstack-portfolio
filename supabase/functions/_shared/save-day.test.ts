@@ -6,6 +6,8 @@ import type { ParsedDay } from './plan.ts';
 const item = (calories: number, protein_g: number) => ({
   name: 'x',
   quantity: '1',
+  dish: 'X',
+  category: 'fruit',
   calories,
   protein_g,
   carbs_g: 1,
@@ -71,6 +73,7 @@ Deno.test('saves the whole day in one database call with totals summed in code',
       ['dinner', 1, 300, 10],
     ],
   );
+  assertEquals((meals[0].items as { dish: string }[])[0].dish, 'X');
   assertEquals(saved.totals.calories, 500);
 });
 

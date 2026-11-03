@@ -4,7 +4,7 @@ import { SUPERBASE_CLIENT } from '../../../superbase/superbase.provider';
 import { environment } from '../../../environments/environment';
 import { AuthStore } from '../../store/auth/auth.store';
 import { NUTRITION_MOCK_DAYS } from '../../mock/nutrition.mock';
-import { TNutritionDay } from '../../types/TNutrition';
+import { TDishAppearance, TDishStat, TNutritionDay } from '../../types/TNutrition';
 
 const DAY_SELECT = '*, meals:nutrition_meals(*)';
 
@@ -12,6 +12,49 @@ const withSortedMeals = (day: TNutritionDay): TNutritionDay => ({
   ...day,
   meals: [...(day.meals ?? [])].sort((a, b) => a.position - b.position),
 });
+
+// The sample days (newest first) flattened the way the database views flatten real plans.
+function mockAppearances(days: TNutritionDay[]): TDishAppearance[] {
+  return days.flatMap((day) =>
+    day.meals.flatMap((meal) =>
+      meal.items
+        .filter((item) => item.dish && item.category)
+        .map((item) => ({
+          dish: item.dish!,
+          category: item.category!,
+          plan_date: day.plan_date,
+          day_number: day.day_number,
+          meal_type: meal.meal_type,
+          meal_label: meal.label,
+          eaten_at: meal.eaten_at,
+          item_name: item.name,
+          quantity: item.quantity,
+          calories: item.calories,
+          protein_g: item.protein_g,
+        })),
+    ),
+  );
+}
+
+function mockDishStats(days: TNutritionDay[]): TDishStat[] {
+  const stats = new Map<string, TDishStat & { dates: Set<string> }>();
+  for (const a of mockAppearances(days)) {
+    const stat = stats.get(a.dish) ?? {
+      name: a.dish,
+      category: a.category,
+      days_planned: 0,
+      last_planned: a.plan_date,
+      dates: new Set<string>(),
+    };
+    stat.dates.add(a.plan_date);
+    stat.days_planned = stat.dates.size;
+    if (a.plan_date > stat.last_planned) stat.last_planned = a.plan_date;
+    stats.set(a.dish, stat);
+  }
+  return [...stats.values()]
+    .map(({ dates: _dates, ...stat }) => stat)
+    .sort((a, b) => b.days_planned - a.days_planned || a.name.localeCompare(b.name));
+}
 
 @Injectable({ providedIn: 'root' })
 export class NutritionService {
@@ -26,6 +69,40 @@ export class NutritionService {
     const { data, error } = await this.db.rpc('can_view_nutrition');
     if (error) throw error;
     return data === true;
+  }
+
+  /** Dishes whose name contains `search` (any case), most planned first. */
+  async listDishes(search: string): Promise<TDishStat[]> {
+    const term = search.trim();
+    if (this.useMock()) {
+      return mockDishStats(this.mock()).filter((d) =>
+        d.name.toLowerCase().includes(term.toLowerCase()),
+      );
+    }
+    if (!this.db) return [];
+
+    let query = this.db.from('nutrition_dish_stats').select('*');
+    // % and _ are wildcards in ilike; escape them so they match literally.
+    if (term) query = query.ilike('name', `%${term.replace(/[\\%_]/g, '\\$&')}%`);
+    const { data, error } = await query.order('days_planned', { ascending: false });
+    if (error) throw error;
+    return (data ?? []) as TDishStat[];
+  }
+
+  /** Every time `dish` appeared in a plan, newest first. */
+  async getDishAppearances(dish: string): Promise<TDishAppearance[]> {
+    if (this.useMock()) {
+      return mockAppearances(this.mock()).filter((a) => a.dish === dish);
+    }
+    if (!this.db) return [];
+
+    const { data, error } = await this.db
+      .from('nutrition_dish_appearances')
+      .select('*')
+      .eq('dish', dish)
+      .order('plan_date', { ascending: false });
+    if (error) throw error;
+    return (data ?? []) as TDishAppearance[];
   }
 
   /** Only the owner ticks meals; viewers see the plans read-only. */

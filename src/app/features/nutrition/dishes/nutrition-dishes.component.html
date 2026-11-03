@@ -1,0 +1,104 @@
+@if (dish(); as dishName) {
+  <a class="back-to-dishes" [routerLink]="['/nutrition']" [queryParams]="{ view: 'dishes' }"
+    >← All dishes</a
+  >
+  <header class="dish-header">
+    <h2>{{ dishName }}</h2>
+    @if (dishCategory(); as category) {
+      <span class="category-chip">{{ categoryLabels[category] }}</span>
+    }
+  </header>
+
+  @if (appearancesLoading()) {
+    <p class="empty">Loading…</p>
+  } @else if (appearances().length === 0) {
+    <p class="empty">This dish isn't in any saved plan.</p>
+  } @else {
+    <p class="quiet-line">Planned on {{ daysPlanned() }} day{{ daysPlanned() === 1 ? '' : 's' }}</p>
+    <div class="day-rows">
+      @for (a of appearances(); track $index) {
+        <a
+          class="day-row appearance-row"
+          [routerLink]="['/nutrition']"
+          [queryParams]="{ day: a.plan_date }"
+        >
+          <span class="day-row-text">
+            <span class="day-row-name">
+              {{ formatShortDate(a.plan_date) }}
+              @if (a.day_number) {
+                · Day {{ a.day_number }}
+              }
+              <span class="meal-tag">{{ a.meal_label }}</span>
+            </span>
+            <span class="day-row-detail">{{ a.item_name }} · {{ a.quantity }}</span>
+          </span>
+          @if (a.eaten_at) {
+            <span class="eaten-tag">Eaten</span>
+          }
+          <span class="chevron" aria-hidden="true">›</span>
+        </a>
+      }
+    </div>
+  }
+} @else {
+  <div class="dish-tools">
+    <input
+      type="search"
+      class="dish-search"
+      placeholder="Search dishes"
+      aria-label="Search dishes"
+      [value]="search()"
+      (input)="onSearch($any($event.target).value)"
+    />
+    <div class="sort-toggle" role="group" aria-label="Sort dishes">
+      <button
+        type="button"
+        data-sort="most"
+        [class.active]="sort() === 'most'"
+        (click)="sort.set('most')"
+      >
+        Most planned
+      </button>
+      <button
+        type="button"
+        data-sort="az"
+        [class.active]="sort() === 'az'"
+        (click)="sort.set('az')"
+      >
+        A–Z
+      </button>
+    </div>
+  </div>
+
+  @if (loading()) {
+    <p class="empty">Loading dishes…</p>
+  } @else if (failed()) {
+    <p class="empty">Couldn't load the dishes. Try again later.</p>
+  } @else if (!hasDishes()) {
+    <p class="empty">No dishes yet. They appear once plans are saved.</p>
+  } @else if (visible().length === 0) {
+    <p class="empty">No dishes match "{{ search().trim() }}"</p>
+  } @else {
+    <div class="day-rows">
+      @for (d of visible(); track d.name) {
+        <a
+          class="day-row dish-row"
+          [routerLink]="['/nutrition']"
+          [queryParams]="{ view: 'dishes', dish: d.name }"
+        >
+          <span class="day-row-text">
+            <span class="day-row-name">
+              <span class="dish-name">{{ d.name }}</span>
+              <span class="category-chip">{{ categoryLabels[d.category] }}</span>
+            </span>
+            <span class="day-row-detail"
+              >On {{ d.days_planned }} day{{ d.days_planned === 1 ? '' : 's' }} · last
+              {{ formatShortDate(d.last_planned) }}</span
+            >
+          </span>
+          <span class="chevron" aria-hidden="true">›</span>
+        </a>
+      }
+    </div>
+  }
+}
