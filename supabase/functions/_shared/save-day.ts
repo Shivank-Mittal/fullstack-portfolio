@@ -1,6 +1,5 @@
 import type { SupabaseClient } from 'https://esm.sh/@supabase/supabase-js@2';
 import type { ParsedDay, ParsedItem } from './plan.ts';
-import { carryEaten } from './eaten.ts';
 
 type Macros = Pick<ParsedItem, 'calories' | 'protein_g' | 'carbs_g' | 'fat_g' | 'fiber_g'>;
 
@@ -32,26 +31,10 @@ export async function saveDay(
   }));
   const totals = sum(meals);
 
-  // Read the old plan's ticks first so a re-sent plan doesn't wipe what was already eaten.
-  const { data: oldDay, error: oldError } = await db
-    .from('nutrition_days')
-    .select('nutrition_meals(meal_type, eaten_at, position)')
-    .eq('plan_date', day.plan_date)
-    .maybeSingle();
-  if (oldError) throw oldError;
-  const oldMeals = [...(oldDay?.nutrition_meals ?? [])].sort((a, b) => a.position - b.position);
-  const eatenAt = carryEaten(oldMeals, meals);
-
-  // Re-sending a plan for the same date replaces it; meals go with it via ON DELETE CASCADE.
-  const { error: deleteError } = await db
-    .from('nutrition_days')
-    .delete()
-    .eq('plan_date', day.plan_date);
-  if (deleteError) throw deleteError;
-
-  const { data, error } = await db
-    .from('nutrition_days')
-    .insert({
+  // One transaction in the database (save_nutrition_day): replaces the day for this date, keeps
+  // ticks on meals of the same type, and makes a parallel save for the same date wait its turn.
+  const { error } = await db.rpc('save_nutrition_day', {
+    p_day: {
       plan_date: day.plan_date,
       day_number: day.day_number,
       stated_calories: day.stated_calories,
@@ -60,15 +43,10 @@ export async function saveDay(
       raw_text: rawText,
       telegram_message_id: messageId,
       ...totals,
-    })
-    .select('id')
-    .single();
+    },
+    p_meals: meals,
+  });
   if (error) throw error;
-
-  const { error: mealsError } = await db
-    .from('nutrition_meals')
-    .insert(meals.map((meal, i) => ({ ...meal, day_id: data.id, eaten_at: eatenAt[i] })));
-  if (mealsError) throw mealsError;
 
   return { meals, totals };
 }
