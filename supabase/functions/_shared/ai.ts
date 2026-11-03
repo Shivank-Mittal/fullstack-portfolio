@@ -1,3 +1,5 @@
+import { AllModelsFailedError, type ModelFailure, providerDetail, statusLabel } from './errors.ts';
+
 export interface JsonRequest {
   system: string;
   user: string;
@@ -11,6 +13,7 @@ class ProviderError extends Error {
   constructor(
     message: string,
     readonly status: number,
+    readonly detail: string,
   ) {
     super(message);
   }
@@ -26,7 +29,11 @@ async function post(url: string, init: RequestInit): Promise<Response> {
 async function readJson(res: Response, provider: string) {
   if (!res.ok) {
     const body = await res.text();
-    throw new ProviderError(`${provider} ${res.status}: ${body.slice(0, 500)}`, res.status);
+    throw new ProviderError(
+      `${provider} ${res.status}: ${body.slice(0, 500)}`,
+      res.status,
+      providerDetail(body),
+    );
   }
   return res.json();
 }
@@ -114,13 +121,13 @@ export async function completeJson(req: JsonRequest, onProgress?: Progress): Pro
   const apiKey = Deno.env.get('AI_API_KEY');
   if (models.length === 0 || !apiKey) throw new Error('AI_MODEL and AI_API_KEY must be set');
 
-  let lastError: unknown;
-  const failures: string[] = [];
+  const failures: ModelFailure[] = [];
   for (const [i, model] of models.entries()) {
+    const previous = failures.at(-1);
     await onProgress?.(
-      i === 0
+      i === 0 || !previous
         ? `Reading your plan with ${model}…`
-        : `${models[i - 1]} failed (${(lastError as ProviderError).status}), trying ${model}…`,
+        : `${previous.model} is ${statusLabel(previous.status)}, trying ${model}…`,
     );
     try {
       const text = await provider(req, model, apiKey);
@@ -134,10 +141,8 @@ export async function completeJson(req: JsonRequest, onProgress?: Progress): Pro
         (err.status === 404 || err.status === 429 || err.status >= 500);
       if (!fallThrough) throw err;
       console.warn(`AI model ${model} failed, trying next:`, err.message);
-      failures.push(`${model}: ${err.message.slice(0, 160)}`);
-      lastError = err;
+      failures.push({ model, status: err.status, detail: err.detail });
     }
   }
-  // Name every model tried, so a busy model and a retired one can be told apart.
-  throw new Error(`Every AI model failed:\n${failures.map((f) => `• ${f}`).join('\n')}`);
+  throw new AllModelsFailedError(failures);
 }

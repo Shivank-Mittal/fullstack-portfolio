@@ -13,8 +13,22 @@ async function telegram(method: string, payload: Record<string, unknown>) {
 // Telegram rejects messages over 4096 characters, which long AI or validation errors can exceed.
 const fit = (text: string) => (text.length > 4000 ? `${text.slice(0, 4000)}…` : text);
 
-export async function sendMessage(chatId: number, text: string): Promise<number | undefined> {
-  const data = await telegram('sendMessage', { chat_id: chatId, text: fit(text) });
+/**
+ * Sends a message; with `replyTo`, it is shown as a reply to that message, so with several
+ * plans in flight each status sits under the plan it belongs to.
+ */
+export async function sendMessage(
+  chatId: number,
+  text: string,
+  replyTo?: number,
+): Promise<number | undefined> {
+  const data = await telegram('sendMessage', {
+    chat_id: chatId,
+    text: fit(text),
+    ...(replyTo
+      ? { reply_parameters: { message_id: replyTo, allow_sending_without_reply: true } }
+      : {}),
+  });
   return data.result?.message_id;
 }
 

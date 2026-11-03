@@ -32,7 +32,11 @@ serve(async (req) => {
   }
 
   const chatId: number = message.chat.id;
-  const statusId = await sendMessage(chatId, 'Queued, your plan will be read shortly…');
+  const statusId = await sendMessage(
+    chatId,
+    "Got your plan. It's in the queue and will be read in a moment.",
+    message.message_id,
+  );
   try {
     await enqueuePlan(
       { chatId, text: message.text, messageId: message.message_id, sentAt: message.date, statusId },
@@ -41,9 +45,9 @@ serve(async (req) => {
   } catch (err) {
     console.error('enqueue failed:', err);
     const reason = err instanceof Error ? err.message : String(err);
-    const text = `Couldn't queue that plan, please send it again. (${reason})`;
+    const text = `Couldn't queue this plan, please send it again.\n(${reason})`;
     if (statusId) await editMessage(chatId, statusId, text);
-    else await sendMessage(chatId, text);
+    else await sendMessage(chatId, text, message.message_id);
   }
   return new Response('ok');
 });

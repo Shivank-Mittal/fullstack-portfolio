@@ -1,6 +1,7 @@
 import { assertEquals, assertStringIncludes } from 'jsr:@std/assert@1';
 import { processJob, type JobDeps } from './process-job.ts';
 import { MAX_RETRIES, type PlanJob } from './queue.ts';
+import { AllModelsFailedError } from './errors.ts';
 import type { ParsedDay } from './plan.ts';
 
 const job: PlanJob = {
@@ -11,6 +12,10 @@ const job: PlanJob = {
   statusId: 99,
 };
 const day = { plan_date: '2026-10-30', day_number: 53, meals: [] } as unknown as ParsedDay;
+const busy = new AllModelsFailedError([
+  { model: 'gemini-3.8-flash', status: 503, detail: 'high demand' },
+  { model: 'gemini-3.1-flash', status: 404, detail: 'not found' },
+]);
 
 function deps(parse: JobDeps['parse']) {
   const sent: string[] = [];
@@ -37,7 +42,14 @@ function deps(parse: JobDeps['parse']) {
 
 Deno.test('saves each day, sends its summary and finishes the status', async () => {
   const { d, sent, edits, saved } = deps(() => Promise.resolve([day]));
-  assertEquals(await processJob(job, 0, d), 200);
+  const result = await processJob(job, 0, d);
+  assertEquals(result.status, 200);
+  assertEquals(result.body, {
+    outcome: 'saved',
+    attempt: 1,
+    of: MAX_RETRIES + 1,
+    days: ['2026-10-30'],
+  });
   assertEquals(saved, ['2026-10-30']);
   assertEquals(sent, ['Saved 2026-10-30']);
   assertEquals(edits.at(-1), 'Done, saved 1 day.');
@@ -56,22 +68,54 @@ Deno.test('uses the day the message was sent, in India time, for undated plans',
 
 Deno.test('a message that is not a plan finishes without a retry', async () => {
   const { d, edits } = deps(() => Promise.resolve([]));
-  assertEquals(await processJob(job, 0, d), 200);
+  const result = await processJob(job, 0, d);
+  assertEquals(result.status, 200);
+  assertEquals(result.body.outcome, 'not_a_plan');
   assertStringIncludes(edits.at(-1)!, "doesn't look like a meal plan");
 });
 
-Deno.test('a failure before the last attempt asks QStash to retry and says so', async () => {
-  const { d, edits } = deps(() => Promise.reject(new Error('Gemini 503: busy')));
-  assertEquals(await processJob(job, 0, d), 500);
-  assertStringIncludes(edits.at(-1)!, 'Attempt 1 failed: Gemini 503: busy');
-  assertStringIncludes(edits.at(-1)!, 'Retrying automatically');
+Deno.test('a retry shows which try it is while reading', async () => {
+  const { d, edits } = deps(async (_text, _today, onProgress) => {
+    await onProgress('Reading your plan with gemini-3.8-flash…');
+    return [];
+  });
+  await processJob(job, 1, d);
+  assertEquals(edits[0], 'Reading your plan with gemini-3.8-flash… (try 2 of 4)');
 });
 
-Deno.test('the last failed attempt tells the user it gave up', async () => {
-  const { d, edits } = deps(() => Promise.reject(new Error('Gemini 503: busy')));
-  assertEquals(await processJob(job, MAX_RETRIES, d), 500);
-  assertStringIncludes(edits.at(-1)!, `Couldn't save that plan after ${MAX_RETRIES + 1} tries`);
-  assertStringIncludes(edits.at(-1)!, 'Gemini 503: busy');
+Deno.test('a failed try says why in plain words and that it will try again', async () => {
+  const { d, edits } = deps(() => Promise.reject(busy));
+  const result = await processJob(job, 0, d);
+  assertEquals(result.status, 500);
+  assertEquals(
+    edits.at(-1),
+    "Try 1 of 4 didn't work: gemini-3.8-flash is busy; gemini-3.1-flash is not available.\n" +
+      'Trying again in 1 minute.',
+  );
+});
+
+Deno.test('the response body tells QStash exactly what failed', async () => {
+  const { d } = deps(() => Promise.reject(busy));
+  const result = await processJob(job, 0, d);
+  assertEquals(result.body, {
+    outcome: 'retrying',
+    attempt: 1,
+    of: 4,
+    reason: 'gemini-3.8-flash is busy; gemini-3.1-flash is not available',
+    failures: busy.failures,
+  });
+});
+
+Deno.test('the last failed try says it gave up and how to resend', async () => {
+  const { d, edits } = deps(() => Promise.reject(busy));
+  const result = await processJob(job, MAX_RETRIES, d);
+  assertEquals(result.status, 500);
+  assertEquals(result.body.outcome, 'gave_up');
+  assertEquals(
+    edits.at(-1),
+    "Couldn't save this plan after 4 tries: gemini-3.8-flash is busy; gemini-3.1-flash is not available.\n" +
+      'Send it again later, or resend it from the QStash DLQ.',
+  );
 });
 
 Deno.test('without a status message it sends new messages instead of editing', async () => {
