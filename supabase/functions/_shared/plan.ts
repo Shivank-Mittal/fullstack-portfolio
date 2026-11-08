@@ -51,7 +51,7 @@ const SYSTEM_PROMPT = `You turn a nutritionist's diet plan, sent as free text, i
 
 The message may cover one day or several. Return one entry in "days" per day. Dates are written like "30th Oct 2026"; return them as YYYY-MM-DD. If a day has no date, use {{TODAY}}. If the message is not a meal plan at all, return an empty "days" array.
 
-Map each section to the closest meal_type: early_morning (on waking, such as lemon water), breakfast, mid_morning, lunch, evening_snack, dinner, bedtime. Keep the plan's own heading as label and its time as time_window (for example "7-8 AM"), or null if none is given. Keep meals in the order they appear.
+Map each section to the closest meal_type: early_morning (on waking, such as lemon water), breakfast, mid_morning, lunch, evening_snack, dinner, bedtime. Keep the plan's own heading as label, but write out short headings in full ("B" is "Breakfast", "L" is "Lunch", "D" is "Dinner"), and its time as time_window (for example "7-8 AM"), or null if none is given. Keep meals in the order they appear.
 
 List one item per food or drink. Skip anything the plan marks as off for the day, such as "Detox water - x". Keep the quantity as written, for example "1-2 bowl medium size". Estimate calories, protein, carbs, fat and fiber for that quantity, assuming typical Indian home cooking unless the plan says otherwise. For a range, estimate the midpoint. Water and lemon water are close to zero.
 

@@ -40,4 +40,5 @@ Deno.test('the prompt carries today and the existing dish names', () => {
   assertStringIncludes(prompt, 'use 2026-11-03');
   assertStringIncludes(prompt, 'Existing dishes: Avocado toast');
   assertStringIncludes(prompt, '"dish"');
+  assertStringIncludes(prompt, '"B" is "Breakfast"');
 });
